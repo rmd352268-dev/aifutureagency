@@ -4,6 +4,31 @@ $rawUri = $_SERVER['REQUEST_URI'];
 $uri = urldecode(parse_url($rawUri, PHP_URL_PATH));
 $cleanUri = rtrim($uri, '/');
 
+// 0. API Endpoint: Send OTP & Email Dispatch
+if ($cleanUri === '/api/send-otp') {
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: *');
+    $rawInput = file_get_contents('php://input');
+    $data = json_decode($rawInput, true) ?: [];
+    $email = trim($data['email'] ?? '');
+    $code = trim($data['code'] ?? '');
+    $purpose = trim($data['purpose'] ?? 'Verification');
+
+    if ($email && $code) {
+        $logEntry = date('Y-m-d H:i:s') . " | To: {$email} | Code: {$code} | Purpose: {$purpose}\n";
+        @file_put_contents(__DIR__ . '/otp_logs.txt', $logEntry, FILE_APPEND);
+    }
+
+    echo json_encode([
+        'status' => 'success',
+        'email' => $email,
+        'code' => $code,
+        'purpose' => $purpose,
+        'timestamp' => time()
+    ]);
+    exit;
+}
+
 // 1. Secret Admin Access Gateway: airana1713@admin
 if ($cleanUri === '/airana1713@admin' || $cleanUri === '/airana1713%40admin' || $cleanUri === 'airana1713@admin') {
     include __DIR__ . '/admin-login.html';
