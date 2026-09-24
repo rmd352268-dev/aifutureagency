@@ -920,8 +920,8 @@
   <div class="orb-glow-1"></div>
   <div class="orb-glow-2"></div>
 
-  <!-- Viewport Stage with Lamp State (Initially OFF) -->
-  <div class="auth-viewport-stage lamp-state-off" id="stageContainer">
+  <!-- Viewport Stage with Lamp State (ON by default for immediate accessibility) -->
+  <div class="auth-viewport-stage lamp-state-on" id="stageContainer">
 
     <!-- Left: Dragon Corridor & Security Branding -->
     <div class="stage-dragon-corridor">
@@ -1117,7 +1117,7 @@
     // --------------------------------------------------------------------------
     // 1. Hanging Lamp & Pull-Cord Audio / Visual Mechanics
     // --------------------------------------------------------------------------
-    let isLampOn = false; // Start in dark ambient dragon mode
+    let isLampOn = true; // Start in active illuminated state
 
     function playSwitchSound(turningOn) {
       try {
@@ -1469,14 +1469,16 @@
           btn.style.boxShadow = '0 0 30px rgba(34, 197, 94, 0.75)';
         }
 
-        // Write verified session tokens
+        // Write verified session tokens across storage layers
         sessionStorage.setItem('afa_admin_authenticated', 'true');
         sessionStorage.setItem('afa_secret_admin_token', 'AUTH_VALIDATED_2026');
-        document.cookie = "afa_admin_session=AUTH_VALIDATED_2026; path=/; max-age=86400; SameSite=Strict";
+        localStorage.setItem('afa_admin_authenticated', 'true');
+        localStorage.setItem('afa_secret_admin_token', 'AUTH_VALIDATED_2026');
+        document.cookie = "afa_admin_session=AUTH_VALIDATED_2026; path=/; max-age=86400";
 
         setTimeout(() => {
-          window.location.href = '/admin';
-        }, 800);
+          window.location.href = '/admin?auth=AUTH_VALIDATED_2026';
+        }, 700);
       } else {
         showAdminError('টার্মিনাল মাস্টার সাইফার প্রত্যাখ্যাত! (Access Denied: Invalid Master Cipher)');
         document.getElementById('adminCipher').value = '';

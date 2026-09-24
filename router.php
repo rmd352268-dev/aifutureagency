@@ -10,9 +10,17 @@ if ($cleanUri === '/airana1713@admin' || $cleanUri === '/airana1713%40admin' || 
     exit;
 }
 
-// 2. Protect Admin Console: Only accessible if authenticated with secret session token
-$isAdminAuth = isset($_COOKIE['afa_admin_session']) && $_COOKIE['afa_admin_session'] === 'AUTH_VALIDATED_2026';
+// Check admin authentication: via Cookie or via authorized query token
+$hasAuthToken = (isset($_GET['auth']) && $_GET['auth'] === 'AUTH_VALIDATED_2026');
+$hasCookie = (isset($_COOKIE['afa_admin_session']) && $_COOKIE['afa_admin_session'] === 'AUTH_VALIDATED_2026');
+$isAdminAuth = $hasAuthToken || $hasCookie;
 
+if ($hasAuthToken && !$hasCookie) {
+    // Set cookie from server side so subsequent requests keep the user logged in
+    setcookie('afa_admin_session', 'AUTH_VALIDATED_2026', time() + 86400, '/');
+}
+
+// 2. Protect Admin Console: Only accessible if authenticated with secret session token
 if ($cleanUri === '/admin' || $cleanUri === '/admin/dashboard' || $cleanUri === '/admin.html') {
     if ($isAdminAuth) {
         include __DIR__ . '/admin.html';

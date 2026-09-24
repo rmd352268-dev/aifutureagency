@@ -8,8 +8,27 @@
         const m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
         return m ? m[2] : null;
       }
-      const tok = sessionStorage.getItem('afa_secret_admin_token') || getCookie('afa_admin_session');
-      if (tok !== 'AUTH_VALIDATED_2026') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryTok = urlParams.get('auth');
+      const sessionTok = sessionStorage.getItem('afa_secret_admin_token');
+      const localTok = localStorage.getItem('afa_secret_admin_token');
+      const cookieTok = getCookie('afa_admin_session');
+
+      const isAuthed = (queryTok === 'AUTH_VALIDATED_2026') || 
+                       (sessionTok === 'AUTH_VALIDATED_2026') || 
+                       (localTok === 'AUTH_VALIDATED_2026') || 
+                       (cookieTok === 'AUTH_VALIDATED_2026');
+
+      if (isAuthed) {
+        sessionStorage.setItem('afa_admin_authenticated', 'true');
+        sessionStorage.setItem('afa_secret_admin_token', 'AUTH_VALIDATED_2026');
+        localStorage.setItem('afa_admin_authenticated', 'true');
+        localStorage.setItem('afa_secret_admin_token', 'AUTH_VALIDATED_2026');
+        document.cookie = "afa_admin_session=AUTH_VALIDATED_2026; path=/; max-age=86400";
+        if (queryTok) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      } else {
         window.location.replace('/airana1713@admin');
       }
     })();
@@ -4788,7 +4807,7 @@
         const m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
         return m ? m[2] : null;
       }
-      const tok = sessionStorage.getItem('afa_secret_admin_token') || getCookie('afa_admin_session');
+      const tok = localStorage.getItem('afa_secret_admin_token') || sessionStorage.getItem('afa_secret_admin_token') || getCookie('afa_admin_session');
       if (tok !== 'AUTH_VALIDATED_2026') {
         window.location.replace('/airana1713@admin');
         return;
@@ -5041,6 +5060,9 @@
       sessionStorage.removeItem(AUTH_KEY);
       sessionStorage.removeItem('afa_admin_authenticated');
       sessionStorage.removeItem('afa_secret_admin_token');
+      localStorage.removeItem(AUTH_KEY);
+      localStorage.removeItem('afa_admin_authenticated');
+      localStorage.removeItem('afa_secret_admin_token');
       document.cookie = "afa_admin_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       window.location.replace('/airana1713@admin');
     }
@@ -5050,6 +5072,9 @@
         sessionStorage.removeItem(AUTH_KEY);
         sessionStorage.removeItem('afa_admin_authenticated');
         sessionStorage.removeItem('afa_secret_admin_token');
+        localStorage.removeItem(AUTH_KEY);
+        localStorage.removeItem('afa_admin_authenticated');
+        localStorage.removeItem('afa_secret_admin_token');
         document.cookie = "afa_admin_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         window.location.replace('/airana1713@admin');
       }
