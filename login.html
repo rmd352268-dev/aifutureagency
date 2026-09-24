@@ -1633,22 +1633,14 @@
 
         if (regOtpFieldGroup) {
           regOtpFieldGroup.style.display = 'block';
-          let badge = document.getElementById('regCodeInlineBadge');
-          if (!badge) {
-            badge = document.createElement('div');
-            badge.id = 'regCodeInlineBadge';
-            badge.style.cssText = 'margin-top:8px; padding:10px 14px; background:rgba(0,255,135,0.12); border:1px solid #00ff87; border-radius:10px; display:flex; align-items:center; justify-content:space-between; font-size:13px; font-weight:700; color:#00ff87;';
-            regOtpFieldGroup.appendChild(badge);
-          }
-          badge.innerHTML = `<span>Code: <span style="font-size:18px; letter-spacing:3px;">${code}</span></span> <button type="button" onclick="document.getElementById('regOtpInput').value='${code}'; this.textContent='Filled!';" style="background:#00ff87; color:#02160e; border:none; padding:4px 10px; border-radius:6px; cursor:pointer; font-weight:800; font-size:11px;">Auto Fill</button>`;
         }
 
         if (regOtpInput) {
-          regOtpInput.value = code;
+          regOtpInput.value = '';
           regOtpInput.focus();
         }
 
-        showNotification('regAlertBox', 'regAlertMsg', `A 6-digit verification code [ ${code} ] was dispatched to ${email}! Enter it below.`, 'success');
+        showNotification('regAlertBox', 'regAlertMsg', `A 6-digit verification code has been dispatched to ${email}. Please check your Gmail inbox (or Spam folder) and enter the code below.`, 'success');
 
         // 60-second cooldown on button
         let cooldown = 59;
@@ -1858,13 +1850,13 @@
           forgotPassForm.style.display = 'none';
           resetPassVerifyForm.style.display = 'block';
           document.getElementById('forgotModalTitle').textContent = 'Enter Verification Code';
-          document.getElementById('forgotModalSubtitle').innerHTML = `A verification email has been sent to: <strong style="color:#60efff;">${email}</strong>.<br><div style="margin-top:8px; padding:10px; background:rgba(0,255,135,0.12); border:1px solid #00ff87; border-radius:10px; color:#00ff87; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:space-between;"><span>Code: <span style="font-size:18px; letter-spacing:3px;">${resetOtp}</span></span> <button type="button" onclick="document.getElementById('resetOtpCodeInput').value='${resetOtp}'; this.textContent='Filled!';" style="background:#00ff87; color:#02160e; border:none; padding:4px 10px; border-radius:6px; cursor:pointer; font-weight:800; font-size:11px;">Auto Fill</button></div>`;
-          showNotification('forgotAlertBox', 'forgotAlertMsg', `Verification Code: [ ${resetOtp} ] - enter code and choose your new password.`, 'success');
+          document.getElementById('forgotModalSubtitle').innerHTML = `A 6-digit verification code has been sent to: <strong style="color:#60efff;">${email}</strong>.<br><span style="color:#94a3b8; font-size:12px; margin-top:4px; display:inline-block;">Please check your Gmail inbox (or Spam folder) and type the code below.</span>`;
+          showNotification('forgotAlertBox', 'forgotAlertMsg', `Verification code sent to ${email}! Enter the code from your email to proceed.`, 'success');
           sendBtn.disabled = false;
           sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> SEND RESET CODE TO GMAIL';
           const otpInp = document.getElementById('resetOtpCodeInput');
           if (otpInp) {
-            otpInp.value = resetOtp; // auto-populate for frictionless experience
+            otpInp.value = '';
             otpInp.focus();
           }
         }, 700);

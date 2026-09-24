@@ -14,16 +14,24 @@ if ($cleanUri === '/api/send-otp') {
     $code = trim($data['code'] ?? '');
     $purpose = trim($data['purpose'] ?? 'Verification');
 
+    $mailResult = ['success' => false];
     if ($email && $code) {
         $logEntry = date('Y-m-d H:i:s') . " | To: {$email} | Code: {$code} | Purpose: {$purpose}\n";
         @file_put_contents(__DIR__ . '/otp_logs.txt', $logEntry, FILE_APPEND);
+
+        // Send via SMTP
+        if (file_exists(__DIR__ . '/smtp_mailer.php')) {
+            require_once __DIR__ . '/smtp_mailer.php';
+            $mailResult = sendAgencyOtpEmail($email, $code, $purpose);
+        }
     }
 
     echo json_encode([
         'status' => 'success',
         'email' => $email,
-        'code' => $code,
         'purpose' => $purpose,
+        'email_dispatched' => $mailResult['success'] ?? false,
+        'details' => $mailResult['message'] ?? ($mailResult['error'] ?? 'Logged'),
         'timestamp' => time()
     ]);
     exit;

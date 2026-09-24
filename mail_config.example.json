@@ -1,0 +1,8 @@
+{
+  "smtp_host": "smtp.gmail.com",
+  "smtp_port": 465,
+  "smtp_secure": "ssl",
+  "smtp_user": "YOUR_GMAIL_ADDRESS@gmail.com",
+  "smtp_pass": "YOUR_16_CHAR_GMAIL_APP_PASSWORD",
+  "from_name": "AI Future Agency"
+}
