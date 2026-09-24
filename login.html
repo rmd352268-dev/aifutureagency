@@ -937,10 +937,109 @@
     @media (max-width: 600px) {
       .embossed-surface {
         padding: 32px 20px;
-      }
-      .corridor-title {
-        font-size: 32px;
-      }
+    /* Google Auth & OAuth Separator */
+    .oauth-separator {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 16px 0 14px;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .oauth-separator::before,
+    .oauth-separator::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .oauth-separator span {
+      padding: 0 12px;
+    }
+
+    .btn-google-auth {
+      width: 100%;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #ffffff;
+      color: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .btn-google-auth:hover {
+      background: #f8fafc;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(66, 133, 244, 0.35);
+      border-color: #4285f4;
+    }
+    .btn-google-auth:active {
+      transform: translateY(0);
+    }
+    .btn-google-auth svg {
+      flex-shrink: 0;
+    }
+
+    /* OTP Verification Modal & Boxes */
+    .otp-inputs-grid {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .otp-digit-input {
+      width: 48px;
+      height: 56px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: #00ff87;
+      background: rgba(15, 23, 42, 0.85);
+      border: 2px solid rgba(0, 255, 135, 0.3);
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.25s ease;
+      font-family: monospace;
+    }
+    .otp-digit-input:focus {
+      border-color: #00ff87;
+      box-shadow: 0 0 16px rgba(0, 255, 135, 0.5);
+      background: rgba(15, 23, 42, 0.98);
+      transform: scale(1.05);
+    }
+    .otp-countdown-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 10px;
+    }
+    .btn-resend-otp {
+      background: none;
+      border: none;
+      color: #60efff;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .btn-resend-otp:disabled {
+      color: #64748b;
+      cursor: not-allowed;
     }
   </style>
 </head>
@@ -1036,6 +1135,19 @@
               <span id="loginAlertMsg"></span>
             </div>
 
+            <!-- Google 1-Click Login -->
+            <button type="button" class="btn-google-auth" id="btnGoogleLogin">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+
+            <div class="oauth-separator"><span>OR SIGN IN WITH USERNAME</span></div>
+
             <form id="loginForm">
               <div class="form-group">
                 <label class="form-label" for="loginUsername">Username or Email Address</label>
@@ -1115,6 +1227,19 @@
               <i class="fas fa-exclamation-circle"></i>
               <span id="regAlertMsg"></span>
             </div>
+
+            <!-- Google 1-Click Sign-Up -->
+            <button type="button" class="btn-google-auth" id="btnGoogleRegister">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Sign Up with Google</span>
+            </button>
+
+            <div class="oauth-separator"><span>OR REGISTER WITH EMAIL</span></div>
 
             <form id="registerForm">
               <div class="form-group">
@@ -1203,7 +1328,51 @@
   </div> <!-- /auth-viewport-stage -->
 
   <!-- =======================================================
-       FORGOT PASSWORD MODAL (Gmail Reset Flow)
+       EMAIL OTP VERIFICATION MODAL (Mandatory 6-digit Code)
+       ======================================================= -->
+  <div class="modal-backdrop" id="otpModalBackdrop">
+    <div class="modal-card">
+      <button type="button" class="modal-close-btn" id="closeOtpModalBtn">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div style="width:54px; height:54px; border-radius:50%; background:rgba(0,255,135,0.15); display:inline-flex; align-items:center; justify-content:center; margin-bottom:16px; color:#00ff87; font-size:24px; box-shadow:0 0 25px rgba(0,255,135,0.4);">
+        <i class="fas fa-envelope-open-text"></i>
+      </div>
+
+      <h3 style="font-size:21px; font-weight:800; margin-bottom:6px;">Verify Your Email</h3>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:16px;">
+        A 6-digit verification code has been dispatched to: <br>
+        <strong id="otpTargetEmailDisplay" style="color:#60efff;">you@gmail.com</strong>
+      </p>
+
+      <div id="otpAlertBox" class="alert-banner" style="display:none;">
+        <i class="fas fa-info-circle"></i>
+        <span id="otpAlertMsg"></span>
+      </div>
+
+      <div class="otp-inputs-grid" id="otpInputsContainer">
+        <input type="text" maxlength="1" class="otp-digit-input" data-index="0" autofocus inputmode="numeric">
+        <input type="text" maxlength="1" class="otp-digit-input" data-index="1" inputmode="numeric">
+        <input type="text" maxlength="1" class="otp-digit-input" data-index="2" inputmode="numeric">
+        <input type="text" maxlength="1" class="otp-digit-input" data-index="3" inputmode="numeric">
+        <input type="text" maxlength="1" class="otp-digit-input" data-index="4" inputmode="numeric">
+        <input type="text" maxlength="1" class="otp-digit-input" data-index="5" inputmode="numeric">
+      </div>
+
+      <div class="otp-countdown-wrap">
+        <span>Didn't receive code?</span>
+        <button type="button" class="btn-resend-otp" id="resendOtpBtn" disabled>Resend Code (<span id="resendCountdown">59</span>s)</button>
+      </div>
+
+      <button type="button" class="btn-embossed-primary" id="verifyOtpSubmitBtn" style="margin-top:20px;">
+        <i class="fas fa-shield-alt"></i> VERIFY & COMPLETE REGISTRATION
+      </button>
+    </div>
+  </div>
+
+  <!-- =======================================================
+       FORGOT PASSWORD MODAL (2-Step Gmail OTP & Reset Flow)
        ======================================================= -->
   <div class="modal-backdrop" id="forgotModalBackdrop">
     <div class="modal-card">
@@ -1215,9 +1384,9 @@
         <i class="fas fa-key"></i>
       </div>
 
-      <h3 style="font-size:20px; font-weight:800; margin-bottom:6px;">Reset Your Password</h3>
-      <p style="font-size:13px; color:#94a3b8; margin-bottom:20px;">
-        Enter your registered Gmail or email address to receive a secure password reset link or verification code.
+      <h3 style="font-size:20px; font-weight:800; margin-bottom:6px;" id="forgotModalTitle">Reset Your Password</h3>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:20px;" id="forgotModalSubtitle">
+        Enter your registered Gmail or email address to receive a 6-digit verification code.
       </p>
 
       <div id="forgotAlertBox" class="alert-banner">
@@ -1225,6 +1394,7 @@
         <span id="forgotAlertMsg"></span>
       </div>
 
+      <!-- Step 1: Request OTP -->
       <form id="forgotPassForm">
         <div class="form-group">
           <label class="form-label" for="forgotEmailInput">Your Registered Email</label>
@@ -1235,7 +1405,38 @@
         </div>
 
         <button type="submit" class="btn-embossed-primary" id="sendResetBtn" style="margin-top:14px;">
-          <i class="fas fa-paper-plane"></i> SEND RESET LINK TO GMAIL
+          <i class="fas fa-paper-plane"></i> SEND RESET CODE TO GMAIL
+        </button>
+      </form>
+
+      <!-- Step 2: Verify OTP and Set New Password (hidden initially) -->
+      <form id="resetPassVerifyForm" style="display:none;">
+        <div class="form-group">
+          <label class="form-label" for="resetOtpCodeInput">6-Digit OTP Code</label>
+          <div class="embossed-input-box">
+            <i class="fas fa-shield-alt input-icon"></i>
+            <input type="text" id="resetOtpCodeInput" placeholder="Enter 6-digit code" maxlength="6" required style="letter-spacing:4px; font-weight:800; color:#00ff87;">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="resetNewPassInput">New Password</label>
+          <div class="embossed-input-box">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="resetNewPassInput" placeholder="Min 6 characters" minlength="6" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="resetConfirmPassInput">Confirm New Password</label>
+          <div class="embossed-input-box">
+            <i class="fas fa-check input-icon"></i>
+            <input type="password" id="resetConfirmPassInput" placeholder="Confirm password" minlength="6" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-embossed-primary" id="confirmResetBtn" style="margin-top:14px;">
+          <i class="fas fa-check-circle"></i> UPDATE PASSWORD & LOGIN
         </button>
       </form>
     </div>
@@ -1415,7 +1616,84 @@
     });
 
     // -------------------------------------------------------------
-    // Handle Registration Form Submission
+    // Email OTP Verification Controller for Registration
+    // -------------------------------------------------------------
+    window.pendingRegistration = null;
+    window.otpCountdownTimer = null;
+
+    const otpModal = document.getElementById('otpModalBackdrop');
+    const closeOtpModalBtn = document.getElementById('closeOtpModalBtn');
+    const otpInputs = document.querySelectorAll('.otp-digit-input');
+    const verifyOtpSubmitBtn = document.getElementById('verifyOtpSubmitBtn');
+    const resendOtpBtn = document.getElementById('resendOtpBtn');
+    const resendCountdown = document.getElementById('resendCountdown');
+
+    if (closeOtpModalBtn) {
+      closeOtpModalBtn.addEventListener('click', () => {
+        if (otpModal) otpModal.classList.remove('open');
+        clearInterval(window.otpCountdownTimer);
+      });
+    }
+
+    // Auto-advance and backspace handling for OTP inputs
+    otpInputs.forEach((input, idx) => {
+      input.addEventListener('input', (e) => {
+        const val = e.target.value.replace(/[^0-9]/g, '');
+        e.target.value = val ? val[0] : '';
+        if (val && idx < otpInputs.length - 1) {
+          otpInputs[idx + 1].focus();
+        }
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && idx > 0) {
+          otpInputs[idx - 1].focus();
+        }
+      });
+
+      // Handle paste of 6-digit OTP code
+      input.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/[^0-9]/g, '');
+        if (pasted.length === 6) {
+          otpInputs.forEach((inp, i) => { inp.value = pasted[i] || ''; });
+          otpInputs[5].focus();
+        }
+      });
+    });
+
+    function startOtpCountdown() {
+      let seconds = 59;
+      if (resendOtpBtn) resendOtpBtn.disabled = true;
+      if (resendCountdown) resendCountdown.textContent = seconds;
+
+      clearInterval(window.otpCountdownTimer);
+      window.otpCountdownTimer = setInterval(() => {
+        seconds--;
+        if (resendCountdown) resendCountdown.textContent = seconds;
+        if (seconds <= 0) {
+          clearInterval(window.otpCountdownTimer);
+          if (resendOtpBtn) {
+            resendOtpBtn.disabled = false;
+            resendOtpBtn.innerHTML = '<i class="fas fa-redo"></i> Resend Code Now';
+          }
+        }
+      }, 1000);
+    }
+
+    if (resendOtpBtn) {
+      resendOtpBtn.addEventListener('click', () => {
+        if (!window.pendingRegistration) return;
+        const newOtp = String(Math.floor(100000 + Math.random() * 900000));
+        window.pendingRegistration.otp = newOtp;
+        startOtpCountdown();
+        
+        showNotification('otpAlertBox', 'otpAlertMsg', `A new verification code has been dispatched: [ ${newOtp} ]`, 'success');
+      });
+    }
+
+    // -------------------------------------------------------------
+    // Handle Registration Form Submission (Requires Mandatory OTP)
     // -------------------------------------------------------------
     document.getElementById('registerForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -1447,39 +1725,92 @@
         return;
       }
 
-      const newUser = {
-        name: name,
-        username: username,
-        email: email,
-        phone: phone,
-        password: password,
-        activeTools: [],
-        transactions: []
+      // Generate secure 6-digit OTP code
+      const generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+      window.pendingRegistration = {
+        name,
+        username,
+        email,
+        phone,
+        password,
+        otp: generatedOtp,
+        createdAt: Date.now()
       };
 
-      users.push(newUser);
-      localStorage.setItem('aifuture_users', JSON.stringify(users));
-      localStorage.setItem('aifuture_session', username);
-
-      showNotification('regAlertBox', 'regAlertMsg', 'Registration Successful! Setting up your workspace...', 'success');
-      const submitBtn = document.getElementById('regSubmitBtn');
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing Account...';
-
-      setTimeout(() => {
-        window.location.href = 'dashboard.html';
-      }, 500);
+      // Open OTP Verification Modal
+      document.getElementById('otpTargetEmailDisplay').textContent = email;
+      otpInputs.forEach(i => i.value = '');
+      
+      showNotification('otpAlertBox', 'otpAlertMsg', `A 6-digit OTP code [ ${generatedOtp} ] was dispatched to ${email}.`, 'success');
+      otpModal.classList.add('open');
+      startOtpCountdown();
+      setTimeout(() => { if (otpInputs[0]) otpInputs[0].focus(); }, 200);
     });
 
+    // Verify OTP & finalize registration
+    if (verifyOtpSubmitBtn) {
+      verifyOtpSubmitBtn.addEventListener('click', () => {
+        if (!window.pendingRegistration) {
+          showNotification('otpAlertBox', 'otpAlertMsg', 'Session expired. Please register again.', 'error');
+          return;
+        }
+
+        let enteredCode = '';
+        otpInputs.forEach(inp => enteredCode += (inp.value || ''));
+
+        if (enteredCode.length < 6) {
+          showNotification('otpAlertBox', 'otpAlertMsg', 'Please enter all 6 digits of the verification code.', 'error');
+          return;
+        }
+
+        if (enteredCode !== window.pendingRegistration.otp) {
+          showNotification('otpAlertBox', 'otpAlertMsg', 'Incorrect OTP code. Please check and try again.', 'error');
+          return;
+        }
+
+        // OTP Verified Successfully!
+        const users = getUsers();
+        const newUser = {
+          name: window.pendingRegistration.name,
+          username: window.pendingRegistration.username,
+          email: window.pendingRegistration.email,
+          phone: window.pendingRegistration.phone,
+          password: window.pendingRegistration.password,
+          emailVerified: true,
+          activeTools: [],
+          transactions: []
+        };
+
+        users.push(newUser);
+        localStorage.setItem('aifuture_users', JSON.stringify(users));
+        localStorage.setItem('aifuture_session', newUser.username);
+
+        verifyOtpSubmitBtn.disabled = true;
+        verifyOtpSubmitBtn.innerHTML = '<i class="fas fa-check-circle" style="color:#00ff87;"></i> Email Verified! Opening Dashboard...';
+
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 700);
+      });
+    }
+
     // -------------------------------------------------------------
-    // Forgot Password Modal Controller
+    // Enhanced 2-Step Forgot Password Modal Controller
     // -------------------------------------------------------------
+    window.pendingResetOtp = null;
     const forgotModal = document.getElementById('forgotModalBackdrop');
     const openForgotBtn = document.getElementById('openForgotModalBtn');
     const closeForgotBtn = document.getElementById('closeForgotModalBtn');
+    const forgotPassForm = document.getElementById('forgotPassForm');
+    const resetPassVerifyForm = document.getElementById('resetPassVerifyForm');
 
     openForgotBtn.addEventListener('click', () => {
       forgotModal.classList.add('open');
+      if (forgotPassForm) forgotPassForm.style.display = 'block';
+      if (resetPassVerifyForm) resetPassVerifyForm.style.display = 'none';
+      document.getElementById('forgotModalTitle').textContent = 'Reset Your Password';
+      document.getElementById('forgotModalSubtitle').textContent = 'Enter your registered Gmail or email address to receive a 6-digit verification code.';
+      document.getElementById('forgotAlertBox').style.display = 'none';
     });
 
     closeForgotBtn.addEventListener('click', () => {
@@ -1490,19 +1821,86 @@
       if (e.target === forgotModal) forgotModal.classList.remove('open');
     });
 
-    document.getElementById('forgotPassForm').addEventListener('submit', (e) => {
+    // Step 1: Send OTP to Email
+    forgotPassForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = document.getElementById('forgotEmailInput').value.trim();
+      const email = document.getElementById('forgotEmailInput').value.trim().toLowerCase();
       const sendBtn = document.getElementById('sendResetBtn');
-      
+      const users = getUsers();
+      const matched = users.find(u => u.email && u.email.toLowerCase() === email);
+
+      if (!matched && !email.includes('@')) {
+        showNotification('forgotAlertBox', 'forgotAlertMsg', 'Please enter a valid email address.', 'error');
+        return;
+      }
+
       sendBtn.disabled = true;
-      sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating secure link...';
+      sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating 6-digit OTP...';
+
+      const resetOtp = String(Math.floor(100000 + Math.random() * 900000));
+      window.pendingResetOtp = { email, otp: resetOtp };
 
       setTimeout(() => {
-        showNotification('forgotAlertBox', 'forgotAlertMsg', `A password reset link & 6-digit OTP code has been sent to ${email}! Please check your Gmail inbox.`, 'success');
+        forgotPassForm.style.display = 'none';
+        resetPassVerifyForm.style.display = 'block';
+        document.getElementById('forgotModalTitle').textContent = 'Verify Code & Set New Password';
+        document.getElementById('forgotModalSubtitle').innerHTML = `Enter the 6-digit code dispatched to: <strong style="color:#60efff;">${email}</strong>`;
+        showNotification('forgotAlertBox', 'forgotAlertMsg', `Password Reset Code: [ ${resetOtp} ] - enter code and choose your new password.`, 'success');
         sendBtn.disabled = false;
-        sendBtn.innerHTML = '<i class="fas fa-check-circle"></i> Reset Link Sent!';
-      }, 1200);
+        sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> SEND RESET CODE TO GMAIL';
+      }, 700);
+    });
+
+    // Step 2: Verify OTP & Update Password
+    resetPassVerifyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const enteredOtp = document.getElementById('resetOtpCodeInput').value.trim();
+      const newPass = document.getElementById('resetNewPassInput').value;
+      const confirmPass = document.getElementById('resetConfirmPassInput').value;
+
+      if (!window.pendingResetOtp || enteredOtp !== window.pendingResetOtp.otp) {
+        showNotification('forgotAlertBox', 'forgotAlertMsg', 'Invalid or expired OTP code. Please check again.', 'error');
+        return;
+      }
+
+      if (newPass.length < 6) {
+        showNotification('forgotAlertBox', 'forgotAlertMsg', 'New password must be at least 6 characters long.', 'error');
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        showNotification('forgotAlertBox', 'forgotAlertMsg', 'New passwords do not match. Please re-enter.', 'error');
+        return;
+      }
+
+      const users = getUsers();
+      let user = users.find(u => u.email && u.email.toLowerCase() === window.pendingResetOtp.email.toLowerCase());
+      if (user) {
+        user.password = newPass;
+      } else {
+        const username = window.pendingResetOtp.email.split('@')[0];
+        user = {
+          name: username,
+          username: username,
+          email: window.pendingResetOtp.email,
+          phone: '0163935198',
+          password: newPass,
+          activeTools: [],
+          transactions: []
+        };
+        users.push(user);
+      }
+
+      localStorage.setItem('aifuture_users', JSON.stringify(users));
+      localStorage.setItem('aifuture_session', user.username);
+
+      const confirmBtn = document.getElementById('confirmResetBtn');
+      confirmBtn.disabled = true;
+      confirmBtn.innerHTML = '<i class="fas fa-check-circle" style="color:#00ff87;"></i> Password Updated! Entering Dashboard...';
+
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 700);
     });
 
     // -------------------------------------------------------------
@@ -1615,6 +2013,102 @@
       }
       requestAnimationFrame(animationLoop);
     })();
+  </script>
+
+  <!-- =======================================================
+       FIREBASE AUTHENTICATION (Google 1-Click Sign-In & Sign-Up)
+       ======================================================= -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCFexh96MxBFNd6g6ssupZm-PPSNaIaQdw",
+      authDomain: "aifutureagency.firebaseapp.com",
+      projectId: "aifutureagency",
+      storageBucket: "aifutureagency.firebasestorage.app",
+      messagingSenderId: "1091736460064",
+      appId: "1:1091736460064:web:42c565bf18e83a464ed545",
+      measurementId: "G-8DCELYRYV6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+
+    async function triggerGoogleSignIn(button, mode = 'login') {
+      if (!button) return;
+      const originalHtml = button.innerHTML;
+      try {
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting with Google...';
+
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+
+        const displayName = user.displayName || 'Google Member';
+        const email = user.email || '';
+        const username = email ? email.split('@')[0] : ('user_' + user.uid.substring(0, 6));
+        const photoURL = user.photoURL || '';
+
+        // Sync or register user
+        let users = [];
+        try {
+          users = JSON.parse(localStorage.getItem('aifuture_users')) || [];
+        } catch(e) { users = []; }
+
+        let existingUser = users.find(u => (u.email && u.email.toLowerCase() === email.toLowerCase()) || (u.username && u.username.toLowerCase() === username.toLowerCase()));
+
+        if (!existingUser) {
+          existingUser = {
+            name: displayName,
+            username: username,
+            email: email,
+            phone: user.phoneNumber || '0163935198',
+            avatar: photoURL,
+            authProvider: 'google',
+            emailVerified: true,
+            activeTools: [],
+            transactions: []
+          };
+          users.push(existingUser);
+          localStorage.setItem('aifuture_users', JSON.stringify(users));
+        } else {
+          existingUser.emailVerified = true;
+          if (photoURL) existingUser.avatar = photoURL;
+          localStorage.setItem('aifuture_users', JSON.stringify(users));
+        }
+
+        localStorage.setItem('aifuture_session', existingUser.username);
+        if (photoURL) {
+          localStorage.setItem('aifuture_user_avatar', photoURL);
+        }
+
+        button.innerHTML = '<i class="fas fa-check-circle" style="color:#00ff87;"></i> Welcome, ' + displayName + '!';
+
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 600);
+      } catch (err) {
+        console.error('Google Sign-In Error:', err);
+        button.disabled = false;
+        button.innerHTML = originalHtml;
+        if (err.code !== 'auth/popup-closed-by-user') {
+          alert('Google Sign-In: ' + (err.message || 'Could not complete Google authentication.'));
+        }
+      }
+    }
+
+    const btnGoogleLogin = document.getElementById('btnGoogleLogin');
+    if (btnGoogleLogin) {
+      btnGoogleLogin.addEventListener('click', () => triggerGoogleSignIn(btnGoogleLogin, 'login'));
+    }
+
+    const btnGoogleRegister = document.getElementById('btnGoogleRegister');
+    if (btnGoogleRegister) {
+      btnGoogleRegister.addEventListener('click', () => triggerGoogleSignIn(btnGoogleRegister, 'register'));
+    }
   </script>
 </body>
 </html>
