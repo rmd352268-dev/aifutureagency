@@ -1,0 +1,13 @@
+/node_modules
+/.env
+/laravel-app/vendor
+/laravel-app/node_modules
+/laravel-app/.env
+/laravel-app/storage/*.key
+/laravel-app/storage/logs/*.log
+/laravel-app/storage/framework/cache/*
+/laravel-app/storage/framework/sessions/*
+/laravel-app/storage/framework/views/*
+*.log
+.DS_Store
+Thumbs.db

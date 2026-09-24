@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AI Future Agency</title>
+  <!-- Agency Favicon & App Icons -->
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+  <link rel="shortcut icon" type="image/jpeg" href="logo.jpg">
+  <link rel="apple-touch-icon" href="logo.jpg">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --primary: #00ff87;
+      --primary-cyan: #60efff;
+      --primary-jade: #00dfa2;
+      --primary-glow: rgba(0, 255, 135, 0.45);
+      --primary-glow-soft: rgba(0, 255, 135, 0.25);
+      --liquid-glass-bg: linear-gradient(145deg, rgba(8, 22, 19, 0.6) 0%, rgba(4, 14, 12, 0.75) 100%);
+      --liquid-glass-border: rgba(0, 255, 135, 0.25);
+      --text-dim: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', 'Hind Siliguri', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #020705;
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(0, 255, 135, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(96, 239, 255, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(0, 223, 162, 0.04) 0%, transparent 60%),
+        linear-gradient(180deg, #020705 0%, #051410 50%, #020705 100%);
+      background-attachment: fixed;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* Ambient cyber grid overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(0, 255, 135, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 135, 0.025) 1px, transparent 1px);
+      background-size: 38px 38px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* SIDEBAR */
+    .dash-sidebar {
+      width: 260px;
+      background: rgba(6, 16, 14, 0.88);
+      border-right: 1px solid rgba(0, 255, 135, 0.2);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: relative;
+      z-index: 10;
+    }
+
+    .dash-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 12px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+
+    .dash-logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 0 16px rgba(0, 255, 135, 0.45);
+      border: 1px solid rgba(0, 255, 135, 0.4);
+    }
+
+    .dash-logo-text {
+      font-size: 19px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .dash-logo-text span {
+      background: linear-gradient(135deg, #00ff87 0%, #60efff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .menu-item a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: #94a3b8;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .menu-item a:hover {
+      background: rgba(0, 255, 135, 0.08);
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+    .menu-item.active a {
+      background: linear-gradient(135deg, rgba(0, 255, 135, 0.18) 0%, rgba(96, 239, 255, 0.12) 100%);
+      color: #00ff87;
+      font-weight: 800;
+      border: 1px solid rgba(0, 255, 135, 0.35);
+      box-shadow: 0 0 16px rgba(0, 255, 135, 0.25);
+    }
+
+    .menu-divider-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #64748b;
+      letter-spacing: 1px;
+      padding: 16px 14px 6px;
+      text-transform: uppercase;
+    }
+
+    .menu-item a i {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* MAIN CONTENT */
+    .dash-main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      position: relative;
+      z-index: 5;
+    }
+
+    .dash-topbar {
+      height: 68px;
+      background: rgba(6, 16, 14, 0.85);
+      border-bottom: 1px solid rgba(0, 255, 135, 0.2);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 36px;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .user-profile-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 700;
+      background: rgba(8, 22, 19, 0.6);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      border: 1px solid rgba(0, 255, 135, 0.25);
+    }
+
+    .user-power-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 100%);
+      color: #02160e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(0, 255, 135, 0.5);
+      transition: all 0.2s;
+    }
+
+    .user-power-icon:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 22px rgba(0, 255, 135, 0.7);
+    }
+
+    .dash-content-container {
+      padding: 36px 48px;
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hey-greeting {
+      font-size: 32px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff 0%, #00ff87 60%, #60efff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .notice-red-text {
+      color: #6ee7b7;
+      background: rgba(0, 255, 135, 0.08);
+      border: 1px solid rgba(0, 255, 135, 0.25);
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 26px;
+      line-height: 1.6;
+    }
+
+    /* INVOICE TABLE */
+    .invoice-table-box {
+      background: linear-gradient(145deg, rgba(8, 22, 19, 0.6) 0%, rgba(4, 14, 12, 0.75) 100%);
+      border: 1px solid rgba(0, 255, 135, 0.25);
+      border-top: 1px solid rgba(0, 255, 135, 0.4);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 26px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .invoice-table th {
+      background: rgba(5, 16, 13, 0.9);
+      padding: 16px 22px;
+      font-weight: 800;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: left;
+    }
+
+    .invoice-table td {
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+    }
+
+    .invoice-table .subtotal-row td {
+      background: rgba(0, 255, 135, 0.08);
+      font-weight: 800;
+      color: #00ff87;
+      border-top: 1px solid rgba(0, 255, 135, 0.25);
+    }
+
+    .terms-banner {
+      padding: 14px 22px;
+      background: rgba(6, 16, 14, 0.6);
+      font-size: 13px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* COUPON & PAY BOX */
+    .coupon-pay-box {
+      background: linear-gradient(145deg, rgba(8, 22, 19, 0.6) 0%, rgba(4, 14, 12, 0.75) 100%);
+      border: 1px solid rgba(0, 255, 135, 0.25);
+      border-top: 1px solid rgba(0, 255, 135, 0.4);
+      border-radius: 20px;
+      padding: 28px 36px;
+      margin-bottom: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .coupon-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .coupon-label {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+      width: 120px;
+      text-align: right;
+    }
+
+    .coupon-input {
+      padding: 11px 16px;
+      border: 1px solid rgba(0, 255, 135, 0.22);
+      background: rgba(3, 11, 9, 0.65);
+      color: #ffffff;
+      border-radius: 10px;
+      outline: none;
+      font-size: 13.5px;
+      width: 220px;
+      transition: all 0.2s;
+    }
+
+    .coupon-input:focus {
+      border-color: #00ff87;
+      box-shadow: 0 0 14px rgba(0, 255, 135, 0.4);
+      background: rgba(5, 18, 14, 0.85);
+    }
+
+    .btn-pay-green {
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 50%, #60efff 100%);
+      color: #02160e;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 38px;
+      font-size: 14.5px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-left: 136px;
+      box-shadow: 0 6px 25px rgba(0, 255, 135, 0.45), inset 1px 1px 2px rgba(255, 255, 255, 0.6);
+    }
+
+    .btn-pay-green:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 35px rgba(0, 255, 135, 0.75), inset 1px 1px 2px rgba(255, 255, 255, 0.7);
+    }
+
+    /* ACTIVE TOOLS GRID */
+    .active-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+      margin-top: 20px;
+    }
+
+    .active-tool-card {
+      background: linear-gradient(145deg, rgba(8, 22, 19, 0.6) 0%, rgba(4, 14, 12, 0.75) 100%);
+      border: 1px solid rgba(0, 255, 135, 0.25);
+      border-top: 1px solid rgba(0, 255, 135, 0.4);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      color: #ffffff;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .active-tool-card:hover {
+      transform: translateY(-3px);
+      border-color: #00ff87;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 255, 135, 0.15);
+    }
+
+    .tool-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .tool-title-act {
+      font-size: 16.5px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .status-badge-active {
+      background: rgba(0, 255, 135, 0.15);
+      color: #00ff87;
+      border: 1px solid rgba(0, 255, 135, 0.4);
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      box-shadow: 0 0 12px rgba(0, 255, 135, 0.25);
+    }
+
+    .tool-meta-act {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 16px;
+    }
+
+    .creds-box-act {
+      background: rgba(3, 11, 9, 0.65);
+      border: 1px dashed rgba(0, 255, 135, 0.3);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-bottom: 18px;
+    }
+
+    .creds-box-act div {
+      margin-bottom: 6px;
+    }
+
+    .creds-box-act strong {
+      color: #00ff87;
+    }
+
+    .tool-actions-act {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-open-tool {
+      flex: 1;
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 50%, #60efff 100%);
+      color: #02160e;
+      padding: 11px;
+      border-radius: 10px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 4px 18px rgba(0, 255, 135, 0.4);
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-open-tool:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 255, 135, 0.65);
+    }
+
+    .btn-copy-creds {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 11px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+
+    .btn-copy-creds:hover {
+      background: rgba(0, 255, 135, 0.15);
+      border-color: #00ff87;
+      color: #00ff87;
+    }
+
+    /* PAYMENT MODAL POPUP */
+    .pay-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 5, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .pay-modal-overlay.active {
+      display: flex;
+    }
+
+    .pay-modal-card {
+      background: linear-gradient(145deg, rgba(8, 22, 19, 0.95) 0%, rgba(4, 14, 12, 0.98) 100%);
+      border: 1.5px solid rgba(0, 255, 135, 0.35);
+      border-radius: 24px;
+      width: 95%;
+      max-width: 560px;
+      padding: 24px 28px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 255, 135, 0.25);
+      color: #ffffff;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+
+    .pay-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+    }
+
+    .pay-modal-header h3 {
+      color: #ffffff;
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .pay-methods-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .pay-method-pill {
+      flex: 1;
+      padding: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      text-align: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: #cbd5e1;
+      transition: all 0.2s;
+    }
+
+    .pay-method-pill:hover {
+      border-color: #00ff87;
+      color: #ffffff;
+    }
+
+    .pay-method-pill.active {
+      border-color: #00ff87;
+      background: rgba(0, 255, 135, 0.18);
+      color: #00ff87;
+      box-shadow: 0 0 16px rgba(0, 255, 135, 0.35);
+    }
+
+    .merchant-info-box {
+      background: rgba(0, 255, 135, 0.08);
+      border: 1px solid rgba(0, 255, 135, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .merchant-info-box strong {
+      color: #00ff87;
+      font-size: 16px;
+    }
+
+    .pay-input-grp {
+      margin-bottom: 16px;
+    }
+
+    .pay-input-grp label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #94a3b8;
+    }
+
+    .pay-input {
+      width: 100%;
+      padding: 11px 16px;
+      border: 1px solid rgba(0, 255, 135, 0.22);
+      background: rgba(3, 11, 9, 0.65);
+      border-radius: 10px;
+      outline: none;
+      font-size: 13.5px;
+      color: #ffffff;
+      transition: all 0.2s;
+    }
+
+    .pay-input:focus {
+      border-color: #00ff87;
+      box-shadow: 0 0 14px rgba(0, 255, 135, 0.4);
+    }
+
+    .btn-verify-pay {
+      width: 100%;
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 50%, #60efff 100%);
+      color: #02160e;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 6px 25px rgba(0, 255, 135, 0.45);
+      transition: all 0.25s ease;
+    }
+
+    .btn-verify-pay:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 35px rgba(0, 255, 135, 0.75);
+    }
+
+    .dash-footer-text {
+      text-align: center;
+      font-size: 12px;
+      color: #64748b;
+      padding: 28px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 36px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .dash-sidebar {
+        width: 100%;
+        min-height: auto;
+      }
+      .dash-content-container {
+        padding: 20px 12px;
+      }
+      .active-tools-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .btn-pay-green {
+        margin-left: 0;
+        width: 100%;
+      }
+      .coupon-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .coupon-label {
+        text-align: left;
+      }
+      .coupon-input {
+        width: 100%;
+      }
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    /* =======================================================
+       USER ORDERS & LIVE CONFIRMATION SYSTEM
+       ======================================================= */
+    .user-orders-cards-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .user-order-card {
+      background: linear-gradient(145deg, rgba(8, 22, 19, 0.7) 0%, rgba(4, 14, 12, 0.85) 100%);
+      border: 1px solid rgba(0, 255, 135, 0.25);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .user-order-card:hover {
+      border-color: rgba(0, 255, 135, 0.45);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 20px rgba(0, 255, 135, 0.15);
+    }
+    .user-order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .user-order-inv {
+      font-size: 14px;
+      font-weight: 800;
+      color: #00ff87;
+      font-family: monospace;
+    }
+    .user-order-date {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .user-order-body {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .user-order-prod-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .user-order-meta {
+      font-size: 12.5px;
+      color: #94a3b8;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .user-order-price {
+      font-size: 19px;
+      font-weight: 900;
+      color: #00ff87;
+      text-align: right;
+    }
+
+    /* Live Status Banners */
+    .order-status-banner {
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .order-status-banner.banner-pending {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .order-status-banner.banner-completed {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.15);
+    }
+    .order-status-banner.banner-cancelled {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+    .badge-status-user {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .badge-status-user.pending {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+    .badge-status-user.completed {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.5);
+    }
+    .badge-status-user.cancelled {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+    .status-explain-text {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      margin: 0;
+      flex: 1;
+      min-width: 200px;
+      line-height: 1.5;
+    }
+    .btn-goto-access {
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 100%);
+      color: #02160e;
+      border: none;
+      border-radius: 9px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(0, 255, 135, 0.35);
+      transition: all 0.2s;
+    }
+    .btn-goto-access:hover {
+      transform: translateY(-1.5px);
+      box-shadow: 0 6px 20px rgba(0, 255, 135, 0.55);
+    }
+
+    /* Floating Real-time Notification for User */
+    .user-status-alert-toast {
+      position: fixed;
+      top: 24px;
+      right: 28px;
+      background: linear-gradient(135deg, rgba(8, 22, 19, 0.98) 0%, rgba(4, 14, 12, 0.99) 100%);
+      border: 1.5px solid #00ff87;
+      border-radius: 16px;
+      padding: 14px 18px;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 255, 135, 0.45);
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 440px;
+      width: calc(100% - 40px);
+      transform: translateY(-50px) scale(0.9);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .user-status-alert-toast.active {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .badge-status-counter {
+      background: #f59e0b;
+      color: #000;
+      font-size: 10.5px;
+      font-weight: 900;
+      padding: 1px 7px;
+      border-radius: 12px;
+      margin-left: 6px;
+    }
+
+    /* ========================================================
+       DRAGON CANVAS BACKGROUND & TOPBAR CONTROLLER
+       ======================================================== */
+    .dragon-bg-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    #dragonCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      opacity: 0.65;
+    }
+    .dragon-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(2, 7, 5, 0.45) 0%, rgba(2, 7, 5, 0.88) 85%);
+      pointer-events: none;
+    }
+    .dragon-flight-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(0, 255, 135, 0.08);
+      border: 1px solid rgba(0, 255, 135, 0.35);
+      color: #00ff87;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 14px rgba(0, 255, 135, 0.2);
+    }
+    .dragon-flight-badge:hover {
+      background: rgba(0, 255, 135, 0.18);
+      transform: translateY(-1px);
+    }
+    .dragon-flight-badge.paused {
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      background: rgba(245, 158, 11, 0.08);
+      box-shadow: none;
+    }
+
+    /* ========================================================
+       3D ORDER SUCCESS MODAL & SVG ANIMATED CHECKMARK
+       ======================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 7, 5, 0.90);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100000;
+      padding: 20px;
+      perspective: 1200px;
+    }
+    .modal-overlay.active { display: flex; }
+
+    #confettiCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100001;
+    }
+
+    .modal-3d-wrapper {
+      position: relative;
+      z-index: 100002;
+      max-width: 480px;
+      width: 100%;
+      transform-style: preserve-3d;
+    }
+
+    .modal-box {
+      background: rgba(5, 18, 14, 0.96);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1.5px solid rgba(0, 255, 135, 0.45);
+      border-radius: 28px;
+      padding: 34px 28px 28px;
+      text-align: center;
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.95),
+        0 0 45px rgba(0, 255, 135, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+      transform-origin: center center;
+      animation: modal3DIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      transition: transform 0.12s ease-out;
+    }
+
+    @keyframes modal3DIn {
+      0% {
+        opacity: 0;
+        transform: perspective(1200px) rotateX(30deg) translateY(60px) scale(0.85);
+      }
+      70% {
+        opacity: 1;
+        transform: perspective(1200px) rotateX(-5deg) translateY(-6px) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1200px) rotateX(0deg) translateY(0) scale(1);
+      }
+    }
+
+    .modal-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent 35%, rgba(0, 255, 135, 0.1) 50%, transparent 65%);
+      transform: rotate(25deg);
+      pointer-events: none;
+      animation: sweepShimmer 4s infinite linear;
+    }
+    @keyframes sweepShimmer {
+      0% { transform: translateY(-80%) rotate(25deg); }
+      100% { transform: translateY(80%) rotate(25deg); }
+    }
+
+    /* 3D Checkmark */
+    .checkmark-3d-wrap {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 18px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .checkmark-pulse-ring {
+      position: absolute;
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 255, 135, 0.6);
+      animation: rippleShockwave 2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+    }
+    .checkmark-pulse-ring:nth-child(2) {
+      animation-delay: 0.65s;
+    }
+    @keyframes rippleShockwave {
+      0% { transform: scale(0.85); opacity: 1; }
+      100% { transform: scale(1.85); opacity: 0; }
+    }
+    .checkmark-svg {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: block;
+      stroke-width: 3.5;
+      stroke: #00ff87;
+      stroke-miterlimit: 10;
+      box-shadow: 0 0 30px rgba(0, 255, 135, 0.55), inset 0 0 20px rgba(0, 255, 135, 0.2);
+      animation: checkFill 0.4s ease-in-out 0.4s forwards, checkScale 0.35s ease-in-out 0.8s both;
+      background: rgba(0, 255, 135, 0.12);
+      z-index: 2;
+    }
+    .checkmark-circle {
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      stroke-width: 3.5;
+      stroke-miterlimit: 10;
+      stroke: #00ff87;
+      fill: none;
+      animation: drawCircle 0.65s cubic-bezier(0.65, 0, 0.45, 1) 0.1s forwards;
+    }
+    .checkmark-check {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      stroke-width: 4.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke: #00ff87;
+      animation: drawCheck 0.45s cubic-bezier(0.65, 0, 0.45, 1) 0.65s forwards;
+    }
+    @keyframes drawCircle { 100% { stroke-dashoffset: 0; } }
+    @keyframes drawCheck { 100% { stroke-dashoffset: 0; } }
+    @keyframes checkScale {
+      0%, 100% { transform: none; }
+      50% { transform: scale3d(1.15, 1.15, 1); }
+    }
+
+    .modal-invoice-card {
+      background: rgba(6, 18, 15, 0.75);
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin: 16px 0;
+      border: 1px solid rgba(0, 255, 135, 0.25);
+      text-align: left;
+      position: relative;
+    }
+    .modal-invoice-badge {
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fbbf24;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CONTINUOUS FLYING DRAGON BACKGROUND CANVAS -->
+  <div class="dragon-bg-wrap">
+    <canvas id="dragonCanvas"></canvas>
+    <div class="dragon-gradient-overlay"></div>
+  </div>
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="dash-sidebar">
+    <a href="index.html" class="dash-logo-wrap">
+      <img src="logo.jpg" alt="Logo" class="dash-logo-icon">
+      <div class="dash-logo-text">AI Future <span>Agency</span></div>
+    </a>
+
+    <ul class="sidebar-menu">
+      <li class="menu-item" id="menuItemActiveTools"><a onclick="showTab('active-tools')"><i class="fas fa-home"></i> Dashboard</a></li>
+      <li class="menu-item" id="menuItemMyOrders"><a onclick="showTab('my-orders')"><i class="fas fa-box"></i> My Orders (অর্ডার লিস্ট) <span class="badge-status-counter" id="userPendingBadge" style="display:none;">0</span></a></li>
+      <li class="menu-item" id="menuItemHistory"><a onclick="showTab('history')"><i class="far fa-credit-card"></i> Transaction History</a></li>
+      <li class="menu-item active" id="menuItemCheckout"><a onclick="showTab('checkout')"><i class="fas fa-file-invoice-dollar"></i> Checkout & Order</a></li>
+      <li class="menu-item" id="menuItemSubscribe"><a onclick="showTab('subscribe')"><i class="fas fa-shopping-cart"></i> Subscribe/Renew</a></li>
+      <li class="menu-item" id="menuItemSettings"><a onclick="showTab('settings')"><i class="fas fa-user-cog"></i> Account Settings</a></li>
+      <li class="menu-item"><a href="https://wa.me/880163935198" target="_blank"><i class="far fa-envelope"></i> Help Desk</a></li>
+      <li class="menu-item"><a href="index.html#faq"><i class="far fa-question-circle"></i> FAQs</a></li>
+      
+      <li class="menu-divider-label">USER GUIDE</li>
+      <li class="menu-item"><a href="javascript:void(0)" onclick="alert('AI Future Agency: Direct login to tools with dashboard credentials.')"><i class="fas fa-key"></i> Tool Access Guide</a></li>
+      <li class="menu-item"><a onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN AREA -->
+  <main class="dash-main-area">
+    <header class="dash-topbar">
+      <!-- Live Dragon Flight Controller Badge -->
+      <div class="dragon-flight-badge" id="dragonStatusPill" onclick="toggleDashboardDragon()" title="Pause / Resume Flying Dragon Animation">
+        <i class="fas fa-dragon" id="dragonIcon"></i>
+        <span id="dragonStatusText">Dragon Flight: Active</span>
+      </div>
+
+      <div class="user-profile-pill">
+        <div class="user-power-icon" onclick="logout()" title="Logout"><i class="fas fa-power-off"></i></div>
+        <span id="topbarUsername">Hello, nexus_core638</span>
+      </div>
+    </header>
+
+    <div class="dash-content-container">
+      <h1 class="hey-greeting" id="greetingHeader">hey, nexus_core638</h1>
+      
+      <p class="notice-red-text">
+        সম্মানিত গ্রাহক, আমাদের সকল সেবা গ্রহণ করার জন্য অনুগ্রহ করে ব্রাউজারে এক্সটেনশন ইনস্টল করুন, সাথে থাকার জন্য ধন্যবাদ।
+      </p>
+
+      <!-- TAB 1: CHECKOUT & INVOICE TABLE (Screenshot 5) -->
+      <div id="tabCheckout">
+        <div class="invoice-table-box">
+          <table class="invoice-table">
+            <thead>
+              <tr>
+                <th>Subscription/Product Title</th>
+                <th style="width: 80px; text-align:center;">Qty</th>
+                <th style="width: 140px; text-align:right;">Unit Price</th>
+                <th style="width: 140px; text-align:right;">Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="invProdTitle">Stealth Writer Premium(offline+online )(30 days)💻</td>
+                <td style="text-align:center;">1</td>
+                <td style="text-align:right;" id="invUnitPrice">799.00 BDT</td>
+                <td style="text-align:right;" id="invTotalPrice">799.00 BDT</td>
+              </tr>
+              <tr class="subtotal-row">
+                <td colspan="3" style="text-align:right;">Subtotal</td>
+                <td style="text-align:right;" id="invSubtotal">799.00 BDT</td>
+              </tr>
+              <tr class="subtotal-row">
+                <td colspan="3" style="text-align:right; font-weight:800; color:#ffffff;">Total</td>
+                <td style="text-align:right; font-weight:800; color:#00d2ff;" id="invFinalTotal">799.00 BDT</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="terms-banner" id="invTerms">
+            Subscription Terms: 799.00 BDT for 30 days
+          </div>
+        </div>
+
+        <div class="coupon-pay-box">
+          <div class="coupon-row">
+            <label class="coupon-label" for="couponInput">Coupon code:</label>
+            <input type="text" id="couponInput" class="coupon-input" placeholder="e.g. SPECIAL10">
+            <button type="button" class="btn-copy-creds" onclick="applyCoupon()">Apply</button>
+            <span id="couponSuccessMsg" style="display:none; color:#16a34a; font-size:12px; font-weight:bold;">
+              <i class="fas fa-check-circle"></i> 10% Discount Applied!
+            </span>
+          </div>
+
+          <button type="button" class="btn-pay-green" onclick="openPaymentGateway()">
+            Pay
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB: MY ORDERS (REALTIME TRACKING & ADMIN APPROVAL STATUS) -->
+      <div id="tabMyOrders" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h2 style="font-size:22px; font-weight:800; color:#ffffff; display: flex; align-items: center; gap: 10px;">
+              <i class="fas fa-box-open" style="color: #00ff87;"></i> আমার অর্ডারসমূহ (Live Order Status)
+            </h2>
+            <p style="font-size:13px; color:#94a3b8; margin-top: 4px;">
+              অর্ডার করার পর এডমিন (মেইন কর্তৃপক্ষ) ভেরিফাই করে কনফার্ম করলে তাৎক্ষণিক টুল এক্সেস পাবেন।
+            </p>
+          </div>
+          <button type="button" class="btn-goto-access" onclick="showTab('checkout')" style="padding: 10px 18px;">
+            <i class="fas fa-plus"></i> নতুন অর্ডার করুন
+          </button>
+        </div>
+
+        <div id="userOrdersListContainer" class="user-orders-cards-wrap">
+          <!-- Populated dynamically via renderUserOrders() -->
+        </div>
+      </div>
+
+      <!-- TAB 2: ACTIVE TOOLS & SUBSCRIPTIONS -->
+      <div id="tabActiveTools" style="display: none;">
+        <h2 style="font-size:20px; font-weight:800; margin-bottom:14px;">My Active Tools & Subscriptions</h2>
+        <div class="active-tools-grid" id="activeToolsGrid">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- TAB 3: TRANSACTION HISTORY -->
+      <div id="tabHistory" style="display: none;">
+        <h2 style="font-size:20px; font-weight:800; margin-bottom:14px;">Transaction History</h2>
+        <div class="invoice-table-box">
+          <table class="invoice-table">
+            <thead>
+              <tr>
+                <th>Invoice ID</th>
+                <th>Date</th>
+                <th>Product / Plan</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 4: SUBSCRIBE / RENEW -->
+      <div id="tabSubscribe" style="display: none;">
+        <h2 style="font-size:20px; font-weight:800; margin-bottom:14px;">Browse & Order All Tools</h2>
+        <div class="active-tools-grid" id="catalogGrid">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- TAB 5: ACCOUNT SETTINGS -->
+      <div id="tabSettings" style="display: none;">
+        <h2 style="font-size:20px; font-weight:800; margin-bottom:14px;">Account Settings</h2>
+        <div class="invoice-table-box" style="padding: 24px; max-width: 500px;">
+          <p style="margin-bottom: 12px;"><strong>Username:</strong> <span id="setUname">nexus_core638</span></p>
+          <p style="margin-bottom: 12px;"><strong>Email:</strong> <span id="setEmail">nexus@aifuture.agency</span></p>
+          <p style="margin-bottom: 20px;"><strong>WhatsApp:</strong> <span id="setPhone">0163935198</span></p>
+          <button type="button" class="btn-copy-creds" onclick="alert('Profile details are verified and active.')">Update Profile</button>
+        </div>
+      </div>
+
+      <div class="dash-footer-text">
+        © 2026 AI Future Agency • All rights reserved
+      </div>
+    </div>
+  </main>
+
+  <!-- PAYMENT GATEWAY MODAL (bKash / Nagad / Rocket) -->
+  <div class="pay-modal-overlay" id="payModal">
+    <div class="pay-modal-card">
+      <div class="pay-modal-header">
+        <h3 style="font-size:18px; font-weight:800; color:#ffffff;">Complete Payment</h3>
+        <button type="button" onclick="closePaymentGateway()" style="border:none; background:none; font-size:18px; cursor:pointer; color:#94a3b8;">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:14px;">
+        Total Amount: <strong style="color:#00d2ff; font-size:16px;" id="payAmountText">799.00 BDT</strong>
+      </p>
+
+      <div class="pay-methods-tabs">
+        <div class="pay-method-pill active" onclick="selectMethod(this, 'bKash')">bKash</div>
+        <div class="pay-method-pill" onclick="selectMethod(this, 'Nagad')">Nagad</div>
+        <div class="pay-method-pill" onclick="selectMethod(this, 'Rocket')">Rocket</div>
+      </div>
+
+      <div class="merchant-info-box">
+        Send Money to Personal/Merchant Number:<br>
+        <strong id="merchantNumberDisplay">0163935198</strong><br>
+        <span style="font-size:11.5px; color:#64748b;">(Reference: Your Username)</span>
+      </div>
+
+      <div class="pay-input-grp">
+        <label>Your bKash/Nagad Number</label>
+        <input type="tel" id="senderNumber" class="pay-input" placeholder="017XXXXXXXX">
+      </div>
+
+      <div class="pay-input-grp">
+        <label>Transaction ID (TrxID)</label>
+        <input type="text" id="trxIdInput" class="pay-input" placeholder="e.g. BK891024 or click Verify">
+      </div>
+
+      <button type="button" class="btn-verify-pay" onclick="confirmPayment()">
+        <i class="fas fa-paper-plane"></i> Submit Order for Admin Approval (অর্ডার জমা দিন)
+      </button>
+      <p style="text-align:center; font-size:11.5px; color:#64748b; margin-top:10px; line-height:1.4;">
+        <i class="fas fa-shield-alt"></i> পেমেন্ট সাবমিট করার পর এডমিন (মেইন কর্তৃপক্ষ) ভেরিফাই করে কনফার্ম করলে তাৎক্ষণিক লাইভ এক্সেস পাবেন।
+      </p>
+    </div>
+  </div>
+
+  <!-- 3D HOLOGRAPHIC ORDER CONFIRMATION MODAL -->
+  <div class="modal-overlay" id="dashboardSuccessModal">
+    <canvas id="confettiCanvas"></canvas>
+    <div class="modal-3d-wrapper" id="modal3dWrapper">
+      <div class="modal-box" id="modalBox">
+        
+        <!-- 3D Animated Drawing SVG Checkmark with Pulse Rings -->
+        <div class="checkmark-3d-wrap" id="dashCheckmarkWrap">
+          <div class="checkmark-pulse-ring"></div>
+          <div class="checkmark-pulse-ring"></div>
+          <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark-circle" cx="26" cy="26" r="23" fill="none"/>
+            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+        </div>
+
+        <h2 style="font-size:23px; font-weight:900; color:#ffffff; margin-bottom:6px;">অর্ডার সফলভাবে গ্রহণ করা হয়েছে! 🎉</h2>
+        <p style="color:#94a3b8; font-size:13.5px; margin-bottom:14px;">
+          আপনার অর্ডার আইডি: <strong style="color:var(--primary); font-family:'Outfit', monospace; font-size:16px; letter-spacing:1px;" id="dashModalOrderId">#ORD-95105</strong>
+        </p>
+
+        <!-- 3D Invoice Detail Box -->
+        <div class="modal-invoice-card">
+          <span class="modal-invoice-badge"><i class="fas fa-clock"></i> Pending Approval</span>
+          <p style="margin-bottom:8px; display:flex; align-items:center; gap:8px; font-size:13px;">
+            <span>📦</span> <strong>প্রোডাক্ট:</strong> <span id="dashModalProdName" style="color:#ffffff;">Stealth Writer Premium</span>
+          </p>
+          <p style="margin-bottom:8px; display:flex; align-items:center; gap:8px; font-size:13px;">
+            <span>💵</span> <strong>মোট পরিশোধ:</strong> <span id="dashModalAmount" style="color:var(--primary); font-weight:900; font-family:'Outfit', sans-serif; font-size:16px;">৳799</span>
+          </p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:13px;">
+            <span>💳</span> <strong>পদ্ধতি:</strong> <span id="dashModalMethod" style="color:#60efff; font-weight:700;">bKash</span> • TrxID: <span id="dashModalTrx" style="color:#cbd5e1; font-family:monospace;">BK891024</span>
+          </p>
+        </div>
+
+        <p style="font-size:12px; color:#94a3b8; margin: 14px 0 16px; line-height: 1.5;">
+          <i class="fas fa-bolt" style="color:#00ff87;"></i> আপনার পেমেন্ট এডমিন প্যানেলে লাইভ পাঠানো হয়েছে। এডমিন ভেরিফাই করে কনফার্ম করলেই সাথে সাথে আপনার ড্যাশবোর্ডে টুল এক্সেস আনলক হবে।
+        </p>
+
+        <a href="#" id="dashModalWhatsAppBtn" target="_blank" class="btn-pay-green" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; margin-bottom:10px; width:100%; box-shadow:0 8px 25px rgba(0,255,135,0.45); border-radius:12px;">
+          <i class="fab fa-whatsapp" style="font-size:18px;"></i> হোয়াটসঅ্যাপে মেসেজ দিয়ে ইনস্ট্যান্ট এক্সেস নিন
+        </a>
+        <button type="button" onclick="closeDashboardSuccessModal()" style="width:100%; padding:10px; border-radius:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); color:#cbd5e1; font-weight:700; cursor:pointer;">ড্যাশবোর্ডে অর্ডার দেখুন</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DEMO_USER = {
+      username: 'nexus_core638',
+      email: 'nexus@aifuture.agency',
+      phone: '0163935198',
+      password: 'password123',
+      orders: [
+        {
+          id: 'ORD-8829',
+          product: 'Stealth Writer Premium Plan (30 Days)',
+          amount: 799,
+          trxId: 'BK882910',
+          date: '2026-09-01',
+          status: 'Completed',
+          duration: '30 days'
+        }
+      ],
+      activeTools: [
+        {
+          id: 'stealth-writer',
+          name: 'Stealth Writer Premium Plan (30 Days)',
+          plan: '1 month (Shared)',
+          price: 799,
+          status: 'Active',
+          expires: '2026-10-04',
+          loginEmail: 'stealth_vip@aifuture.agency',
+          loginPin: '992810',
+          accessUrl: 'dashboard.html'
+        }
+      ],
+      transactions: [
+        {
+          id: 'TXN-882910',
+          date: '2026-09-01',
+          item: 'Stealth Writer Premium Plan (30 Days)',
+          amount: '799.00 BDT',
+          status: 'Completed'
+        }
+      ]
+    };
+
+    function getCurrentUser() {
+      let session = localStorage.getItem('aifuture_session');
+      let users = [];
+      try {
+        const stored = localStorage.getItem('aifuture_users');
+        if (stored) users = JSON.parse(stored);
+      } catch(e) {}
+      if (users.length === 0) {
+        users = [DEMO_USER];
+        localStorage.setItem('aifuture_users', JSON.stringify(users));
+      }
+      if (!session) {
+        session = users[0].username || 'nexus_core638';
+        localStorage.setItem('aifuture_session', session);
+      }
+      let u = users.find(x => x.username === session) || users[0] || DEMO_USER;
+      if (!u.orders) u.orders = [];
+      if (!u.activeTools) u.activeTools = [];
+      if (!u.transactions) u.transactions = [];
+
+      // Realtime cross-synchronization with central afa_admin_orders
+      try {
+        const adminOrders = JSON.parse(localStorage.getItem('afa_admin_orders') || '[]');
+        let updated = false;
+        adminOrders.forEach(ao => {
+          if (ao.username === u.username || (u.phone && ao.phone === u.phone) || (u.email && ao.email === u.email)) {
+            const existingOrder = u.orders.find(o => o.id === ao.id || (ao.invoice && o.invoice === ao.invoice));
+            if (!existingOrder) {
+              u.orders.unshift(ao);
+              updated = true;
+            } else if (existingOrder.status !== ao.status) {
+              existingOrder.status = ao.status;
+              updated = true;
+            }
+            
+            // Also ensure corresponding transaction exists
+            const txId = ao.trxId || `TXN-${ao.invoice || ao.id}`;
+            const existingTx = u.transactions.find(tx => tx.id === txId || (ao.invoice && tx.invoice === ao.invoice));
+            if (!existingTx) {
+              u.transactions.unshift({
+                id: txId,
+                invoice: ao.invoice || '',
+                date: ao.date || new Date().toISOString().split('T')[0],
+                item: ao.product,
+                amount: typeof ao.amount === 'number' ? `৳${ao.amount.toLocaleString()}` : ao.amount,
+                gateway: ao.method || 'bKash',
+                status: ao.status || 'Pending'
+              });
+              updated = true;
+            } else if (existingTx.status !== ao.status) {
+              existingTx.status = ao.status;
+              updated = true;
+            }
+          }
+        });
+        if (updated) {
+          saveUser(u);
+        }
+      } catch(e) {}
+
+      return u;
+    }
+
+    function saveUser(u) {
+      let users = [];
+      try {
+        const stored = localStorage.getItem('aifuture_users');
+        if (stored) users = JSON.parse(stored);
+      } catch(e) {}
+      const idx = users.findIndex(x => x.username === u.username);
+      if (idx !== -1) users[idx] = u;
+      else users.push(u);
+      localStorage.setItem('aifuture_users', JSON.stringify(users));
+    }
+
+    let currentOrder = {
+      id: 'stealth-writer',
+      title: 'Stealth Writer Premium(offline+online )(30 days)💻',
+      price: 799,
+      duration: '30 days'
+    };
+    let currentTotal = 799;
+
+    function initPage() {
+      const user = getCurrentUser();
+      document.getElementById('topbarUsername').textContent = `Hello, ${user.username}`;
+      document.getElementById('greetingHeader').textContent = `hey, ${user.username}`;
+      document.getElementById('setUname').textContent = user.username;
+      document.getElementById('setEmail').textContent = user.email;
+      document.getElementById('setPhone').textContent = user.phone;
+
+      // Check URL search params for incoming buy order from details page
+      const params = new URLSearchParams(window.location.search);
+      const buyItem = params.get('buy');
+      const buyPrice = params.get('price');
+      const buyDur = params.get('dur');
+      const tabParam = params.get('tab');
+
+      if (buyItem) {
+        currentOrder.id = buyItem;
+        currentOrder.title = `${buyItem.replace('-', ' ').toUpperCase()} Premium Plan (${buyDur || '30 days'})💻`;
+        currentOrder.price = buyPrice ? parseInt(buyPrice, 10) : 799;
+        currentOrder.duration = buyDur || '30 days';
+        currentTotal = currentOrder.price;
+        updateInvoiceDisplay();
+        showTab('checkout');
+      } else if (tabParam) {
+        showTab(tabParam);
+      } else {
+        showTab('checkout');
+      }
+
+      renderUserOrders();
+      renderActiveTools();
+      renderHistory();
+      renderCatalog();
+    }
+
+    function updateInvoiceDisplay() {
+      document.getElementById('invProdTitle').textContent = currentOrder.title;
+      document.getElementById('invUnitPrice').textContent = `${currentOrder.price.toFixed(2)} BDT`;
+      document.getElementById('invTotalPrice').textContent = `${currentOrder.price.toFixed(2)} BDT`;
+      document.getElementById('invSubtotal').textContent = `${currentOrder.price.toFixed(2)} BDT`;
+      document.getElementById('invFinalTotal').textContent = `${currentTotal.toFixed(2)} BDT`;
+      document.getElementById('invTerms').textContent = `Subscription Terms: ${currentTotal.toFixed(2)} BDT for ${currentOrder.duration}`;
+      document.getElementById('payAmountText').textContent = `${currentTotal.toFixed(2)} BDT`;
+    }
+
+    function showTab(tab) {
+      const tabs = ['checkout', 'my-orders', 'active-tools', 'history', 'subscribe', 'settings'];
+      tabs.forEach(t => {
+        const el = document.getElementById(
+          t === 'checkout' ? 'tabCheckout' : 
+          t === 'my-orders' ? 'tabMyOrders' : 
+          t === 'active-tools' ? 'tabActiveTools' : 
+          t === 'history' ? 'tabHistory' : 
+          t === 'subscribe' ? 'tabSubscribe' : 'tabSettings'
+        );
+        if (el) el.style.display = (t === tab) ? 'block' : 'none';
+      });
+
+      // Update active sidebar menu item
+      document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+      if (tab === 'checkout' && document.getElementById('menuItemCheckout')) document.getElementById('menuItemCheckout').classList.add('active');
+      if (tab === 'my-orders' && document.getElementById('menuItemMyOrders')) document.getElementById('menuItemMyOrders').classList.add('active');
+      if (tab === 'active-tools' && document.getElementById('menuItemActiveTools')) document.getElementById('menuItemActiveTools').classList.add('active');
+      if (tab === 'history' && document.getElementById('menuItemHistory')) document.getElementById('menuItemHistory').classList.add('active');
+      if (tab === 'subscribe' && document.getElementById('menuItemSubscribe')) document.getElementById('menuItemSubscribe').classList.add('active');
+      if (tab === 'settings' && document.getElementById('menuItemSettings')) document.getElementById('menuItemSettings').classList.add('active');
+    }
+
+    function applyCoupon() {
+      const c = document.getElementById('couponInput').value.trim().toUpperCase();
+      if (c === 'SPECIAL10' || c === 'AIFUTURE') {
+        const discount = Math.round(currentOrder.price * 0.1);
+        currentTotal = currentOrder.price - discount;
+        updateInvoiceDisplay();
+        document.getElementById('couponSuccessMsg').style.display = 'inline-block';
+        alert('🎉 10% Discount Applied!');
+      } else {
+        alert('Invalid coupon code. Try: SPECIAL10');
+      }
+    }
+
+    function renderActiveTools() {
+      const user = getCurrentUser();
+      const grid = document.getElementById('activeToolsGrid');
+      grid.innerHTML = '';
+
+      if (!user.activeTools || user.activeTools.length === 0) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; color:#94a3b8;">No active tools yet. Click "Subscribe/Renew" or pay in the Checkout table to activate one.</p>`;
+        return;
+      }
+
+      user.activeTools.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'active-tool-card';
+        card.innerHTML = `
+          <div class="tool-header-row">
+            <h4 class="tool-title-act">${t.name}</h4>
+            <span class="status-badge-active">● Active</span>
+          </div>
+          <div class="tool-meta-act">Plan: <strong>${t.plan}</strong> • Expires: <strong>${t.expires}</strong></div>
+          <div class="creds-box-act">
+            <div><i class="fas fa-envelope"></i> Login: <strong>${t.loginEmail}</strong></div>
+            <div><i class="fas fa-key"></i> PIN / Pass: <strong>${t.loginPin}</strong></div>
+          </div>
+          <div class="tool-actions-act">
+            <a href="${t.accessUrl || '#'}" target="_blank" class="btn-open-tool"><i class="fas fa-external-link-alt"></i> Access Tool</a>
+            <button type="button" class="btn-copy-creds" onclick="copyCreds('${t.loginEmail}', '${t.loginPin}')"><i class="fas fa-copy"></i> Copy</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function copyCreds(email, pin) {
+      navigator.clipboard.writeText(`Tool Access:\nEmail: ${email}\nPIN: ${pin}`);
+      alert('Login details copied to clipboard!');
+    }
+
+    function renderHistory() {
+      const user = getCurrentUser();
+      const tbody = document.getElementById('historyTableBody');
+      tbody.innerHTML = '';
+
+      if (!user.transactions || user.transactions.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#94a3b8;">No transactions found.</td></tr>`;
+        return;
+      }
+
+      user.transactions.forEach(tx => {
+        const tr = document.createElement('tr');
+        const isCompleted = tx.status === 'Completed' || tx.status === 'Approved';
+        const isPending = tx.status === 'Pending';
+        const badgeStyle = isCompleted 
+          ? 'background:rgba(16,185,129,0.15); color:#10b981; border:1px solid rgba(16,185,129,0.3);' 
+          : isPending 
+          ? 'background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.3);'
+          : 'background:rgba(239,68,68,0.15); color:#ef4444; border:1px solid rgba(239,68,68,0.3);';
+
+        tr.innerHTML = `
+          <td>
+            <div style="display:flex; flex-direction:column;">
+              <strong style="color:#00d2ff; font-family:monospace; font-size:12.5px;">${tx.id}</strong>
+              ${tx.invoice ? `<span style="font-size:10.5px; color:#64748b;">Inv #${tx.invoice}</span>` : ''}
+            </div>
+          </td>
+          <td style="color:#cbd5e1; font-size:12px;">${tx.date}</td>
+          <td>
+            <span style="font-weight:700; color:#ffffff; font-size:13px;">${tx.item}</span>
+            ${tx.gateway ? `<span style="display:inline-block; font-size:10px; color:#94a3b8; margin-left:6px; background:rgba(255,255,255,0.06); padding:1px 6px; border-radius:4px;">${tx.gateway}</span>` : ''}
+          </td>
+          <td style="color:#10b981; font-weight:800; font-size:13.5px;">${tx.amount}</td>
+          <td><span style="${badgeStyle} padding:3px 10px; border-radius:12px; font-size:11px; font-weight:bold; display:inline-flex; align-items:center; gap:4px;">
+            ${isPending ? '<i class="fas fa-clock"></i>' : (isCompleted ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>')}
+            ${tx.status || 'Pending'}
+          </span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderCatalog() {
+      const items = [
+        { id: 'stealth-writer', name: 'Stealth Writer Premium Plan', price: 799 },
+        { id: 'chatgpt-plus', name: 'ChatGPT PLUS (Renewable)', price: 499 },
+        { id: 'gamma-ai', name: 'Gamma AI Presentation Pro', price: 1499 },
+        { id: 'claude-pro', name: 'Claude Pro Opus & Sonnet', price: 1500 },
+        { id: 'grammarly', name: 'Grammarly Premium', price: 150 },
+        { id: 'quillbot', name: 'Quillbot Premium', price: 150 }
+      ];
+
+      const grid = document.getElementById('catalogGrid');
+      grid.innerHTML = '';
+      items.forEach(it => {
+        const c = document.createElement('div');
+        c.className = 'active-tool-card';
+        c.innerHTML = `
+          <h4 class="tool-title-act">${it.name}</h4>
+          <p style="color:#16a34a; font-size:18px; font-weight:800; margin: 10px 0;">৳${it.price}</p>
+          <button type="button" class="btn-open-tool" style="width:100%; border:none; cursor:pointer;" onclick="orderCatalogItem('${it.id}', '${it.name}', ${it.price})">
+            Subscribe Now
+          </button>
+        `;
+        grid.appendChild(c);
+      });
+    }
+
+    function orderCatalogItem(id, name, price) {
+      currentOrder = {
+        id: id,
+        title: `${name} (30 days)💻`,
+        price: price,
+        duration: '30 days'
+      };
+      currentTotal = price;
+      updateInvoiceDisplay();
+      showTab('checkout');
+    }
+
+    function openPaymentGateway() {
+      try {
+        const siteSettings = JSON.parse(localStorage.getItem('afa_site_settings') || '{}');
+        const merchantEl = document.getElementById('merchantNumberDisplay');
+        if (merchantEl && siteSettings.bkash) {
+          merchantEl.textContent = siteSettings.bkash;
+        }
+      } catch(e) {}
+      document.getElementById('payModal').classList.add('active');
+    }
+
+    function closePaymentGateway() {
+      document.getElementById('payModal').classList.remove('active');
+    }
+
+    let selectedDashboardMethod = 'bKash';
+
+    function selectMethod(el, name) {
+      document.querySelectorAll('.pay-method-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      selectedDashboardMethod = name;
+      try {
+        const siteSettings = JSON.parse(localStorage.getItem('afa_site_settings') || '{}');
+        const merchantEl = document.getElementById('merchantNumberDisplay');
+        if (merchantEl) {
+          if (name === 'bKash' && siteSettings.bkash) merchantEl.textContent = siteSettings.bkash;
+          else if (name === 'Nagad' && siteSettings.nagad) merchantEl.textContent = siteSettings.nagad;
+          else if (name === 'Rocket' && siteSettings.rocket) merchantEl.textContent = siteSettings.rocket;
+        }
+      } catch(e) {}
+    }
+
+    function confirmPayment() {
+      const user = getCurrentUser();
+      const enteredTrx = document.getElementById('trxIdInput').value.trim();
+      const trxId = enteredTrx || `TRX${Date.now().toString().slice(-7)}`;
+      const senderPhone = document.getElementById('senderNumber') ? document.getElementById('senderNumber').value.trim() : (user.phone || '0163935198');
+      const orderId = `ORD-${Math.floor(1000 + Math.random() * 9000)}`;
+      const orderDate = new Date().toISOString().split('T')[0];
+
+      // Regular user cannot self-activate; order is created as 'Pending' for Admin confirmation
+      const newOrder = {
+        id: orderId,
+        product: currentOrder.title,
+        amount: currentTotal,
+        trxId: trxId,
+        date: orderDate,
+        status: 'Pending',
+        duration: currentOrder.duration,
+        customer: user.name || user.username || 'Customer',
+        phone: senderPhone,
+        email: user.email || `${user.username}@aifuture.agency`,
+        method: selectedDashboardMethod
+      };
+
+      const newTx = {
+        id: trxId,
+        date: orderDate,
+        item: currentOrder.title,
+        amount: `${currentTotal.toFixed(2)} BDT`,
+        status: 'Pending'
+      };
+
+      if (!user.orders) user.orders = [];
+      if (!user.transactions) user.transactions = [];
+
+      user.orders.unshift(newOrder);
+      user.transactions.unshift(newTx);
+      saveUser(user);
+
+      // Save order to central Admin Orders queue as 'Pending'
+      try {
+        const adminOrders = JSON.parse(localStorage.getItem('afa_admin_orders') || '[]');
+        adminOrders.unshift({
+          id: orderId,
+          customer: user.name || user.username || 'Customer',
+          phone: senderPhone,
+          email: user.email || `${user.username}@aifuture.agency`,
+          product: currentOrder.title,
+          amount: currentTotal,
+          method: selectedDashboardMethod,
+          trxId: trxId,
+          date: orderDate,
+          status: 'Pending'
+        });
+        localStorage.setItem('afa_admin_orders', JSON.stringify(adminOrders));
+      } catch(e) {}
+
+      // Real-time broadcast so Admin Panel receives instant audio chime & popup
+      try {
+        const adminEvent = {
+          time: Date.now(),
+          order: {
+            id: orderId,
+            invoice: orderId.replace('ORD-', ''),
+            customer: user.name || user.username || 'Customer',
+            phone: senderPhone,
+            product: currentOrder.title,
+            amount: currentTotal,
+            method: selectedDashboardMethod,
+            trxId: trxId,
+            date: orderDate,
+            status: 'Pending'
+          }
+        };
+        localStorage.setItem('afa_latest_order_event', JSON.stringify(adminEvent));
+      } catch(e) {}
+
+      closePaymentGateway();
+
+      renderUserOrders();
+      renderHistory();
+      showTab('my-orders');
+
+      // Trigger 3D Holographic Order Confirmation Modal with SVG checkmark, celebration chime & confetti!
+      showDashboardSuccessModal({
+        orderId: orderId,
+        product: currentOrder.title,
+        amount: currentTotal,
+        method: selectedDashboardMethod,
+        trxId: trxId
+      });
+    }
+
+    function renderUserOrders() {
+      const user = getCurrentUser();
+      const container = document.getElementById('userOrdersListContainer');
+      const badge = document.getElementById('userPendingBadge');
+      if (!container) return;
+
+      const orders = user.orders || [];
+      const pendingCount = orders.filter(o => o.status === 'Pending').length;
+      if (badge) {
+        if (pendingCount > 0) {
+          badge.textContent = pendingCount;
+          badge.style.display = 'inline-block';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+
+      if (orders.length === 0) {
+        container.innerHTML = `
+          <div style="background: rgba(8, 22, 19, 0.6); border: 1px dashed rgba(0, 255, 135, 0.3); border-radius: 16px; padding: 40px; text-align: center; color: #94a3b8;">
+            <i class="fas fa-box-open" style="font-size: 40px; color: rgba(0, 255, 135, 0.4); margin-bottom: 12px; display: block;"></i>
+            <h4 style="color: #ffffff; font-size: 16px; margin-bottom: 6px;">এখনো কোনো অর্ডার নেই</h4>
+            <p style="font-size: 13px;">আপনি এখনো কোনো টুল বা সাবস্ক্রিপশন অর্ডার করেননি।</p>
+            <button type="button" class="btn-goto-access" onclick="showTab('subscribe')" style="margin-top: 16px;">
+              <i class="fas fa-shopping-cart"></i> ব্রাউজ ও অর্ডার করুন
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = orders.map(ord => {
+        const isPending = ord.status === 'Pending';
+        const isCompleted = ord.status === 'Completed' || ord.status === 'Confirmed';
+        const isCancelled = ord.status === 'Cancelled';
+
+        let bannerHtml = '';
+        if (isPending) {
+          bannerHtml = `
+            <div class="order-status-banner banner-pending">
+              <div style="display:flex; align-items:center; gap:10px; flex:1;">
+                <span class="badge-status-user pending">
+                  <i class="fas fa-hourglass-half fa-spin"></i> অপেক্ষারত (Pending)
+                </span>
+                <p class="status-explain-text">
+                  ⏳ <strong>এডমিন ভেরিফিকেশন চলছে:</strong> পেমেন্ট ও TrxID এডমিন যাচাই করছেন। এডমিন কনফার্ম করলেই সাথে সাথে টুল এক্সেস সক্রিয় হবে।
+                </p>
+              </div>
+              <span style="font-size:12px; color:#fbbf24; font-weight:700; white-space:nowrap;">
+                <i class="fas fa-sync-alt fa-spin"></i> লাইভ আপডেট হচ্ছে...
+              </span>
+            </div>
+          `;
+        } else if (isCompleted) {
+          bannerHtml = `
+            <div class="order-status-banner banner-completed">
+              <div style="display:flex; align-items:center; gap:10px; flex:1;">
+                <span class="badge-status-user completed">
+                  <i class="fas fa-check-circle"></i> এডমিন কনফার্ম করেছেন (Approved)
+                </span>
+                <p class="status-explain-text">
+                  🎉 <strong>অভিনন্দন!</strong> মেইন এডমিন আপনার অর্ডার অনুমোদন করেছেন। টুলটির এক্সেস সক্রিয় করা হয়েছে।
+                </p>
+              </div>
+              <button type="button" class="btn-goto-access" onclick="showTab('active-tools')">
+                <i class="fas fa-key"></i> টুল এক্সেস দেখুন
+              </button>
+            </div>
+          `;
+        } else {
+          bannerHtml = `
+            <div class="order-status-banner banner-cancelled">
+              <div style="display:flex; align-items:center; gap:10px; flex:1;">
+                <span class="badge-status-user cancelled">
+                  <i class="fas fa-times-circle"></i> বাতিল (Cancelled)
+                </span>
+                <p class="status-explain-text">
+                  ❌ দুঃখিত, পেমেন্ট তথ্যে অসংগতি থাকায় এডমিন অর্ডারটি বাতিল করেছেন। সহায়তার জন্য হেল্প ডেস্কে যোগাযোগ করুন।
+                </p>
+              </div>
+              <a href="https://wa.me/880163935198" target="_blank" class="btn-goto-access" style="background:#ef4444; color:#fff; text-decoration:none;">
+                <i class="fab fa-whatsapp"></i> হেল্প ডেস্ক
+              </a>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="user-order-card">
+            <div class="user-order-header">
+              <div>
+                <div class="user-order-prod-title">${ord.product || 'AI Tool Subscription'}</div>
+                <div class="user-order-meta">
+                  <span><i class="fas fa-hashtag"></i> <strong>${ord.id}</strong></span>
+                  <span><i class="far fa-calendar-alt"></i> ${ord.date || 'Today'}</span>
+                  <span><i class="fas fa-receipt"></i> TrxID: <strong>${ord.trxId || 'N/A'}</strong></span>
+                </div>
+              </div>
+              <div class="user-order-price">
+                ৳${ord.amount || 0} BDT
+              </div>
+            </div>
+            ${bannerHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function playUserCelebrationChime() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        if (ctx.state === 'suspended') ctx.resume();
+
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 triumphal chime
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.12);
+          gain.gain.setValueAtTime(0.01, ctx.currentTime + i * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.35, ctx.currentTime + i * 0.12 + 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.48);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + i * 0.12);
+          osc.stop(ctx.currentTime + i * 0.12 + 0.52);
+        });
+      } catch(e) {}
+    }
+
+    let userToastTimeout = null;
+    function showUserOrderStatusToast(orderId, status, prodTitle) {
+      const toast = document.getElementById('userStatusAlertToast');
+      if (!toast) return;
+      const titleEl = document.getElementById('userToastTitle');
+      const descEl = document.getElementById('userToastDesc');
+      const iconEl = document.getElementById('userToastIcon');
+
+      if (status === 'Completed' || status === 'Confirmed') {
+        if (titleEl) titleEl.textContent = '🎉 আপনার অর্ডারটি এডমিন কনফার্ম করেছেন!';
+        if (descEl) descEl.textContent = `${prodTitle || 'টুল'} এর এক্সেস ড্যাশবোর্ডে সক্রিয় হয়েছে।`;
+        if (iconEl) {
+          iconEl.style.color = '#00ff87';
+          iconEl.style.borderColor = '#00ff87';
+          iconEl.innerHTML = '<i class="fas fa-check-circle"></i>';
+        }
+        playUserCelebrationChime();
+      } else if (status === 'Cancelled') {
+        if (titleEl) titleEl.textContent = 'অর্ডার আপডেট';
+        if (descEl) descEl.textContent = `অর্ডার ${orderId} বাতিল করা হয়েছে।`;
+        if (iconEl) {
+          iconEl.style.color = '#ef4444';
+          iconEl.style.borderColor = '#ef4444';
+          iconEl.innerHTML = '<i class="fas fa-times-circle"></i>';
+        }
+      }
+
+      toast.classList.add('active');
+      if (userToastTimeout) clearTimeout(userToastTimeout);
+      userToastTimeout = setTimeout(() => {
+        closeUserToast();
+      }, 7000);
+    }
+
+    function closeUserToast() {
+      const toast = document.getElementById('userStatusAlertToast');
+      if (toast) toast.classList.remove('active');
+    }
+
+    let lastSeenStatusEvent = 0;
+    function checkLiveOrderStatusUpdates() {
+      try {
+        const rawEvent = localStorage.getItem('afa_order_status_event');
+        if (rawEvent) {
+          const ev = JSON.parse(rawEvent);
+          if (ev.timestamp && ev.timestamp > lastSeenStatusEvent) {
+            lastSeenStatusEvent = ev.timestamp;
+            const user = getCurrentUser();
+            if (user && user.orders) {
+              const matchedOrder = user.orders.find(o => o.id === ev.orderId);
+              if (matchedOrder) {
+                renderUserOrders();
+                renderActiveTools();
+                renderHistory();
+                showUserOrderStatusToast(ev.orderId, ev.status, matchedOrder.product);
+              }
+            }
+          }
+        }
+      } catch(e) {}
+    }
+
+    // Real-time synchronization across browser windows/tabs
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'afa_order_status_event' || e.key === 'aifuture_users') {
+        checkLiveOrderStatusUpdates();
+        renderUserOrders();
+        renderActiveTools();
+        renderHistory();
+      }
+    });
+
+    // 1.5s interval checker for instant same-tab lifetime synchronization
+    setInterval(checkLiveOrderStatusUpdates, 1500);
+
+    /* --------------------------------------------------------
+       DRAGON CANVAS ANIMATION ENGINE (300 Frames Continuous Flight)
+       -------------------------------------------------------- */
+    const TOTAL_DRAGON_FRAMES = 300;
+    const dragonImages = new Array(TOTAL_DRAGON_FRAMES);
+    let currentDragonFrame = 0;
+    let isDragonPaused = false;
+    let dragonAnimationId = null;
+    let lastRenderedFrame = -1;
+    let lastFrameTimestamp = 0;
+    const DRAGON_FPS = 25;
+    const frameInterval = 1000 / DRAGON_FPS;
+
+    const dragonCanvas = document.getElementById('dragonCanvas');
+    const dragonCtx = dragonCanvas ? dragonCanvas.getContext('2d') : null;
+
+    function getDragonFrameUrl(index) {
+      const frameNum = String(index + 1).padStart(3, '0');
+      return `ezgif-frame-${frameNum}.jpg`;
+    }
+
+    function resizeDragonCanvas() {
+      if (!dragonCanvas || !dragonCtx) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      dragonCanvas.width = Math.round(width * dpr);
+      dragonCanvas.height = Math.round(height * dpr);
+      dragonCanvas.style.width = width + 'px';
+      dragonCanvas.style.height = height + 'px';
+
+      dragonCtx.setTransform(1, 0, 0, 1, 0, 0);
+      dragonCtx.scale(dpr, dpr);
+
+      lastRenderedFrame = -1;
+      renderDragonFrame(Math.floor(currentDragonFrame));
+    }
+
+    function renderDragonFrame(index) {
+      if (!dragonCanvas || !dragonCtx) return;
+      const img = dragonImages[index];
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+      if (lastRenderedFrame === index) return;
+
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const imgWidth = img.naturalWidth || 1280;
+      const imgHeight = img.naturalHeight || 720;
+
+      const scale = Math.max(width / imgWidth, height / imgHeight);
+      const drawWidth = imgWidth * scale;
+      const drawHeight = imgHeight * scale;
+      const drawX = (width - drawWidth) / 2;
+      const drawY = (height - drawHeight) / 2;
+
+      dragonCtx.imageSmoothingEnabled = true;
+      dragonCtx.imageSmoothingQuality = 'medium';
+
+      dragonCtx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+      lastRenderedFrame = index;
+    }
+
+    function dragonFlightLoop(timestamp) {
+      if (!lastFrameTimestamp) lastFrameTimestamp = timestamp;
+      const elapsed = timestamp - lastFrameTimestamp;
+
+      if (!isDragonPaused && elapsed >= frameInterval) {
+        lastFrameTimestamp = timestamp - (elapsed % frameInterval);
+        currentDragonFrame = (currentDragonFrame + 1) % TOTAL_DRAGON_FRAMES;
+        renderDragonFrame(currentDragonFrame);
+      }
+
+      dragonAnimationId = requestAnimationFrame(dragonFlightLoop);
+    }
+
+    function initDragonCanvasEngine() {
+      if (!dragonCanvas || !dragonCtx) return;
+
+      window.addEventListener('resize', resizeDragonCanvas);
+      resizeDragonCanvas();
+
+      const firstImg = new Image();
+      firstImg.src = getDragonFrameUrl(0);
+      firstImg.onload = () => {
+        dragonImages[0] = firstImg;
+        renderDragonFrame(0);
+      };
+
+      let nextToLoad = 1;
+      function loadNextBatch() {
+        const batchSize = 10;
+        for (let i = 0; i < batchSize && nextToLoad < TOTAL_DRAGON_FRAMES; i++, nextToLoad++) {
+          const idx = nextToLoad;
+          const img = new Image();
+          img.src = getDragonFrameUrl(idx);
+          img.onload = () => {
+            dragonImages[idx] = img;
+          };
+        }
+        if (nextToLoad < TOTAL_DRAGON_FRAMES) {
+          setTimeout(loadNextBatch, 50);
+        }
+      }
+      setTimeout(loadNextBatch, 100);
+
+      dragonAnimationId = requestAnimationFrame(dragonFlightLoop);
+    }
+
+    function toggleDashboardDragon() {
+      isDragonPaused = !isDragonPaused;
+      const pill = document.getElementById('dragonStatusPill');
+      const text = document.getElementById('dragonStatusText');
+      if (pill) pill.classList.toggle('paused', isDragonPaused);
+      if (text) {
+        text.textContent = isDragonPaused ? 'Flight: Paused' : 'Dragon Flight: Active';
+      }
+    }
+
+    /* --------------------------------------------------------
+       3D CELEBRATION CHIME, CONFETTI & SUCCESS MODAL
+       -------------------------------------------------------- */
+    function playCelebrationSound() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.1);
+          gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.1);
+          gain.gain.linearRampToValueAtTime(0.25, ctx.currentTime + idx * 0.1 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.1 + 0.45);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + idx * 0.1);
+          osc.stop(ctx.currentTime + idx * 0.1 + 0.5);
+        });
+      } catch(e) {}
+    }
+
+    let confettiAnimationId = null;
+    function launchConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ['#00ff87', '#60efff', '#00dfa2', '#ffffff', '#f59e0b'];
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2 - 30;
+
+      for (let i = 0; i < 90; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 12 + 4;
+        particles.push({
+          x: centerX,
+          y: centerY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 3.5,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 12,
+          gravity: 0.28,
+          friction: 0.96,
+          alpha: 1
+        });
+      }
+
+      function renderConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = false;
+
+        particles.forEach(p => {
+          p.vx *= p.friction;
+          p.vy *= p.friction;
+          p.vy += p.gravity;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rotation += p.rotSpeed;
+          p.alpha -= 0.012;
+
+          if (p.alpha > 0) {
+            active = true;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.globalAlpha = Math.max(0, p.alpha);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+            ctx.restore();
+          }
+        });
+
+        if (active) {
+          confettiAnimationId = requestAnimationFrame(renderConfetti);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      if (confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
+      confettiAnimationId = requestAnimationFrame(renderConfetti);
+    }
+
+    function init3DCardTilt() {
+      const wrapper = document.getElementById('modal3dWrapper');
+      const box = document.getElementById('modalBox');
+      if (!wrapper || !box) return;
+
+      wrapper.onmousemove = (e) => {
+        const rect = wrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -12;
+        const rotateY = ((x - centerX) / centerX) * 12;
+
+        box.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.02)`;
+      };
+
+      wrapper.onmouseleave = () => {
+        box.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+      };
+    }
+
+    function showDashboardSuccessModal(orderData) {
+      document.getElementById('dashModalOrderId').textContent = `#${orderData.orderId}`;
+      document.getElementById('dashModalProdName').textContent = orderData.product;
+      document.getElementById('dashModalAmount').textContent = `৳${Number(orderData.amount).toLocaleString()}`;
+      document.getElementById('dashModalMethod').textContent = orderData.method;
+      document.getElementById('dashModalTrx').textContent = orderData.trxId;
+
+      let waNumber = '880163935198';
+      try {
+        const settings = JSON.parse(localStorage.getItem('afa_site_settings') || '{}');
+        if (settings.whatsapp) waNumber = settings.whatsapp.replace(/[^0-9]/g, '');
+      } catch(e) {}
+
+      const msg = `👋 আসসালামু আলাইকুম! আমি AI Future Agency ড্যাশবোর্ড থেকে একটি অর্ডার সম্পন্ন করেছি:
+━━━━━━━━━━━━━━━━━━━━
+🧾 অর্ডার আইডি: #${orderData.orderId}
+📦 প্রোডাক্ট: ${orderData.product}
+💵 মোট পরিশোধ: ৳${Number(orderData.amount).toLocaleString()}
+💳 পেমেন্ট মেথড: ${orderData.method}
+🔢 ট্রানজেকশন আইডি: ${orderData.trxId}
+━━━━━━━━━━━━━━━━━━━━
+দয়া করে ভেরিফাই করে আমার অ্যাকাউন্ট এক্সেস ও লগইন তথ্য সক্রিয় করে দিন। ধন্যবাদ!`;
+
+      document.getElementById('dashModalWhatsAppBtn').href = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+
+      // Re-trigger SVG Checkmark drawing
+      const checkWrap = document.getElementById('dashCheckmarkWrap');
+      if (checkWrap) {
+        const newWrap = checkWrap.cloneNode(true);
+        checkWrap.parentNode.replaceChild(newWrap, checkWrap);
+      }
+
+      document.getElementById('dashboardSuccessModal').classList.add('active');
+
+      playCelebrationSound();
+      launchConfetti();
+      init3DCardTilt();
+    }
+
+    function closeDashboardSuccessModal() {
+      document.getElementById('dashboardSuccessModal').classList.remove('active');
+      const canvas = document.getElementById('confettiCanvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('aifuture_session');
+      window.location.href = 'login.html';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initDragonCanvasEngine();
+      initPage();
+    });
+  </script>
+
+  <!-- Floating Real-time Notification Toast for User -->
+  <div class="user-status-alert-toast" id="userStatusAlertToast">
+    <div style="width: 42px; height: 42px; border-radius: 12px; background: rgba(0, 255, 135, 0.2); border: 1px solid #00ff87; display: flex; align-items: center; justify-content: center; color: #00ff87; font-size: 18px; flex-shrink: 0;" id="userToastIcon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <div style="flex: 1;">
+      <div style="font-size: 11px; font-weight: 800; color: #00ff87; text-transform: uppercase; letter-spacing: 0.5px;" id="userToastBadge">
+        ORDER STATUS UPDATED
+      </div>
+      <div style="font-size: 13.5px; font-weight: 700; color: #ffffff;" id="userToastTitle">
+        আপনার অর্ডারটি সফলভাবে কনফার্ম হয়েছে!
+      </div>
+      <div style="font-size: 12px; color: #94a3b8;" id="userToastDesc">
+        এডমিন অর্ডার ভেরিফাই সম্পন্ন করেছে। এক্সেস সক্রিয় হয়েছে।
+      </div>
+    </div>
+    <button type="button" onclick="closeUserToast()" style="border: none; background: transparent; color: #94a3b8; font-size: 16px; cursor: pointer; padding: 4px;">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</body>
+</html>

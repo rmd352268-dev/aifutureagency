@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details - AI Future Agency</title>
+  <!-- Agency Favicon & App Icons -->
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+  <link rel="shortcut icon" type="image/jpeg" href="logo.jpg">
+  <link rel="apple-touch-icon" href="logo.jpg">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: var(--font-en, 'Plus Jakarta Sans'), var(--font-bangla, 'Hind Siliguri'), sans-serif;
+      background: var(--bg-dark, #050608);
+      color: var(--text-main, #ffffff);
+      min-height: 100vh;
+    }
+
+    /* TOP NAVBAR */
+    .top-nav {
+      background: rgba(10, 16, 30, 0.85);
+      border-bottom: 1px solid var(--liquid-glass-border, rgba(0, 255, 135, 0.28));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 14px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .brand-logo-img {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 0 12px var(--primary-glow-soft, rgba(0, 255, 135, 0.3));
+    }
+    .brand-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .brand-name span {
+      color: var(--primary, #00ff87);
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted, #cbd5e1);
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary, #00ff87);
+    }
+    .nav-btn-login {
+      background: var(--btn-primary-bg, linear-gradient(135deg, #00ff87 0%, #00dfa2 100%));
+      color: var(--btn-primary-color, #ffffff) !important;
+      padding: 7px 18px;
+      border-radius: 20px;
+      font-weight: 700 !important;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 15px var(--primary-glow-soft, rgba(0, 255, 135, 0.3));
+      transition: all 0.2s;
+    }
+    .nav-btn-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--primary-glow, rgba(0, 255, 135, 0.5));
+    }
+    .currency-pill {
+      background: rgba(0, 255, 135, 0.08);
+      color: var(--primary, #00ff87);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 700;
+      border: 1px solid var(--liquid-glass-border, rgba(0, 255, 135, 0.28));
+      backdrop-filter: blur(8px);
+    }
+
+    /* DETAILS PAGE CONTAINER (Liquid Glass Skin) */
+    .details-container {
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+    .details-card {
+      background: linear-gradient(145deg, rgba(10, 16, 30, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border-radius: 24px;
+      border: 1px solid var(--liquid-glass-border, rgba(0, 255, 135, 0.28));
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 36px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px var(--primary-glow-soft, rgba(0, 255, 135, 0.2));
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 40px;
+      color: #ffffff;
+    }
+
+    /* LEFT COLUMN */
+    .left-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .prod-img-stage-3d {
+      perspective: 1200px;
+      margin-bottom: 18px;
+    }
+    .prod-img-box {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      border: 1.5px solid rgba(0, 255, 135, 0.35);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 35px rgba(0, 255, 135, 0.25);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(6, 11, 24, 0.95) 100%);
+      backdrop-filter: blur(16px);
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .prod-img-box:hover {
+      box-shadow: 0 28px 65px rgba(0, 0, 0, 0.9), 0 0 55px rgba(0, 255, 135, 0.45);
+    }
+    .prod-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+      transform: translateZ(20px);
+    }
+    .img-glare-3d {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.35) 0%, transparent 65%);
+      mix-blend-mode: overlay;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      transform: translateZ(30px);
+      z-index: 3;
+    }
+    .prod-img-box:hover .img-glare-3d {
+      opacity: 1;
+    }
+    .prod-badge-floating-3d {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(6, 11, 24, 0.88);
+      border: 1px solid rgba(0, 255, 135, 0.4);
+      padding: 5px 12px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #00ff87;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      transform: translateZ(35px);
+      z-index: 4;
+      pointer-events: none;
+    }
+    .live-dot-glow {
+      width: 7px;
+      height: 7px;
+      background: #00ff87;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #00ff87;
+      animation: pulseLiveDot 1.5s infinite;
+    }
+    @keyframes pulseLiveDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.6; }
+    }
+    .btn-buy-small {
+      width: 100%;
+      background: var(--btn-primary-bg, linear-gradient(135deg, #00ff87 0%, #00dfa2 100%));
+      color: var(--btn-primary-color, #ffffff);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      padding: 13px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px var(--primary-glow, rgba(0, 255, 135, 0.4));
+      transition: all 0.25s ease;
+    }
+    .btn-buy-small:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--primary-glow, rgba(0, 255, 135, 0.6));
+    }
+
+    /* DESCRIPTION ACCORDION */
+    .desc-accordion-box {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(15, 23, 42, 0.6);
+    }
+    .desc-accordion-header {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
+      transition: background 0.2s;
+    }
+    .desc-accordion-header:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .desc-accordion-header span:last-child {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--primary, #00ff87);
+    }
+    .desc-accordion-body {
+      padding: 16px 18px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #cbd5e1;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(10, 16, 30, 0.7);
+      display: none;
+    }
+
+    /* RIGHT COLUMN */
+    .right-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .stock-pill {
+      display: inline-block;
+      align-self: flex-start;
+      background: rgba(0, 255, 135, 0.12);
+      color: #00ff87;
+      border: 1px solid rgba(0, 255, 135, 0.3);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      box-shadow: 0 0 10px rgba(0, 255, 135, 0.2);
+    }
+    .details-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
+    .duration-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-dim, #94a3b8);
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .duration-grid {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .duration-pill {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .duration-pill:hover {
+      border-color: var(--primary, #00ff87);
+      color: #ffffff;
+    }
+    .duration-pill.active {
+      background: linear-gradient(135deg, rgba(0, 255, 135, 0.35) 0%, rgba(0, 119, 255, 0.45) 100%);
+      color: #ffffff;
+      border-color: var(--primary, #00ff87);
+      box-shadow: 0 0 14px var(--primary-glow-soft, rgba(0, 255, 135, 0.4));
+    }
+    .total-price-box {
+      border: 1px solid var(--liquid-glass-border, rgba(0, 255, 135, 0.28));
+      border-radius: 15px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 20px;
+      background: rgba(10, 16, 30, 0.65);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    }
+    .total-price-lbl {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-dim, #94a3b8);
+      display: block;
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .total-price-amt {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--primary, #00ff87);
+      text-shadow: 0 0 15px var(--primary-glow, rgba(0, 255, 135, 0.5));
+      font-family: var(--font-en, sans-serif);
+    }
+    .btn-buy-main {
+      width: 100%;
+      background: var(--btn-primary-bg, linear-gradient(135deg, #00ff87 0%, #00dfa2 100%));
+      color: var(--btn-primary-color, #ffffff);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px var(--primary-glow, rgba(0, 255, 135, 0.4));
+    }
+    .btn-buy-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--primary-glow, rgba(0, 255, 135, 0.6));
+    }
+    .trust-subtext {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim, #94a3b8);
+      margin-bottom: 32px;
+    }
+
+    /* REVIEWS SECTION */
+    .reviews-wrap {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+    }
+    .reviews-wrap h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 18px;
+    }
+    .write-review-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 24px;
+    }
+    .write-review-box h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    .star-select-row {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    .star-sel {
+      font-size: 20px;
+      color: #475569;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .star-sel.active, .star-sel:hover {
+      color: #f59e0b;
+    }
+    .review-input {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(10, 16, 30, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 13.5px;
+      color: #ffffff;
+      outline: none;
+    }
+    .review-input:focus {
+      border-color: var(--primary, #00ff87);
+    }
+    .review-textarea {
+      width: 100%;
+      height: 70px;
+      padding: 10px 14px;
+      background: rgba(10, 16, 30, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 13.5px;
+      font-family: inherit;
+      color: #ffffff;
+      outline: none;
+    }
+    .review-textarea:focus {
+      border-color: var(--primary, #00ff87);
+    }
+    .btn-submit-review {
+      background: var(--btn-primary-bg, linear-gradient(135deg, #00ff87 0%, #00dfa2 100%));
+      color: var(--btn-primary-color, #ffffff);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 8px;
+      padding: 9px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-submit-review:hover {
+      box-shadow: 0 4px 15px var(--primary-glow-soft, rgba(0, 255, 135, 0.4));
+      transform: translateY(-1px);
+    }
+
+    .recent-reviews-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .review-item {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .review-item-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .reviewer-name {
+      font-weight: 800;
+      font-size: 13.5px;
+      color: #ffffff;
+    }
+    .review-date {
+      font-size: 11px;
+      color: var(--text-dim, #94a3b8);
+    }
+    .review-stars {
+      color: #f59e0b;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+    .review-text {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    /* 3D LUXURY CHECKOUT & SUCCESS MODAL STYLES */
+    .checkout-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(4, 7, 18, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .checkout-modal-overlay.active {
+      display: flex;
+    }
+    .checkout-modal-card {
+      position: relative;
+      width: 95%;
+      max-width: 820px;
+      border-radius: 22px;
+      padding: 18px 22px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 255, 135, 0.35);
+      animation: modalSlideUp3D 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      color: #ffffff;
+      overflow: hidden;
+      z-index: 1;
+      max-height: 94vh;
+      overflow-y: auto;
+    }
+    .checkout-modal-card::-webkit-scrollbar {
+      width: 5px;
+    }
+    .checkout-modal-card::-webkit-scrollbar-thumb {
+      background: rgba(0, 255, 135, 0.4);
+      border-radius: 10px;
+    }
+    /* Rotating Luxury Cyber Laser Glowing Border */
+    .checkout-modal-card::before {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: -100%;
+      width: 300%;
+      height: 300%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        rgba(0, 255, 135, 0.95) 12%,
+        rgba(56, 189, 248, 0.95) 25%,
+        transparent 38%,
+        rgba(168, 85, 247, 0.85) 55%,
+        rgba(0, 255, 135, 0.95) 75%,
+        transparent 100%
+      );
+      animation: spinBorderLaser 4s linear infinite;
+      z-index: -2;
+    }
+    /* High-tech Dark Inner Glass Layer */
+    .checkout-modal-card::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      background: linear-gradient(165deg, rgba(12, 20, 36, 0.98) 0%, rgba(6, 10, 20, 0.99) 100%);
+      border-radius: 20px;
+      z-index: -1;
+    }
+    .checkout-modal-card > * {
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes spinBorderLaser {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes modalSlideUp3D {
+      from { opacity: 0; transform: perspective(1000px) translateY(20px) scale(0.96); }
+      to { opacity: 1; transform: perspective(1000px) translateY(0) scale(1); }
+    }
+    .checkout-modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .modal-head-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-head-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: rgba(0, 255, 135, 0.12);
+      border: 1px solid rgba(0, 255, 135, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00ff87;
+      font-size: 14px;
+      box-shadow: 0 0 12px rgba(0, 255, 135, 0.25);
+    }
+    .checkout-modal-head h3 {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+      line-height: 1.2;
+    }
+    .checkout-modal-head p {
+      font-size: 10.5px;
+      color: #94a3b8;
+      margin: 2px 0 0 0;
+    }
+    .modal-close-icon {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: #cbd5e1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+    .modal-close-icon:hover {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: #ffffff;
+      transform: rotate(90deg);
+    }
+
+    /* 3D PRODUCT SUMMARY SHOWCASE - COMPACT */
+    .checkout-summary-3d {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(0, 255, 135, 0.06) 100%);
+      border: 1px solid rgba(0, 255, 135, 0.25);
+      border-radius: 12px;
+      padding: 8px 11px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      position: relative;
+    }
+    .checkout-prod-thumb-wrap {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid rgba(0, 255, 135, 0.4);
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    .checkout-prod-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .checkout-prod-details {
+      flex: 1;
+      min-width: 0;
+    }
+    .checkout-prod-details h4 {
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 3px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .checkout-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .checkout-dur-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(0, 255, 135, 0.12);
+      color: #00ff87;
+      border: 1px solid rgba(0, 255, 135, 0.3);
+      padding: 1.5px 6px;
+      border-radius: 5px;
+      font-size: 10.5px;
+      font-weight: 700;
+    }
+    .checkout-instant-pill {
+      font-size: 10px;
+      color: #38bdf8;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .checkout-price-col {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .payable-label {
+      font-size: 8.5px;
+      font-weight: 800;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+      display: block;
+    }
+    .payable-amt {
+      font-size: 17px;
+      font-weight: 900;
+      color: #00ff87;
+      text-shadow: 0 0 12px rgba(0, 255, 135, 0.4);
+      margin: 1px 0;
+    }
+
+    /* 3D PAYMENT CARDS GRID - COMPACT */
+    .pay-methods-grid-3d {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .pay-card-3d {
+      position: relative;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 6px 9px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .pay-card-3d:hover {
+      transform: translateY(-1.5px);
+      border-color: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.07);
+    }
+    .pay-card-3d.active {
+      border-color: var(--card-accent, #00ff87);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), 0 0 16px var(--card-glow, rgba(0, 255, 135, 0.35));
+      transform: translateY(-1.5px);
+    }
+    .pay-card-3d[data-method="bKash"] { --card-accent: #E2136E; --card-glow: rgba(226, 19, 110, 0.4); }
+    .pay-card-3d[data-method="Nagad"] { --card-accent: #F7931E; --card-glow: rgba(247, 147, 30, 0.4); }
+    .pay-card-3d[data-method="Rocket"] { --card-accent: #8C3494; --card-glow: rgba(140, 52, 148, 0.4); }
+    .pay-card-3d[data-method="Direct WhatsApp"] { --card-accent: #25D366; --card-glow: rgba(37, 211, 102, 0.4); }
+
+    .pay-card-inner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .pay-logo-badge {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      border-radius: 7px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    }
+    .pay-info {
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+    }
+    .pay-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+    .pay-sub {
+      font-size: 9.5px;
+      color: #94a3b8;
+      margin-top: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pay-check-indicator {
+      font-size: 13px;
+      color: var(--card-accent, #00ff87);
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.2s ease;
+    }
+    .pay-card-3d.active .pay-check-indicator {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* 3D MERCHANT INSTRUCTION BOX - COMPACT */
+    .merchant-instruction-3d {
+      background: linear-gradient(135deg, rgba(0, 255, 135, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%);
+      border: 1px solid rgba(0, 255, 135, 0.3);
+      border-radius: 10px;
+      padding: 7px 11px;
+      margin-bottom: 8px;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    .merchant-instruction-3d .lbl {
+      font-size: 10px;
+      color: #94a3b8;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .merchant-num-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .merchant-num-row strong {
+      font-size: 14.5px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 1.2px;
+      font-family: monospace;
+    }
+    .btn-copy-3d {
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 100%);
+      color: #06111e;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+      box-shadow: 0 3px 10px rgba(0, 255, 135, 0.35);
+    }
+    .btn-copy-3d:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(0, 255, 135, 0.5);
+    }
+
+    /* 2-COLUMN WIDE CHECKOUT FORM GRID */
+    .checkout-form-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .checkout-col-left, .checkout-col-right {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    @media (max-width: 900px) {
+      .details-container {
+        padding: 0 12px;
+        margin: 16px auto 30px;
+      }
+      .details-card {
+        grid-template-columns: 1fr;
+        padding: 22px 16px;
+        gap: 24px;
+      }
+      .prod-img-stage-3d {
+        max-width: 320px;
+        margin: 0 auto 16px;
+      }
+      .top-nav {
+        padding: 12px 14px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .nav-links {
+        gap: 12px;
+        font-size: 13px;
+        flex-wrap: wrap;
+      }
+      .details-title {
+        font-size: 22px;
+      }
+      .duration-grid {
+        flex-wrap: wrap;
+      }
+    }
+    @media (max-width: 768px) {
+      .checkout-modal-card {
+        padding: 16px 14px;
+        max-width: 480px;
+      }
+      .checkout-form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    /* FORM INPUTS - COMPACT & SLEEK */
+    .input-row-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    @media (max-width: 480px) {
+      .input-row-two { grid-template-columns: 1fr; }
+      .pay-methods-grid-3d { grid-template-columns: 1fr; }
+    }
+    .field-grp {
+      margin-bottom: 6px;
+    }
+    .field-grp label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      margin-bottom: 3px;
+    }
+    .modal-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .modal-input-wrap i {
+      position: absolute;
+      left: 10px;
+      color: #64748b;
+      font-size: 12px;
+    }
+    .modal-input-3d {
+      width: 100%;
+      padding: 7px 10px 7px 30px;
+      border: 1.2px solid rgba(255, 255, 255, 0.12);
+      background: rgba(10, 16, 30, 0.75);
+      border-radius: 9px;
+      font-size: 12.5px;
+      color: #ffffff;
+      outline: none;
+      box-sizing: border-box;
+      transition: all 0.2s;
+    }
+    .modal-input-3d:focus {
+      border-color: #00ff87;
+      background: rgba(10, 16, 30, 0.95);
+      box-shadow: 0 0 10px rgba(0, 255, 135, 0.3);
+    }
+
+    /* 3D ACTION BUTTONS - COMPACT */
+    .btn-confirm-3d {
+      flex: 1;
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 100%);
+      color: #06111e;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 12.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 5px 18px rgba(0, 255, 135, 0.4);
+      transition: all 0.2s;
+    }
+    .btn-confirm-3d:hover {
+      transform: translateY(-1.5px);
+      box-shadow: 0 8px 24px rgba(0, 255, 135, 0.6);
+    }
+    .btn-confirm-3d:active {
+      transform: translateY(1px);
+    }
+    .btn-order-wa-3d {
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 9px 13px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 5px 16px rgba(37, 211, 102, 0.35);
+      transition: all 0.2s;
+    }
+    .btn-order-wa-3d:hover {
+      transform: translateY(-1.5px);
+      box-shadow: 0 8px 22px rgba(37, 211, 102, 0.55);
+    }
+
+    /* =======================================================
+       CUTE SUCCESS CHECKMARK & CONFETTI ANIMATION SYSTEM
+       ======================================================= */
+    .cute-success-anim-wrap {
+      position: relative;
+      width: 76px;
+      height: 76px;
+      margin: 2px auto 14px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Expanding Pulse Wave Rings */
+    .cute-ripple-ring {
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 255, 135, 0.7);
+      pointer-events: none;
+      opacity: 0;
+    }
+    #successModal.active .cute-ripple-ring.ring-1 {
+      animation: cutePulseWave 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+      animation-delay: 0.15s;
+    }
+    #successModal.active .cute-ripple-ring.ring-2 {
+      animation: cutePulseWave 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+      animation-delay: 0.75s;
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+    @keyframes cutePulseWave {
+      0% { transform: scale(0.8); opacity: 0.9; }
+      100% { transform: scale(1.85); opacity: 0; }
+    }
+
+    /* Bouncy Badge Container */
+    .cute-checkmark-box {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0, 255, 135, 0.22) 0%, rgba(14, 165, 233, 0.28) 100%);
+      border: 2px solid rgba(0, 255, 135, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 28px rgba(0, 255, 135, 0.6), inset 0 0 16px rgba(0, 255, 135, 0.3);
+      position: relative;
+      z-index: 3;
+      transform: scale(0);
+      opacity: 0;
+    }
+    #successModal.active .cute-checkmark-box {
+      animation: cuteBadgePop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.08s forwards;
+    }
+    @keyframes cuteBadgePop {
+      0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+      65% { transform: scale(1.22) rotate(8deg); opacity: 1; }
+      85% { transform: scale(0.92) rotate(-3deg); }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* SVG Stroke Drawing Animation */
+    .cute-check-svg {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: block;
+    }
+    .cute-check-circle {
+      stroke-dasharray: 155;
+      stroke-dashoffset: 155;
+      stroke-width: 2.8;
+      stroke-miterlimit: 10;
+      stroke: #00ff87;
+      filter: drop-shadow(0 0 6px rgba(0, 255, 135, 0.85));
+    }
+    #successModal.active .cute-check-circle {
+      animation: strokeCircle 0.55s cubic-bezier(0.65, 0, 0.45, 1) 0.18s forwards;
+    }
+    .cute-check-check {
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke: #ffffff;
+      filter: drop-shadow(0 0 10px #00ff87);
+    }
+    #successModal.active .cute-check-check {
+      animation: strokeCheck 0.45s cubic-bezier(0.65, 0, 0.45, 1) 0.62s forwards;
+    }
+    @keyframes strokeCircle {
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes strokeCheck {
+      100% { stroke-dashoffset: 0; }
+    }
+
+    /* Cute Sparkling Emojis */
+    .cute-sparkle {
+      position: absolute;
+      font-size: 14px;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 5;
+    }
+    #successModal.active .cute-sparkle {
+      animation: cuteSparklePop 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
+    }
+    .sp-1 { top: -8px; left: 8px; }
+    .sp-2 { top: -10px; right: 8px; font-size: 16px; }
+    .sp-3 { bottom: -2px; left: -2px; font-size: 13px; }
+    .sp-4 { bottom: -2px; right: -2px; font-size: 15px; }
+    .sp-5 { top: 22px; left: -16px; font-size: 13px; }
+    .sp-6 { top: 20px; right: -16px; font-size: 14px; }
+    @keyframes cuteSparklePop {
+      0% { transform: scale(0) translateY(8px); opacity: 0; }
+      55% { transform: scale(1.35) translateY(-5px); opacity: 1; }
+      100% { transform: scale(1) translateY(0); opacity: 0.95; }
+    }
+
+    /* Celebratory Confetti Flutters */
+    .confetti-burst-wrap {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .confetti {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      opacity: 0;
+    }
+    #successModal.active .confetti {
+      animation: confettiFlutter 1.6s cubic-bezier(0.25, 1, 0.5, 1) 0.25s forwards;
+    }
+    .c1 { top: 25%; left: 30%; background: #00ff87; --cx: -55px; --cy: -35px; --rot: 180deg; }
+    .c2 { top: 22%; right: 30%; background: #38bdf8; --cx: 60px; --cy: -30px; --rot: -220deg; width: 6px; height: 9px; }
+    .c3 { top: 35%; left: 22%; background: #f59e0b; --cx: -70px; --cy: 10px; --rot: 260deg; border-radius: 50%; }
+    .c4 { top: 35%; right: 22%; background: #ec4899; --cx: 75px; --cy: 15px; --rot: -190deg; }
+    .c5 { top: 45%; left: 35%; background: #a855f7; --cx: -45px; --cy: 40px; --rot: 150deg; width: 8px; height: 5px; }
+    .c6 { top: 45%; right: 35%; background: #00ff87; --cx: 50px; --cy: 45px; --rot: -280deg; border-radius: 50%; }
+    .c7 { top: 18%; left: 48%; background: #fbbf24; --cx: -15px; --cy: -50px; --rot: 300deg; width: 6px; height: 6px; }
+    .c8 { top: 18%; right: 45%; background: #38bdf8; --cx: 20px; --cy: -55px; --rot: -140deg; }
+
+    @keyframes confettiFlutter {
+      0% { transform: translate(0, 0) scale(0) rotate(0deg); opacity: 0; }
+      20% { opacity: 1; transform: translate(calc(var(--cx) * 0.6), calc(var(--cy) * 0.6)) scale(1.2) rotate(calc(var(--rot) * 0.5)); }
+      100% { opacity: 0; transform: translate(var(--cx), calc(var(--cy) + 40px)) scale(0.8) rotate(var(--rot)); }
+    }
+
+    /* Staggered Content Slide */
+    #successModal.active .success-content-anim {
+      animation: cuteContentSlide 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }
+    @keyframes cuteContentSlide {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <nav class="top-nav">
+    <a href="index.html" class="brand-wrap">
+      <img src="logo.jpg" alt="Logo" class="brand-logo-img">
+      <div class="brand-name">AI Future <span>Agency</span></div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">হোম</a></li>
+      <li><a href="index.html#products" class="active">প্রোডাক্ট</a></li>
+      <li><a href="index.html#pricing">প্যাকেজ</a></li>
+      <li><a href="index.html#faq">FAQs</a></li>
+      <li><a href="login.html" class="nav-btn-login">Login</a></li>
+      <li><span class="currency-pill">BDT ৳</span></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <div class="details-container">
+    <div class="details-card">
+      
+      <!-- LEFT COLUMN -->
+      <div class="left-col">
+        <div class="prod-img-stage-3d">
+          <div class="prod-img-box" id="prodImgBox" title="Hover / Touch for 3D Tilt View">
+            <div class="img-glare-3d" id="imgGlare3d"></div>
+            <img id="detailImg" src="" alt="Product Graphic">
+            <div class="prod-badge-floating-3d">
+              <span class="live-dot-glow"></span> 3D LIVE PREVIEW
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-buy-small" onclick="proceedBuy()">
+          Buy Now ⚡
+        </button>
+
+        <!-- DESCRIPTION ACCORDION -->
+        <div class="desc-accordion-box">
+          <button type="button" class="desc-accordion-header" id="accordionToggle">
+            <span>Description</span>
+            <span id="accordionIcon">+</span>
+          </button>
+          <div class="desc-accordion-body" id="accordionBody">
+            <p><strong>✅ Trusted Premium Service:</strong></p>
+            <p>• 100% Guaranteed Private or Shared Access</p>
+            <p>• Instant Credentials Delivery upon Payment</p>
+            <p>• 24/7 Dedicated WhatsApp Support</p>
+            <p>• Clean Renewal & No Interruption Policy</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-col">
+        <span class="stock-pill">IN STOCK</span>
+        <h1 class="details-title" id="detailTitle">Stealth Writer Premium Plan</h1>
+
+        <p class="duration-label">SELECT DURATION</p>
+        <div class="duration-grid" id="durGrid">
+          <button type="button" class="duration-pill active" data-dur="1 month" data-price="799" onclick="selectDur(this, '1 month', 799)">1 month</button>
+          <button type="button" class="duration-pill" data-dur="3 Month" data-price="2199" onclick="selectDur(this, '3 Month', 2199)">3 Month</button>
+        </div>
+
+        <div class="total-price-box">
+          <span class="total-price-lbl">TOTAL PRICE</span>
+          <span class="total-price-amt" id="totalPriceDisplay">৳799</span>
+        </div>
+
+        <button type="button" class="btn-buy-main" onclick="proceedBuy()">
+          Buy Now ⚡
+        </button>
+        <p class="trust-subtext">Instant Delivery • Secure Payment</p>
+
+        <!-- REVIEWS -->
+        <div class="reviews-wrap">
+          <h3>Customer Reviews & FAQ</h3>
+
+          <div class="write-review-box">
+            <h4>Write a Review</h4>
+            <div class="star-select-row" id="starSelect">
+              <span class="star-sel active" onclick="setStar(1)">★</span>
+              <span class="star-sel active" onclick="setStar(2)">★</span>
+              <span class="star-sel active" onclick="setStar(3)">★</span>
+              <span class="star-sel active" onclick="setStar(4)">★</span>
+              <span class="star-sel active" onclick="setStar(5)">★</span>
+            </div>
+            <input type="text" id="revName" class="review-input" placeholder="আপনার নাম লিখুন...">
+            <textarea id="revComment" class="review-textarea" placeholder="আপনার মতামত লিখুন..."></textarea>
+            <button type="button" class="btn-submit-review" onclick="submitReview()">Submit Review</button>
+          </div>
+
+          <h4 style="font-size:14px; font-weight:700; margin-bottom:12px;">Recent Reviews (3)</h4>
+          <div class="recent-reviews-list" id="recentReviewsList">
+            <div class="review-item">
+              <div class="review-item-top">
+                <span class="reviewer-name">Mahfujur Rahman</span>
+                <span class="review-date">10 Mar</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">Nice fast and good one</p>
+            </div>
+            <div class="review-item">
+              <div class="review-item-top">
+                <span class="reviewer-name">Faiz</span>
+                <span class="review-date">11 Feb</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">I am very satisfied with their way of approaching clients</p>
+            </div>
+            <div class="review-item">
+              <div class="review-item-top">
+                <span class="reviewer-name">Ahana</span>
+                <span class="review-date">04 Jan</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">Reliable service and quick delivery!</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =======================================================
+       3D LUXURY CHECKOUT MODAL ON DETAILS PAGE
+       ======================================================= -->
+  <div class="checkout-modal-overlay" id="checkoutModal">
+    <div class="checkout-modal-card">
+      <div class="checkout-modal-head">
+        <div class="modal-head-title-wrap">
+          <div class="modal-head-icon-box">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div>
+            <h3>Secure Order & Instant Checkout</h3>
+            <p>AI Future Agency • 100% Verified Delivery & Support</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-icon" onclick="closeCheckoutModal()" title="Close"><i class="fas fa-times"></i></button>
+      </div>
+
+      <form id="detailsOrderForm" onsubmit="submitDetailsOrder(event)">
+        <div class="checkout-form-grid">
+          <!-- LEFT COLUMN: Product Summary, Payment Method, Merchant Number -->
+          <div class="checkout-col-left">
+            <!-- 3D Order Summary Showcase -->
+            <div class="checkout-summary-3d">
+              <div class="checkout-prod-thumb-wrap">
+                <img id="modalProdImg" src="" alt="Product Preview" class="checkout-prod-thumb">
+              </div>
+              <div class="checkout-prod-details">
+                <h4 id="modalProdTitle">Product Name</h4>
+                <div class="checkout-meta-row">
+                  <span class="checkout-dur-pill"><i class="fas fa-clock"></i> <span id="modalDurText">1 month</span></span>
+                  <span class="checkout-instant-pill"><i class="fas fa-bolt"></i> Instant Access</span>
+                </div>
+              </div>
+              <div class="checkout-price-col">
+                <span class="payable-label">TOTAL PAYABLE</span>
+                <div class="payable-amt" id="modalPriceText">৳799</div>
+              </div>
+            </div>
+
+            <!-- Payment Method 3D Selection -->
+            <label style="display:block; font-size:11px; font-weight:800; color:#cbd5e1; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px;">
+              Select Payment Method (পেমেন্ট মাধ্যম বেছে নিন):
+            </label>
+            <div class="pay-methods-grid-3d">
+              <!-- bKash -->
+              <div class="pay-card-3d active" onclick="pickPaymentMethod(this, 'bKash')" data-method="bKash">
+                <div class="pay-card-inner">
+                  <div class="pay-logo-badge" style="background:#E2136E;">
+                    <svg viewBox="0 0 64 64" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M33.5 12L45 23.5L34 29.5L38.5 19.5L33.5 12Z" fill="#ffffff"/>
+                      <path d="M45 23.5L41.5 35.5L34 29.5L45 23.5Z" fill="#F48FB1"/>
+                      <path d="M34 29.5L25 36.5L31 24.5L34 29.5Z" fill="#ffffff"/>
+                      <path d="M34 29.5L38 48L31 43L34 29.5Z" fill="#F48FB1"/>
+                      <path d="M25 36.5L16 41L23 31L25 36.5Z" fill="#F8BBD0"/>
+                      <path d="M31 43L23 49L25 36.5L31 43Z" fill="#ffffff"/>
+                    </svg>
+                  </div>
+                  <div class="pay-info">
+                    <div class="pay-title">bKash</div>
+                    <div class="pay-sub">বিকাশ পার্সোনাল</div>
+                  </div>
+                  <div class="pay-check-indicator"><i class="fas fa-check-circle"></i></div>
+                </div>
+              </div>
+
+              <!-- Nagad -->
+              <div class="pay-card-3d" onclick="pickPaymentMethod(this, 'Nagad')" data-method="Nagad">
+                <div class="pay-card-inner">
+                  <div class="pay-logo-badge" style="background:linear-gradient(135deg, #F7931E 0%, #E41A22 100%);">
+                    <svg viewBox="0 0 64 64" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M32 14C23.16 14 16 21.16 16 30C16 38.84 23.16 46 32 46C40.84 46 48 38.84 48 30C48 21.16 40.84 14 32 14ZM38.6 34.2C36.8 36.5 33.7 38 30.5 38C25.3 38 21 33.7 21 28.5C21 24.2 23.9 20.6 27.8 19.4L25.5 24.1C24.5 25.3 24 26.8 24 28.5C24 32.1 26.9 35 30.5 35C32.8 35 34.8 33.8 35.9 32L38.6 34.2Z" fill="#ffffff"/>
+                      <path d="M33.5 19L41 24L35.5 28L43 32L32 43L36 30L30.5 27L33.5 19Z" fill="#FFF275" opacity="0.95"/>
+                    </svg>
+                  </div>
+                  <div class="pay-info">
+                    <div class="pay-title">Nagad</div>
+                    <div class="pay-sub">নগদ পার্সোনাল</div>
+                  </div>
+                  <div class="pay-check-indicator"><i class="fas fa-check-circle"></i></div>
+                </div>
+              </div>
+
+              <!-- Rocket -->
+              <div class="pay-card-3d" onclick="pickPaymentMethod(this, 'Rocket')" data-method="Rocket">
+                <div class="pay-card-inner">
+                  <div class="pay-logo-badge" style="background:linear-gradient(135deg, #8C3494 0%, #5C1D63 100%);">
+                    <svg viewBox="0 0 64 64" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M32 12C32 12 25 21 25 32C25 35.5 26.5 38.5 28.5 41L24 47L29 46L32 52L35 46L40 47L35.5 41C37.5 38.5 39 35.5 39 32C39 21 32 12 32 12Z" fill="#ffffff"/>
+                      <circle cx="32" cy="27" r="3.5" fill="#8C3494"/>
+                      <path d="M30 46L32 50L34 46H30Z" fill="#F39C12"/>
+                    </svg>
+                  </div>
+                  <div class="pay-info">
+                    <div class="pay-title">Rocket</div>
+                    <div class="pay-sub">রকেট ডাচ-বাংলা</div>
+                  </div>
+                  <div class="pay-check-indicator"><i class="fas fa-check-circle"></i></div>
+                </div>
+              </div>
+
+              <!-- WhatsApp Direct -->
+              <div class="pay-card-3d" onclick="pickPaymentMethod(this, 'Direct WhatsApp')" data-method="Direct WhatsApp">
+                <div class="pay-card-inner">
+                  <div class="pay-logo-badge" style="background:linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
+                    <svg viewBox="0 0 64 64" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M44.5 19.5C41.2 16.2 36.8 14.3 32.1 14.3C22.3 14.3 14.3 22.3 14.3 32.1C14.3 35.2 15.1 38.3 16.7 41L14 51L24.3 48.3C26.7 49.6 29.4 50.3 32.1 50.3C41.9 50.3 49.9 42.3 49.9 32.5C49.9 27.8 48 23.4 44.5 19.5ZM32.1 47.3C29.6 47.3 27.2 46.6 25.1 45.4L24.5 45L18.4 46.6L20 40.7L19.6 40C18.2 37.8 17.4 35 17.4 32.1C17.4 24 24 17.4 32.1 17.4C36 17.4 39.7 18.9 42.4 21.7C45.2 24.4 46.8 28.1 46.8 32.1C46.8 40.5 40.2 47.3 32.1 47.3ZM40.2 35.9C39.8 35.7 37.6 34.6 37.2 34.5C36.8 34.3 36.5 34.2 36.2 34.7C35.9 35.2 35.1 36.1 34.8 36.4C34.6 36.7 34.3 36.8 33.9 36.6C33.5 36.4 32.1 35.9 30.4 34.4C29.1 33.2 28.2 31.8 27.9 31.4C27.7 31 27.9 30.8 28.1 30.6C28.3 30.4 28.5 30.1 28.7 29.9C28.9 29.7 29 29.5 29.1 29.3C29.2 29.1 29.2 28.9 29.1 28.7C29 28.5 28.1 26.4 27.8 25.5C27.4 24.6 27.1 24.8 26.8 24.8H26C25.7 24.8 25.3 24.9 24.9 25.3C24.5 25.8 23.5 26.7 23.5 28.7C23.5 30.7 25 32.6 25.2 32.8C25.4 33.1 28.1 37.3 32.3 39.1C33.3 39.5 34.1 39.8 34.7 40C35.7 40.3 36.6 40.3 37.3 40.2C38.1 40.1 39.8 39.2 40.2 38.1C40.6 37 40.6 36.1 40.5 35.9C40.4 35.8 40.5 36 40.2 35.9Z" fill="#ffffff"/>
+                    </svg>
+                  </div>
+                  <div class="pay-info">
+                    <div class="pay-title">WhatsApp</div>
+                    <div class="pay-sub">সরাসরি অর্ডার</div>
+                  </div>
+                  <div class="pay-check-indicator"><i class="fas fa-check-circle"></i></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3D Dynamic Merchant Number Display -->
+            <div class="merchant-instruction-3d">
+              <span class="lbl" id="merchantMethodLabel">bKash সেন্ড মানি / ক্যাশ ইন নাম্বার (পার্সোনাল):</span>
+              <div class="merchant-num-row">
+                <strong id="modalMerchantNum">0163935198</strong>
+                <button type="button" class="btn-copy-3d" id="copyNumBtn" onclick="copyMerchantNumber()"><i class="fas fa-copy"></i> কপি করুন</button>
+              </div>
+              <small style="color:#94a3b8; font-size:10px; display:block; margin-top:2px;">রেফারেন্সে আপনার নাম বা ফোন দিন</small>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Customer Details, TrxID, Submit Buttons -->
+          <div class="checkout-col-right">
+            <!-- Customer Details (Name & Phone) -->
+            <div class="input-row-two">
+              <div class="field-grp">
+                <label><i class="fas fa-user" style="color:#00ff87; margin-right:4px;"></i> Your Name (আপনার নাম) *</label>
+                <div class="modal-input-wrap">
+                  <i class="fas fa-user-edit"></i>
+                  <input type="text" id="custName" class="modal-input-3d" placeholder="e.g. Mahfujur Rahman" required>
+                </div>
+              </div>
+              <div class="field-grp">
+                <label><i class="fas fa-phone-alt" style="color:#00ff87; margin-right:4px;"></i> Phone / WhatsApp (নম্বর) *</label>
+                <div class="modal-input-wrap">
+                  <i class="fas fa-phone"></i>
+                  <input type="tel" id="custPhone" class="modal-input-3d" placeholder="017XXXXXXXX" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Gmail / Email -->
+            <div class="field-grp">
+              <label><i class="fab fa-google" style="color:#ea4335; margin-right:4px;"></i> Your Gmail / Email (অ্যাক্সেস প্রদানের জন্য জিমেইল) *</label>
+              <div class="modal-input-wrap">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="custEmail" class="modal-input-3d" placeholder="e.g. yourname@gmail.com" required>
+              </div>
+            </div>
+
+            <!-- TrxID input -->
+            <div class="field-grp" id="trxIdGrp">
+              <label><i class="fas fa-receipt" style="color:#00ff87; margin-right:4px;"></i> Transaction ID / TrxID (টাকা পাঠানোর ট্রানজেকশন আইডি)</label>
+              <div class="modal-input-wrap">
+                <i class="fas fa-hashtag"></i>
+                <input type="text" id="custTrxId" class="modal-input-3d" placeholder="e.g. BK891024 (WhatsApp-এ পে করলে খালি রাখুন)">
+              </div>
+            </div>
+
+            <!-- Submit Buttons -->
+            <div style="display:flex; gap:8px; margin-top:8px;">
+              <button type="submit" class="btn-confirm-3d" id="btnSubmitOrder" onclick="submitDetailsOrder(event)">
+                <i class="fas fa-bolt"></i> Confirm Order (অর্ডার নিশ্চিত করুন)
+              </button>
+              <button type="button" class="btn-order-wa-3d" onclick="orderViaWhatsApp()">
+                <i class="fab fa-whatsapp"></i> WhatsApp Order
+              </button>
+            </div>
+            <div style="text-align:center; font-size:10.5px; color:#64748b; margin-top:2px;">
+              <i class="fas fa-shield-alt" style="color:#00ff87;"></i> ১০০% নিরাপদ লেনদেন • এডমিন ভেরিফিকেশন সহ
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Success Confirmation Modal -->
+  <div class="checkout-modal-overlay" id="successModal">
+    <div class="checkout-modal-card" style="text-align:center; max-width:400px; padding:22px 22px 20px 22px; position:relative; overflow:hidden;">
+      
+      <!-- Celebratory Confetti Flutters -->
+      <div class="confetti-burst-wrap">
+        <span class="confetti c1"></span>
+        <span class="confetti c2"></span>
+        <span class="confetti c3"></span>
+        <span class="confetti c4"></span>
+        <span class="confetti c5"></span>
+        <span class="confetti c6"></span>
+        <span class="confetti c7"></span>
+        <span class="confetti c8"></span>
+      </div>
+
+      <!-- Cute Animated Checkmark Badge -->
+      <div class="cute-success-anim-wrap">
+        <div class="cute-ripple-ring ring-1"></div>
+        <div class="cute-ripple-ring ring-2"></div>
+        
+        <!-- Sparkling Emojis -->
+        <span class="cute-sparkle sp-1">✨</span>
+        <span class="cute-sparkle sp-2">🎉</span>
+        <span class="cute-sparkle sp-3">⭐</span>
+        <span class="cute-sparkle sp-4">✨</span>
+        <span class="cute-sparkle sp-5">🌟</span>
+        <span class="cute-sparkle sp-6">💫</span>
+
+        <div class="cute-checkmark-box">
+          <svg class="cute-check-svg" viewBox="0 0 52 52">
+            <circle class="cute-check-circle" cx="26" cy="26" r="23" fill="none"/>
+            <path class="cute-check-check" fill="none" d="M14.5 27.2l7.2 7.2 16.2-16.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="success-content-anim">
+        <h2 style="font-size:18.5px; font-weight:800; color:#ffffff; margin-bottom:4px;">Order Placed Successfully!</h2>
+        <p style="font-size:12px; color:#94a3b8; margin-bottom:14px;">আপনার অর্ডারটি সফলভাবে সংরক্ষিত হয়েছে।</p>
+        
+        <div style="background:rgba(255, 255, 255, 0.04); border:1px solid rgba(0, 255, 135, 0.25); border-radius:12px; padding:10px 12px; text-align:left; font-size:12px; margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span style="color:#94a3b8;">Order Invoice:</span>
+            <strong id="successInvoiceText" style="color:#00ff87; font-family:monospace; font-size:13px;">#95103</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span style="color:#94a3b8;">Product & Plan:</span>
+            <strong id="successProdText" style="color:#ffffff;">Stealth Writer (1 month)</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span style="color:#94a3b8;">Gmail / Email:</span>
+            <strong id="successEmailText" style="color:#38bdf8;">customer@gmail.com</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:#94a3b8;">Total Amount:</span>
+            <strong id="successAmountText" style="color:#00ff87; font-size:15px; font-weight:900;">৳799</strong>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <a id="successWhatsAppLink" href="#" target="_blank" class="btn-order-wa-3d" style="text-decoration:none; text-align:center; padding:10px; justify-content:center;">
+            <i class="fab fa-whatsapp"></i> Send Receipt to WhatsApp
+          </a>
+          <a href="dashboard.html?tab=my-orders" class="btn-confirm-3d" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; background:rgba(0, 255, 135, 0.15); border-color:#00ff87; color:#00ff87; padding:9px 12px; border-radius:10px; font-weight:800; font-size:12.5px;">
+            <i class="fas fa-box"></i> Track Order in User Panel (ইউজার প্যানেলে দেখুন)
+          </a>
+          <button type="button" onclick="closeSuccessModal()" class="btn-confirm-3d" style="background:rgba(255, 255, 255, 0.08); color:#ffffff; border-color:rgba(255, 255, 255, 0.2); box-shadow:none; padding:8px 12px;">
+            Continue Browsing
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PRODUCTS_DATA = {
+      'stealth-writer': { title: 'Stealth Writer Premium Plan', price: 799, symbol: 'SW', plans: [{ dur: '1 month', price: 799 }, { dur: '3 Month', price: 2199 }] },
+      'chatgpt-plus': { title: 'ChatGPT PLUS (Renewable)', price: 499, symbol: 'GPT', plans: [{ dur: '1 Month PLUS', price: 499 }, { dur: '3 Month PLUS', price: 1399 }] },
+      'gamma-ai': { title: 'Gamma AI Presentation Pro', price: 1499, symbol: 'Γ', plans: [{ dur: '1 Month', price: 1499 }, { dur: '3 Month', price: 3999 }] },
+      'claude-pro': { title: 'Claude Pro Opus & Sonnet', price: 1500, symbol: 'C', plans: [{ dur: '1 Month', price: 1500 }, { dur: '3 Month', price: 4200 }] },
+      'grammarly': { title: 'Grammarly Premium', price: 150, symbol: 'G', plans: [{ dur: '1 Month', price: 150 }, { dur: '3 Month', price: 399 }, { dur: '6 Month', price: 699 }] },
+      'jenni-ai': { title: 'Jenni AI Researcher', price: 499, symbol: 'J', plans: [{ dur: '1 Month PRO', price: 499 }, { dur: '3 Month PRO', price: 1299 }] },
+      'quillbot': { title: 'Quillbot Premium Plan', price: 150, symbol: 'Q', plans: [{ dur: '1 Month', price: 150 }, { dur: '3 Month', price: 399 }, { dur: '6 Month', price: 699 }] },
+      'hix-ai': { title: 'HIX Bypass & AI Undetectable', price: 299, symbol: 'HIX', plans: [{ dur: '1 Month', price: 299 }, { dur: '3 Month', price: 799 }] },
+      'perplexity': { title: 'Perplexity AI Pro Search', price: 499, symbol: 'P', plans: [{ dur: '1 Month', price: 499 }, { dur: '3 Month', price: 1350 }] },
+      'capcut-pro': { title: 'CapCut Pro Video Editor', price: 350, symbol: 'CC', plans: [{ dur: '1 Month', price: 350 }, { dur: '3 Month', price: 899 }] },
+      'paperpal': { title: 'Paperpal Academic Editor', price: 350, symbol: 'PP', plans: [{ dur: '1 Month', price: 350 }, { dur: '3 Month', price: 899 }] },
+      'udemy': { title: 'Udemy Personal Business Account', price: 699, symbol: 'U', plans: [{ dur: '1 Month', price: 699 }, { dur: '3 Month', price: 1899 }] },
+      'prod-laravel': { title: '100+ Premium Laravel Source Code Bundle', price: 1499, symbol: 'PHP', plans: [{ dur: 'Lifetime Bundle', price: 1499 }] },
+      'prod-mouza': { title: 'Bangladesh 64 District Geo-Referenced Maps', price: 1999, symbol: 'MAP', plans: [{ dur: 'Full Access', price: 1999 }] },
+      'prod-cartoon': { title: 'YouTube Viral 2D/3D Animation Blueprint', price: 999, symbol: 'YT', plans: [{ dur: 'Complete Course', price: 999 }] },
+      'prod-bin': { title: 'Verified Meta Business Manager & Govt BIN Solution', price: 2499, symbol: 'BIN', plans: [{ dur: 'Full Setup', price: 2499 }] },
+      'prod-canva-owner': { title: 'Canva Pro Admin Master Enterprise Plan', price: 299, symbol: 'CAN', plans: [{ dur: '1 Year Admin Access', price: 299 }] }
+    };
+
+    function getToolBadgeSvg(p) {
+      const pid = p.id || '';
+      const iconMap = {
+        'stealth-writer': { bg1: '#022c22', bg2: '#064e3b', glow: '#10b981', symbol: 'SW', sub: 'Stealth Writer' },
+        'chatgpt-plus': { bg1: '#064e3b', bg2: '#047857', glow: '#10b981', symbol: 'GPT', sub: 'ChatGPT PLUS' },
+        'gamma-ai': { bg1: '#2e1065', bg2: '#581c87', glow: '#a855f7', symbol: 'Γ', sub: 'Gamma AI' },
+        'claude-pro': { bg1: '#431407', bg2: '#7c2d12', glow: '#f97316', symbol: 'C', sub: 'Claude Pro' },
+        'grammarly': { bg1: '#064e3b', bg2: '#065f46', glow: '#10b981', symbol: 'G', sub: 'Grammarly' },
+        'jenni-ai': { bg1: '#082f49', bg2: '#0369a1', glow: '#38bdf8', symbol: 'J', sub: 'Jenni AI' },
+        'quillbot': { bg1: '#14532d', bg2: '#15803d', glow: '#22c55e', symbol: 'Q', sub: 'Quillbot' },
+        'hix-ai': { bg1: '#1e1b4b', bg2: '#3730a3', glow: '#6366f1', symbol: 'HIX', sub: 'HIX Bypass' },
+        'perplexity': { bg1: '#0f172a', bg2: '#1e293b', glow: '#06b6d4', symbol: 'P', sub: 'Perplexity' },
+        'capcut-pro': { bg1: '#09090b', bg2: '#18181b', glow: '#06b6d4', symbol: 'CC', sub: 'CapCut Pro' },
+        'paperpal': { bg1: '#0c4a6e', bg2: '#0284c7', glow: '#38bdf8', symbol: 'PP', sub: 'Paperpal' },
+        'udemy': { bg1: '#4a044e', bg2: '#701a75', glow: '#ec4899', symbol: 'U', sub: 'Udemy' },
+        'prod-laravel': { bg1: '#450a0a', bg2: '#991b1b', glow: '#ef4444', symbol: 'PHP', sub: 'Laravel 100+' },
+        'prod-mouza': { bg1: '#422006', bg2: '#854d0e', glow: '#eab308', symbol: 'MAP', sub: 'Mouza Maps' },
+        'prod-cartoon': { bg1: '#172554', bg2: '#1e40af', glow: '#3b82f6', symbol: 'YT', sub: 'Cartoon Course' },
+        'prod-bin': { bg1: '#052e16', bg2: '#14532d', glow: '#22c55e', symbol: 'BIN', sub: 'Govt BIN' },
+        'prod-canva-owner': { bg1: '#042f2e', bg2: '#0f766e', glow: '#14b8a6', symbol: 'CAN', sub: 'Canva Owner' }
+      };
+      const subTitle = (p.title || (p.name && (p.name.en || p.name.bn)) || 'Premium Tool').substring(0, 16);
+      const t = iconMap[pid] || { bg1: '#0f172a', bg2: '#1e293b', glow: '#10b981', symbol: p.symbol || 'AI', sub: subTitle };
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+        <defs>
+          <radialGradient id="bgGrad_${pid}" cx="50%" cy="50%" r="75%">
+            <stop offset="0%" stop-color="${t.bg2}"/>
+            <stop offset="100%" stop-color="${t.bg1}"/>
+          </radialGradient>
+        </defs>
+        <rect width="400" height="400" fill="url(#bgGrad_${pid})" rx="24"/>
+        <rect x="40" y="24" width="320" height="32" rx="16" fill="rgba(0,0,0,0.65)" stroke="${t.glow}" stroke-width="1.2"/>
+        <text x="200" y="45" fill="#f8fafc" font-size="12" font-weight="700" font-family="-apple-system, sans-serif" text-anchor="middle">Trusted premium service • Available 24/7</text>
+        <rect x="120" y="90" width="160" height="160" rx="32" fill="rgba(0,0,0,0.7)" stroke="${t.glow}" stroke-width="2.5"/>
+        <text x="200" y="195" fill="#ffffff" font-size="52" font-weight="900" font-family="-apple-system, sans-serif" text-anchor="middle">${t.symbol}</text>
+        <text x="200" y="295" fill="#ffffff" font-size="20" font-weight="700" font-family="-apple-system, sans-serif" text-anchor="middle">${t.sub}</text>
+        <rect x="135" y="325" width="130" height="26" rx="13" fill="${t.glow}"/>
+        <text x="200" y="343" fill="#000000" font-size="12" font-weight="900" font-family="-apple-system, sans-serif" text-anchor="middle">ORDER NOW</text>
+      </svg>`;
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+
+    let currentProdId = 'stealth-writer';
+    let currentDuration = '1 month';
+    let currentPrice = 799;
+    let currentLoadedProduct = null;
+    let selectedPayment = 'bKash';
+
+    function init() {
+      const params = new URLSearchParams(window.location.search);
+      const urlId = params.get('id');
+      let p = null;
+      try {
+        const storedActive = JSON.parse(sessionStorage.getItem('afa_active_view_product') || 'null');
+        if (storedActive && (!urlId || storedActive.id === urlId || urlId.includes(storedActive.id))) {
+          p = {
+            id: storedActive.id,
+            title: storedActive.title || (storedActive.name && (storedActive.name.bn || storedActive.name.en)) || 'Premium Tool',
+            price: Number(storedActive.price) || 799,
+            image: storedActive.image || '',
+            description: storedActive.description || '',
+            plans: (storedActive.plans && Array.isArray(storedActive.plans) && storedActive.plans.length > 0)
+              ? storedActive.plans.map(pl => ({ dur: pl.duration || pl.dur || '1 Month', price: Number(pl.price_bdt !== undefined ? pl.price_bdt : pl.price) || 799 }))
+              : [{ dur: '1 month', price: Number(storedActive.price) || 799 }]
+          };
+          currentProdId = storedActive.id;
+        }
+      } catch(e) {}
+      const id = currentProdId || urlId || 'stealth-writer';
+      if (!p) {
+        try {
+          const adminProds = JSON.parse(localStorage.getItem('afa_admin_products') || '[]');
+          const found = adminProds.find(item => item.id === id);
+          if (found) {
+            p = {
+              id: found.id,
+              title: typeof found.name === 'object' ? (found.name.en || found.name.bn) : found.name,
+              price: Number(found.price) || 799,
+              symbol: 'AI',
+              image: found.image || '',
+              description: found.description || '',
+              plans: (found.plans && Array.isArray(found.plans) && found.plans.length > 0) ? found.plans : [{ dur: '1 month', price: Number(found.price) || 799 }]
+            };
+          }
+        } catch(e) {}
+      }
+      if (!p) {
+        const base = PRODUCTS_DATA[id] || PRODUCTS_DATA['stealth-writer'];
+        p = { id: id, title: base.title, price: base.price, symbol: base.symbol, image: '', description: '', plans: base.plans };
+      }
+      const finalImage = (p.image && p.image.trim() !== '' && !p.image.includes('logo.jpg')) ? p.image : getToolBadgeSvg(p);
+      p.image = finalImage;
+      currentLoadedProduct = p;
+      document.getElementById('detailTitle').textContent = p.title;
+      document.getElementById('detailImg').src = finalImage;
+      if (p.description) document.getElementById('accordionBody').innerHTML = `<p>${p.description}</p>`;
+      const durGrid = document.getElementById('durGrid');
+      durGrid.innerHTML = '';
+      (p.plans || [{ dur: '1 month', price: p.price }]).forEach((pl, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `duration-pill ${idx === 0 ? 'active' : ''}`;
+        btn.textContent = pl.dur;
+        btn.onclick = () => selectDur(btn, pl.dur, pl.price);
+        durGrid.appendChild(btn);
+        if (idx === 0) { currentDuration = pl.dur; currentPrice = Number(pl.price); document.getElementById('totalPriceDisplay').textContent = `৳${Number(pl.price).toLocaleString()}`; }
+      });
+      initProduct3DTilt();
+    }
+
+    function initProduct3DTilt() {
+      const box = document.getElementById('prodImgBox');
+      if (!box) return;
+      box.addEventListener('mousemove', (e) => {
+        const rect = box.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -14;
+        const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 14;
+        box.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.04, 1.04, 1.04)`;
+      });
+      box.addEventListener('mouseleave', () => box.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)');
+    }
+
+    function selectDur(btn, dur, price) {
+      document.querySelectorAll('.duration-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentDuration = dur;
+      currentPrice = Number(price);
+      document.getElementById('totalPriceDisplay').textContent = `৳${Number(price).toLocaleString()}`;
+    }
+
+    function showAuthRequiredModal(customMsg) {
+      let modalEl = document.getElementById('authRequiredModal');
+      if (!modalEl) {
+        modalEl = document.createElement('div');
+        modalEl.id = 'authRequiredModal';
+        modalEl.className = 'checkout-modal-overlay';
+        modalEl.style.cssText = 'position:fixed; inset:0; z-index:99999; background:rgba(6,9,15,0.85); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; padding:16px; opacity:0; pointer-events:none; transition:opacity 0.25s ease;';
+        modalEl.innerHTML = `
+          <div style="background:#0e131d; border:1px solid rgba(0,210,255,0.3); border-radius:18px; max-width:440px; width:100%; padding:26px 24px; box-shadow:0 12px 40px rgba(0,0,0,0.85), 0 0 35px rgba(0,210,255,0.18); text-align:center; position:relative;">
+            <button type="button" onclick="document.getElementById('authRequiredModal').style.opacity='0'; document.getElementById('authRequiredModal').style.pointerEvents='none';" style="position:absolute; top:14px; right:16px; background:none; border:none; color:#94a3b8; font-size:18px; cursor:pointer;"><i class="fas fa-times"></i></button>
+            
+            <div style="width:62px; height:62px; border-radius:50%; background:rgba(0,210,255,0.12); border:1px solid rgba(0,210,255,0.3); display:inline-flex; align-items:center; justify-content:center; color:#00d2ff; font-size:26px; margin-bottom:14px;">
+              <i class="fas fa-user-lock"></i>
+            </div>
+            
+            <h3 style="font-size:20px; font-weight:800; color:#ffffff; margin-bottom:8px;">লগইন বা সাইন-আপ আবশ্যক</h3>
+            <p id="authReqMsg" style="font-size:13px; color:#94a3b8; line-height:1.6; margin-bottom:22px;">
+              ${customMsg || 'পাবলিক ওয়েবসাইট থেকে অর্ডার সম্পন্ন করতে আপনাকে অবশ্যই আপনার অ্যাকাউন্টে লগইন বা সাইন-আপ করতে হবে। অর্ডারের পর আপনার সব তথ্য এবং ট্রানজেকশন কাস্টমার ড্যাশবোর্ডে স্বয়ংক্রিয়ভাবে সংরক্ষিত হবে।'}
+            </p>
+            
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <a href="login.html?redirect=${encodeURIComponent(window.location.href)}" style="background:linear-gradient(135deg, #00d2ff, #0072ff); color:#ffffff; font-weight:800; padding:12px 18px; border-radius:10px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; font-size:14px; box-shadow:0 4px 14px rgba(0,210,255,0.35);">
+                <i class="fas fa-sign-in-alt"></i> অ্যাকাউন্টে লগইন করুন (Login)
+              </a>
+              <a href="register.html?redirect=${encodeURIComponent(window.location.href)}" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#ffffff; font-weight:700; padding:11px 18px; border-radius:10px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; font-size:13.5px;">
+                <i class="fas fa-user-plus" style="color:#00d2ff;"></i> নতুন অ্যাকাউন্ট তৈরি করুন (Sign Up)
+              </a>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modalEl);
+      } else {
+        const msgEl = document.getElementById('authReqMsg');
+        if (msgEl && customMsg) msgEl.textContent = customMsg;
+      }
+      modalEl.style.opacity = '1';
+      modalEl.style.pointerEvents = 'auto';
+    }
+    window.showAuthRequiredModal = showAuthRequiredModal;
+
+    // Buy Now triggers checkout modal (Mandatory Auth Check)
+    window.proceedBuy = function() {
+      const session = localStorage.getItem('aifuture_session');
+      if (!session) {
+        showAuthRequiredModal('অর্ডার ও ডিজিটাল টুলস অ্যাক্সেস পেতে অনুগ্রহ করে প্রথমে আপনার অ্যাকাউন্টে লগইন বা সাইন-আপ করুন।');
+        return;
+      }
+      openCheckoutModal();
+    };
+
+    window.openCheckoutModal = function() {
+      const session = localStorage.getItem('aifuture_session');
+      if (!session) {
+        showAuthRequiredModal('অর্ডার করতে আপনাকে অবশ্যই লগইন অথবা সাইন-আপ করতে হবে।');
+        return;
+      }
+
+      const prod = currentLoadedProduct || { 
+        title: (document.getElementById('detailTitle') ? document.getElementById('detailTitle').textContent : 'Premium Tool'),
+        image: ''
+      };
+      const title = prod.title || 'Premium Tool';
+      const titleEl = document.getElementById('modalProdTitle');
+      if (titleEl) titleEl.textContent = title;
+      
+      const durEl = document.getElementById('modalDurText');
+      if (durEl) durEl.textContent = currentDuration;
+
+      const priceEl = document.getElementById('modalPriceText');
+      if (priceEl) priceEl.textContent = `৳${(currentPrice || 799).toLocaleString()}`;
+      
+      const thumb = document.getElementById('modalProdImg');
+      if (thumb) {
+        thumb.src = prod.image || (document.getElementById('detailImg') ? document.getElementById('detailImg').src : 'logo.jpg');
+      }
+
+      // Pre-fill if logged in
+      try {
+        const logged = JSON.parse(localStorage.getItem('aifuture_user') || 'null');
+        if (logged) {
+          const n = document.getElementById('custName');
+          const p = document.getElementById('custPhone');
+          const em = document.getElementById('custEmail');
+          if (n && !n.value && logged.name) n.value = logged.name;
+          if (p && !p.value && logged.phone) p.value = logged.phone;
+          if (em && !em.value && logged.email) em.value = logged.email;
+        }
+      } catch(e) {}
+
+      updateMerchantDisplay(selectedPayment);
+      const modal = document.getElementById('checkoutModal');
+      if (modal) modal.classList.add('active');
+    };
+
+    window.closeCheckoutModal = function() {
+      const modal = document.getElementById('checkoutModal');
+      if (modal) modal.classList.remove('active');
+    };
+
+    window.closeSuccessModal = function() {
+      const modal = document.getElementById('successModal');
+      if (modal) modal.classList.remove('active');
+    };
+
+    window.pickPaymentMethod = function(el, method) {
+      document.querySelectorAll('.pay-card-3d').forEach(p => p.classList.remove('active'));
+      if (el) el.classList.add('active');
+      selectedPayment = method;
+      updateMerchantDisplay(method);
+    };
+
+    window.updateMerchantDisplay = function(method) {
+      const numEl = document.getElementById('modalMerchantNum');
+      const methodLabel = document.getElementById('merchantMethodLabel');
+      const trxGrp = document.getElementById('trxIdGrp');
+
+      if (method === 'Direct WhatsApp') {
+        if (trxGrp) trxGrp.style.display = 'none';
+        if (methodLabel) methodLabel.textContent = 'হোয়াটসঅ্যাপ সরাসরি অর্ডার: কোনো ট্রানজেকশন আইডির প্রয়োজন নেই';
+      } else {
+        if (trxGrp) trxGrp.style.display = 'block';
+        if (methodLabel) methodLabel.textContent = `${method} সেন্ড মানি / ক্যাশ ইন নাম্বার (পার্সোনাল):`;
+      }
+
+      try {
+        const settings = JSON.parse(localStorage.getItem('afa_site_settings') || '{}');
+        if (method === 'bKash' && settings.bkash) numEl.textContent = settings.bkash;
+        else if (method === 'Nagad' && settings.nagad) numEl.textContent = settings.nagad;
+        else if (method === 'Rocket' && settings.rocket) numEl.textContent = settings.rocket;
+        else if (settings.whatsapp) numEl.textContent = settings.whatsapp;
+        else if (numEl) numEl.textContent = '0163935198';
+      } catch(e) {
+        if (numEl) numEl.textContent = '0163935198';
+      }
+    };
+
+    window.copyMerchantNumber = function() {
+      const numEl = document.getElementById('modalMerchantNum');
+      const num = numEl ? numEl.textContent.trim() : '0163935198';
+      navigator.clipboard.writeText(num).then(() => {
+        const btn = document.getElementById('copyNumBtn');
+        if (btn) {
+          const old = btn.innerHTML;
+          btn.innerHTML = '<i class="fas fa-check"></i> কপি হয়েছে!';
+          btn.style.background = '#10b981';
+          btn.style.color = '#ffffff';
+          setTimeout(() => {
+            btn.innerHTML = old;
+            btn.style.background = '';
+            btn.style.color = '';
+          }, 2000);
+        }
+      }).catch(() => {
+        alert('নাম্বার: ' + num);
+      });
+    };
+
+    window.submitDetailsOrder = function(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const nameInput = document.getElementById('custName');
+      const phoneInput = document.getElementById('custPhone');
+      const emailInput = document.getElementById('custEmail');
+      const trxInput = document.getElementById('custTrxId');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const trxId = (trxInput && trxInput.value.trim()) ? trxInput.value.trim() : `TRX${Date.now().toString().slice(-6)}`;
+
+      if (!name || !phone) {
+        alert('অনুগ্রহ করে আপনার নাম এবং মোবাইল নম্বর দিন।');
+        if (!name && nameInput) nameInput.focus();
+        else if (!phone && phoneInput) phoneInput.focus();
+        return false;
+      }
+
+      if (!email || !email.includes('@')) {
+        alert('অনুগ্রহ করে অ্যাক্সেস পাওয়ার জন্য আপনার সঠিক জিমেইল বা ইমেইল এড্রেস লিখুন।');
+        if (emailInput) emailInput.focus();
+        return false;
+      }
+
+      const prod = currentLoadedProduct || {};
+      const prodTitle = prod.title || (document.getElementById('detailTitle') ? document.getElementById('detailTitle').textContent : 'Premium Tool');
+      const prodImg = prod.image || (document.getElementById('detailImg') ? document.getElementById('detailImg').src : 'logo.jpg');
+      const invNum = String(Math.floor(95100 + Math.random() * 899));
+      const payableAmount = Number(currentPrice) || 799;
+
+      const newOrder = {
+        id: Date.now(),
+        invoice: invNum,
+        customer: name,
+        phone: phone,
+        email: email,
+        product: `${prodTitle} (${currentDuration})`,
+        amount: payableAmount,
+        status: 'Pending',
+        date: new Date().toISOString().split('T')[0],
+        image: prodImg,
+        method: selectedPayment || 'bKash',
+        trxId: trxId
+      };
+
+      // 1. Save to central afa_admin_orders (Instantly visible in Admin!)
+      try {
+        const existing = JSON.parse(localStorage.getItem('afa_admin_orders') || '[]');
+        existing.unshift(newOrder);
+        localStorage.setItem('afa_admin_orders', JSON.stringify(existing));
+
+        // Real-time broadcast event so Admin Panel gets chime & toast instantly!
+        localStorage.setItem('afa_latest_order_event', JSON.stringify({
+          time: Date.now(),
+          order: newOrder
+        }));
+      } catch(err) {
+        console.error(err);
+      }
+
+      // 2. Link pending order and transaction to logged-in customer account
+      try {
+        const users = JSON.parse(localStorage.getItem('aifuture_users') || '[]');
+        const curSession = localStorage.getItem('aifuture_session');
+        let existingUser = users.find(u => (curSession && u.username === curSession) || u.phone === phone || u.email === email);
+        if (!existingUser) {
+          existingUser = {
+            name: name,
+            username: curSession || (name.toLowerCase().replace(/[^a-z0-9]/g, '') + Math.floor(10 + Math.random() * 89)),
+            phone: phone,
+            email: email,
+            date: new Date().toISOString().split('T')[0],
+            status: 'active',
+            orders: [],
+            activeTools: [],
+            transactions: []
+          };
+          users.unshift(existingUser);
+        }
+
+        // Add to orders
+        if (!existingUser.orders) existingUser.orders = [];
+        existingUser.orders.unshift(newOrder);
+
+        // Add to transactions (so customer dashboard transaction history displays it immediately!)
+        if (!existingUser.transactions) existingUser.transactions = [];
+        existingUser.transactions.unshift({
+          id: trxId || `TXN-${invNum}`,
+          invoice: invNum,
+          date: newOrder.date,
+          item: newOrder.product,
+          amount: `৳${payableAmount.toLocaleString()}`,
+          gateway: selectedPayment || 'bKash',
+          status: 'Pending'
+        });
+
+        localStorage.setItem('aifuture_users', JSON.stringify(users));
+        localStorage.setItem('aifuture_session', existingUser.username);
+        localStorage.setItem('aifuture_user', JSON.stringify(existingUser));
+
+        // Real-time synchronization
+        try {
+          if (typeof BroadcastChannel !== 'undefined') {
+            const bc = new BroadcastChannel('afa_live_sync');
+            bc.postMessage({ type: 'NEW_ORDER_PLACED', order: newOrder, timestamp: Date.now() });
+          }
+        } catch(e) {}
+        localStorage.setItem('afa_order_status_event', JSON.stringify({ timestamp: Date.now(), orderId: newOrder.id, status: 'Pending' }));
+      } catch(err) {
+        console.error(err);
+      }
+
+      // 3. Prepare WhatsApp Message link
+      let waNumber = '880163935198';
+      try {
+        const settings = JSON.parse(localStorage.getItem('afa_site_settings') || '{}');
+        if (settings.whatsapp) waNumber = settings.whatsapp.replace(/[^0-9]/g, '');
+      } catch(e) {}
+
+      const msg = `👋 আসসালামু আলাইকুম! আমি AI Future Agency ওয়েবসাইট থেকে অর্ডার করেছি:
+----------------------------------
+🧾 ইনভয়েস: #${invNum}
+📦 প্রোডাক্ট: ${prodTitle}
+⏱️ মেয়াদ: ${currentDuration}
+💵 মোট প্রদেয়: ৳${payableAmount}
+👤 কাস্টমার নাম: ${name}
+📱 ফোন / হোয়াটসঅ্যাপ: ${phone}
+📧 জিমেইল: ${email}
+💳 পেমেন্ট মেথড: ${selectedPayment || 'bKash'}
+🔢 TrxID: ${trxId}
+----------------------------------
+দয়া করে আমার অর্ডারটি কনফার্ম করুন ও সার্ভিস অ্যাক্সেস দিন।`;
+
+      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+      const waLinkEl = document.getElementById('successWhatsAppLink');
+      if (waLinkEl) waLinkEl.href = waUrl;
+
+      // 4. Update Success Modal & Show
+      const invEl = document.getElementById('successInvoiceText');
+      if (invEl) invEl.textContent = `#${invNum}`;
+
+      const prodEl = document.getElementById('successProdText');
+      if (prodEl) prodEl.textContent = `${prodTitle} (${currentDuration})`;
+
+      const emailEl = document.getElementById('successEmailText');
+      if (emailEl) emailEl.textContent = email;
+
+      const amtEl = document.getElementById('successAmountText');
+      if (amtEl) amtEl.textContent = `৳${payableAmount.toLocaleString()}`;
+
+      closeCheckoutModal();
+      const successModal = document.getElementById('successModal');
+      if (successModal) {
+        successModal.classList.remove('active');
+        void successModal.offsetWidth; // force DOM reflow to replay checkmark drawing and confetti burst fresh!
+        successModal.classList.add('active');
+      }
+
+      return true;
+    };
+
+    window.orderViaWhatsApp = function() {
+      submitDetailsOrder();
+      const waLinkEl = document.getElementById('successWhatsAppLink');
+      if (waLinkEl && waLinkEl.href && waLinkEl.href !== '#') {
+        window.open(waLinkEl.href, '_blank');
+      }
+    };
+
+    // Accordion Toggle
+    function initAccordion() {
+      const accBtn = document.getElementById('accordionToggle');
+      if (accBtn) {
+        accBtn.onclick = function() {
+          const body = document.getElementById('accordionBody');
+          const icon = document.getElementById('accordionIcon');
+          const isHidden = body.style.display === 'none' || body.style.display === '';
+          body.style.display = isHidden ? 'block' : 'none';
+          icon.textContent = isHidden ? '−' : '+';
+        };
+      }
+    }
+
+    // Star Reviews
+    let chosenStars = 5;
+    window.setStar = function(n) {
+      chosenStars = n;
+      document.querySelectorAll('.star-sel').forEach((s, idx) => s.classList.toggle('active', idx < n));
+    };
+
+    window.submitReview = function() {
+      const nameInput = document.getElementById('revName');
+      const textInput = document.getElementById('revComment');
+      const name = nameInput ? nameInput.value.trim() : '';
+      const text = textInput ? textInput.value.trim() : '';
+      if (!name || !text) { alert('অনুগ্রহ করে নাম এবং মন্তব্য লিখুন।'); return; }
+      const list = document.getElementById('recentReviewsList');
+      if (list) {
+        const item = document.createElement('div');
+        item.className = 'review-item';
+        item.innerHTML = `
+          <div class="review-item-top"><span class="reviewer-name">${name}</span><span class="review-date">Just now</span></div>
+          <div class="review-stars">${'★'.repeat(chosenStars)}${'☆'.repeat(5 - chosenStars)}</div>
+          <p class="review-text">${text}</p>
+        `;
+        list.prepend(item);
+      }
+      if (nameInput) nameInput.value = '';
+      if (textInput) textInput.value = '';
+      alert('আপনার রিভিউ সফলভাবে যুক্ত হয়েছে!');
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      init();
+      initAccordion();
+      const form = document.getElementById('detailsOrderForm');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          submitDetailsOrder(e);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

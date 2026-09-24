@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account & Login - AI Future Agency</title>
+  <meta name="description" content="AI Future Agency Embossed Registration and Login with Electric Animated Border and 3D Flip Card transition.">
+  
+  <!-- Agency Favicon & App Icons -->
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+  <link rel="shortcut icon" type="image/jpeg" href="logo.jpg">
+  <link rel="apple-touch-icon" href="logo.jpg">
+
+  <!-- FontAwesome 6 & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', 'Hind Siliguri', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #020705;
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(0, 255, 135, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 90% 85%, rgba(96, 239, 255, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(0, 223, 162, 0.05) 0%, transparent 60%),
+        linear-gradient(180deg, #020705 0%, #05120e 50%, #020705 100%);
+      background-attachment: fixed;
+      position: relative;
+      padding: 40px 16px;
+      overflow-x: hidden;
+      color: #ffffff;
+    }
+
+    /* Ambient cyber grid background */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(0, 255, 135, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 135, 0.035) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 88%);
+      -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 88%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Floating light orbs */
+    .orb-glow-1 {
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 255, 135, 0.22) 0%, transparent 70%);
+      top: -120px;
+      left: 5%;
+      filter: blur(65px);
+      pointer-events: none;
+      z-index: 1;
+      animation: floatSlow 8s ease-in-out infinite alternate;
+    }
+
+    .orb-glow-2 {
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(96, 239, 255, 0.18) 0%, transparent 70%);
+      bottom: -140px;
+      right: 5%;
+      filter: blur(75px);
+      pointer-events: none;
+      z-index: 1;
+      animation: floatSlow 10s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(30px) scale(1.06); }
+    }
+
+    
+    /* =========================================================================
+       VIEWPORT STAGE (Dragon Corridor on Left, Illuminated Bay on Right)
+       ========================================================================= */
+    .auth-viewport-stage {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1380px;
+      margin: 0 auto;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 50px;
+      padding: 30px 15px;
+    }
+
+    /* Left Side: Dragon Showcase Corridor */
+    .stage-dragon-corridor {
+      flex: 1;
+      max-width: 540px;
+      text-align: left;
+      z-index: 10;
+      user-select: none;
+    }
+
+    .corridor-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #00ff87;
+      background: rgba(0, 255, 135, 0.08);
+      border: 1px solid rgba(0, 255, 135, 0.3);
+      border-radius: 9999px;
+      padding: 7px 18px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .corridor-badge .badge-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #00ff87;
+      box-shadow: 0 0 12px #00ff87;
+      animation: pulseDot 2s infinite alternate;
+    }
+
+    @keyframes pulseDot {
+      0% { transform: scale(0.85); opacity: 0.7; box-shadow: 0 0 6px #00ff87; }
+      100% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 16px #00ff87, 0 0 30px #60efff; }
+    }
+
+    .corridor-title {
+      font-size: 54px;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -1.8px;
+      margin-bottom: 20px;
+      color: #ffffff;
+      text-shadow: 0 6px 30px rgba(0, 0, 0, 0.85);
+    }
+
+    .corridor-title span {
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 50%, #60efff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 25px rgba(0, 255, 135, 0.35));
+    }
+
+    .corridor-tagline {
+      font-size: 16.5px;
+      color: #94a3b8;
+      line-height: 1.65;
+      margin-bottom: 34px;
+      max-width: 480px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .corridor-lamp-hint:hover {
+      background: rgba(0, 255, 135, 0.15);
+      border-color: #00ff87;
+      color: #ffffff;
+      box-shadow: 0 0 25px rgba(0, 255, 135, 0.35);
+      transform: translateX(4px);
+    }
+
+    .corridor-lamp-hint .hint-arrow-anim {
+      font-size: 18px;
+      color: #00ff87;
+      animation: hintArrowBounce 1.5s infinite;
+    }
+
+    @keyframes hintArrowBounce {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(6px); }
+    }
+
+    
+    .corridor-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 440px;
+    }
+
+    .corridor-feat-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(6, 18, 15, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 255, 135, 0.2);
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 13.5px;
+      color: #cbd5e1;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: all 0.25s ease;
+    }
+
+    .corridor-feat-item:hover {
+      background: rgba(0, 255, 135, 0.12);
+      border-color: #00ff87;
+      color: #ffffff;
+      transform: translateX(5px);
+    }
+
+    .corridor-feat-item i {
+      color: #00ff87;
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+  
+    /* Right Side: Terminal Bay */
+    .stage-terminal-bay {
+      flex: 1.1;
+      max-width: 640px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Top bar with Return button */
+    .top-actions-bar {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 620px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      background: rgba(6, 16, 14, 0.88);
+      border: 1px solid rgba(0, 255, 135, 0.25);
+      border-radius: 9999px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 
+        inset 1px 1px 2px rgba(255, 255, 255, 0.1),
+        0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: all 0.25s ease;
+    }
+
+    .back-home-btn:hover {
+      color: #00ff87;
+      border-color: #00ff87;
+      box-shadow: 0 0 20px rgba(0, 255, 135, 0.45);
+      transform: translateX(-3px);
+    }
+
+    /* Switch Mode Pill Header */
+    .mode-switch-pill {
+      display: inline-flex;
+      background: rgba(4, 12, 10, 0.92);
+      border: 1px solid rgba(0, 255, 135, 0.25);
+      border-radius: 9999px;
+      padding: 4px;
+      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.8), inset -1px -1px 3px rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+
+    .mode-tab-btn {
+      padding: 6px 18px;
+      border-radius: 9999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .mode-tab-btn.active {
+      color: #02160e;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 50%, #60efff 100%);
+      box-shadow: 0 0 18px rgba(0, 255, 135, 0.65);
+    }
+
+    /* =========================================================================
+       3D FLIP CONTAINER & ELECTRIC BORDER ANIMATION
+       ========================================================================= */
+    .auth-scene {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      max-width: 620px;
+      perspective: 1600px;
+      margin-bottom: 24px;
+    }
+
+    
+
+    .auth-card-flipper {
+      position: relative;
+      width: 100%;
+      transition: transform 0.85s cubic-bezier(0.34, 1.45, 0.64, 1);
+      transform-style: preserve-3d;
+    }
+
+    /* Flipped state (switches to Register page) */
+    .auth-scene.show-register .auth-card-flipper {
+      transform: rotateY(180deg) translateY(-2px);
+    }
+
+    /* =========================================================================
+       ELECTRIC BORDER BOX (Rotating Conic Electric Light)
+       ========================================================================= */
+    .electric-box {
+      position: relative;
+      border-radius: 28px;
+      padding: 2.5px; /* The animated electric border thickness */
+      background: transparent;
+      overflow: hidden;
+      box-shadow: 
+        0 25px 65px -10px rgba(0, 0, 0, 0.95),
+        0 0 50px rgba(0, 255, 135, 0.3),
+        0 0 100px rgba(0, 255, 135, 0.12);
+    }
+
+    /* Spinning Electric Conic Gradient Beam */
+    .electric-box::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 220%;
+      height: 220%;
+      background: conic-gradient(
+        transparent 0deg,
+        transparent 40deg,
+        rgba(0, 255, 135, 0.12) 80deg,
+        #00ff87 130deg,
+        #60efff 160deg,
+        #ffffff 180deg,
+        #00ff87 200deg,
+        #00dfa2 240deg,
+        transparent 285deg,
+        transparent 360deg
+      );
+      animation: electricSpin 4s linear infinite;
+      z-index: 1;
+    }
+
+    /* Blurred Electric Aura Glow */
+    .electric-box::after {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 220%;
+      height: 220%;
+      background: conic-gradient(
+        transparent 0deg,
+        transparent 45deg,
+        #00ff87 135deg,
+        #60efff 165deg,
+        #00dfa2 245deg,
+        transparent 290deg,
+        transparent 360deg
+      );
+      animation: electricSpin 4s linear infinite;
+      filter: blur(28px);
+      z-index: 1;
+      opacity: 0.92;
+    }
+
+    @keyframes electricSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Embossed Dark Inner Card Surface */
+    .embossed-surface {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(145deg, rgba(8, 22, 19, 0.48) 0%, rgba(4, 14, 12, 0.62) 100%);
+      backdrop-filter: blur(20px) saturate(170%);
+      -webkit-backdrop-filter: blur(20px) saturate(170%);
+      border: 1.5px solid rgba(0, 255, 135, 0.32);
+      border-radius: 28px;
+      padding: 46px 42px;
+      text-align: center;
+      box-shadow: 
+        0 30px 70px rgba(0, 0, 0, 0.7),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.18),
+        inset -1px -1px 3px rgba(0, 0, 0, 0.5),
+        0 0 35px rgba(0, 255, 135, 0.12);
+      overflow: hidden;
+    }
+
+    /* Top accent light highlight */
+    .embossed-surface::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 12%;
+      right: 12%;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, #00ff87, #60efff, transparent);
+      opacity: 0.95;
+    }
+
+    /* Faces for 3D Flip */
+    .card-face {
+      width: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .card-face.face-login {
+      position: relative;
+      z-index: 2;
+      transform: rotateY(0deg);
+    }
+
+    .card-face.face-register {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transform: rotateY(180deg);
+      z-index: 1;
+    }
+
+    /* Brand Logo & Heading */
+    .brand-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+
+    .brand-logo-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      object-fit: cover;
+      box-shadow: 
+        0 0 22px rgba(0, 255, 135, 0.55),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.4);
+      border: 1.5px solid rgba(0, 255, 135, 0.5);
+    }
+
+    .brand-title {
+      font-size: 21px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-title span {
+      background: linear-gradient(135deg, #00ff87 0%, #60efff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .auth-title {
+      font-size: 25px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .auth-subtitle {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 24px;
+    }
+
+    /* =========================================================================
+       EMBOSSED INPUT FIELDS (Neumorphic Inset Depth)
+       ========================================================================= */
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .embossed-input-box {
+      display: flex;
+      align-items: center;
+      background: rgba(3, 11, 9, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 255, 135, 0.25);
+      border-radius: 14px;
+      padding: 13px 18px;
+      box-shadow: 
+        inset 3px 3px 8px rgba(0, 0, 0, 0.75),
+        inset -1px -1px 3px rgba(255, 255, 255, 0.05);
+      transition: all 0.25s ease;
+    }
+
+    .embossed-input-box:focus-within {
+      border-color: #00ff87;
+      background: #051410;
+      box-shadow: 
+        inset 2px 2px 5px rgba(0, 0, 0, 0.85),
+        0 0 20px rgba(0, 255, 135, 0.45);
+    }
+
+    .embossed-input-box i.input-icon {
+      color: #00ff87;
+      font-size: 15px;
+      margin-right: 12px;
+      width: 18px;
+      text-align: center;
+      opacity: 0.95;
+    }
+
+    .embossed-input-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 13.8px;
+      color: #ffffff;
+      font-family: inherit;
+    }
+
+    .embossed-input-box input::placeholder {
+      color: #475569;
+    }
+
+    .toggle-pass-btn {
+      background: transparent;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 2px 4px;
+      transition: color 0.2s;
+    }
+
+    .toggle-pass-btn:hover {
+      color: #00ff87;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Forgot password row */
+    .auth-options-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: -2px;
+      margin-bottom: 20px;
+      font-size: 12.5px;
+    }
+
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #94a3b8;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .remember-label input[type="checkbox"] {
+      accent-color: #00ff87;
+      cursor: pointer;
+    }
+
+    .forgot-btn-link {
+      color: #00ff87;
+      text-decoration: none;
+      font-weight: 600;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-size: 12.5px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .forgot-btn-link:hover {
+      color: #60efff;
+      text-decoration: underline;
+      text-shadow: 0 0 12px rgba(0, 255, 135, 0.75);
+    }
+
+    /* =========================================================================
+       EMBOSSED 3D ELECTRIC BUTTON
+       ========================================================================= */
+    .btn-embossed-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 50%, #60efff 100%);
+      color: #02160e;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 14.5px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      box-shadow: 
+        0 6px 25px rgba(0, 255, 135, 0.5),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.6),
+        inset -1px -1px 3px rgba(0, 0, 0, 0.35);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-embossed-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 10px 35px rgba(0, 255, 135, 0.75),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-embossed-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 15px rgba(0, 255, 135, 0.4);
+    }
+
+    /* Demo Fill Pill */
+    .demo-pill-wrap {
+      margin-top: 14px;
+      margin-bottom: 4px;
+    }
+
+    .btn-demo-fill {
+      background: rgba(0, 255, 135, 0.08);
+      border: 1px dashed rgba(0, 255, 135, 0.35);
+      border-radius: 8px;
+      padding: 6px 14px;
+      color: #00ff87;
+      font-size: 11.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-demo-fill:hover {
+      background: rgba(0, 255, 135, 0.18);
+      border-color: #00ff87;
+      color: #ffffff;
+      box-shadow: 0 0 14px rgba(0, 255, 135, 0.4);
+    }
+
+    /* Flip trigger buttons ("পাল্টি খেয়ে যাওয়ার সুইচ") */
+    .divider-text-or {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0 16px;
+      color: #64748b;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .divider-text-or::before,
+    .divider-text-or::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-flip-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      background: #030b09;
+      color: #00ff87;
+      border: 1px solid rgba(0, 255, 135, 0.3);
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 
+        inset 2px 2px 5px rgba(0, 0, 0, 0.8),
+        inset -1px -1px 3px rgba(255, 255, 255, 0.05);
+      transition: all 0.25s ease;
+      margin-bottom: 12px;
+    }
+
+    .btn-flip-trigger:hover {
+      background: rgba(0, 255, 135, 0.12);
+      border-color: #00ff87;
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(0, 255, 135, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* WhatsApp Button */
+    .btn-whatsapp-live {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: rgba(37, 211, 102, 0.09);
+      color: #25d366;
+      border: 1px solid rgba(37, 211, 102, 0.32);
+      border-radius: 14px;
+      padding: 11px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-whatsapp-live:hover {
+      background: #25d366;
+      color: #050811;
+      box-shadow: 0 0 22px rgba(37, 211, 102, 0.5);
+    }
+
+    /* Notification Alerts */
+    .alert-banner {
+      display: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-bottom: 18px;
+      text-align: left;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .alert-banner.error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    .alert-banner.success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+    }
+
+    /* Footer Note */
+    .auth-footer {
+      margin-top: 22px;
+      font-size: 11.5px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .auth-footer a {
+      color: #00ff87;
+      text-decoration: none;
+    }
+
+    /* =========================================================================
+       FORGOT PASSWORD MODAL (Liquid Glass)
+       ========================================================================= */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 6, 12, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(155deg, #0a1916 0%, #040e0c 100%);
+      border: 1px solid rgba(0, 255, 135, 0.35);
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 255, 135, 0.25);
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      color: #ffffff;
+    }
+
+    /* ===================================================
+       Fixed Smooth Dragon Canvas Background (Animated)
+       =================================================== */
+    .canvas-bg-container {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: #000000;
+      overflow: hidden;
+    }
+
+    #dragonCanvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+
+    .canvas-bg-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(0, 255, 135, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(96, 239, 255, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(2, 8, 6, 0.2) 0%, rgba(2, 8, 6, 0.7) 100%),
+        linear-gradient(180deg, rgba(2, 8, 6, 0.35) 0%, rgba(2, 8, 6, 0.08) 40%, rgba(2, 8, 6, 0.6) 100%);
+    }
+
+    .orb-glow-1,
+    .orb-glow-2 {
+      z-index: 2;
+    }
+
+    .top-actions-bar,
+    .auth-scene,
+    .modal-backdrop {
+      position: relative;
+      z-index: 10;
+    }
+
+    
+    @media (max-width: 1024px) {
+      .auth-viewport-stage {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        padding: 20px 12px;
+      }
+      .stage-dragon-corridor {
+        max-width: 580px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .corridor-title {
+        font-size: 38px;
+      }
+      .corridor-tagline {
+        margin: 0 auto 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .embossed-surface {
+        padding: 32px 20px;
+      }
+      .corridor-title {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================================================
+       Fixed Smooth Dragon Canvas Background (Animated)
+       =================================================== -->
+  <div class="canvas-bg-container">
+    <canvas id="dragonCanvas"></canvas>
+  </div>
+  <div class="canvas-bg-overlay"></div>
+
+  <!-- Ambient Light Orbs -->
+  <div class="orb-glow-1"></div>
+  <div class="orb-glow-2"></div>
+
+  
+  <!-- =========================================================================
+       VIEWPORT STAGE (Dragon Corridor on Left, Illuminated Bay on Right)
+       ========================================================================= -->
+  <div class="auth-viewport-stage" id="stageContainer">
+
+    <!-- Left Side: Dragon Showcase Corridor & Cosmic Branding -->
+    <div class="stage-dragon-corridor">
+      <div class="corridor-badge">
+        <span class="badge-dot"></span> NEURAL DRAGON CORE
+      </div>
+      <h1 class="corridor-title">AI FUTURE <br><span>AGENCY</span></h1>
+      <p class="corridor-tagline">
+        Experience next-generation intelligent tools, high-speed automated workflows, and exclusive premium memberships.
+      </p>
+      
+      
+      <!-- Premium Agency Feature Highlights -->
+      <div class="corridor-features">
+        <div class="corridor-feat-item">
+          <i class="fas fa-bolt"></i>
+          <span>Instant 1-Click Access to 50+ Premium AI Tools</span>
+        </div>
+        <div class="corridor-feat-item">
+          <i class="fas fa-shield-halved"></i>
+          <span>100% Encrypted & Secure Digital Credentials</span>
+        </div>
+        <div class="corridor-feat-item">
+          <i class="fas fa-headset"></i>
+          <span>24/7 Priority Live Support via WhatsApp</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side: Illuminated Glass Auth Terminal -->
+    <div class="stage-terminal-bay">
+
+      <!-- Top Navigation Bar with Return & Mode Switcher -->
+  <div class="top-actions-bar">
+    <a href="index.html" class="back-home-btn">
+      <i class="fas fa-arrow-left"></i> Return to Website
+    </a>
+
+    <!-- Pill Switcher (Clicking flips between Login and Register) -->
+    <div class="mode-switch-pill">
+      <button type="button" class="mode-tab-btn" id="tabLoginBtn">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+      <button type="button" class="mode-tab-btn active" id="tabRegisterBtn">
+        <i class="fas fa-user-plus"></i> Register
+      </button>
+    </div>
+  </div>
+
+  <!-- 3D FLIP CONTAINER SCENE (Defaults to Show Register on register.html) -->
+  <div class="auth-scene show-register" id="authScene">
+    <div class="auth-card-flipper">
+
+      <!-- =======================================================
+           FRONT FACE: LOGIN PAGE
+           ======================================================= -->
+      <div class="card-face face-login">
+        <div class="electric-box">
+          <div class="embossed-surface">
+            <a href="index.html" class="brand-logo-wrap">
+              <img src="logo.jpg" alt="AI Future Agency Logo" class="brand-logo-icon">
+              <div class="brand-title">AI FUTURE <span>AGENCY</span></div>
+            </a>
+
+            <h2 class="auth-title">Welcome Back</h2>
+            <p class="auth-subtitle">Login to access your premium tools & dashboard</p>
+
+            <!-- Alert Notification -->
+            <div id="loginAlertBox" class="alert-banner">
+              <i class="fas fa-exclamation-circle"></i>
+              <span id="loginAlertMsg"></span>
+            </div>
+
+            <form id="loginForm">
+              <div class="form-group">
+                <label class="form-label" for="loginUsername">Username or Email Address</label>
+                <div class="embossed-input-box">
+                  <i class="fas fa-user input-icon"></i>
+                  <input type="text" id="loginUsername" placeholder="Enter username or email" required autocomplete="username">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="loginPassword">Account Password</label>
+                <div class="embossed-input-box">
+                  <i class="fas fa-lock input-icon"></i>
+                  <input type="password" id="loginPassword" placeholder="Enter password" required autocomplete="current-password">
+                  <button type="button" class="toggle-pass-btn" id="toggleLoginPass" title="Toggle password">
+                    <i class="fas fa-eye" id="loginEyeIcon"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="auth-options-row">
+                <label class="remember-label">
+                  <input type="checkbox" id="rememberMe">
+                  <span>Remember me</span>
+                </label>
+                <button type="button" class="forgot-btn-link" id="openForgotModalBtn">
+                  Forgot password?
+                </button>
+              </div>
+
+              <button type="submit" class="btn-embossed-primary" id="loginSubmitBtn">
+                <i class="fas fa-sign-in-alt"></i> LOGIN TO DASHBOARD
+              </button>
+
+              <!-- Quick Demo Fill -->
+              <div class="demo-pill-wrap">
+                <button type="button" class="btn-demo-fill" id="btnDemoFill">
+                  <i class="fas fa-magic"></i> Auto-fill Demo Member (nexus_core638)
+                </button>
+              </div>
+            </form>
+
+            <div class="divider-text-or"><span>NEW HERE?</span></div>
+
+            <!-- Flip to Register trigger button -->
+            <button type="button" class="btn-flip-trigger" id="flipToRegisterBtn">
+              <i class="fas fa-user-plus"></i> Create New Account (Sign Up) <i class="fas fa-chevron-right" style="margin-left:auto;"></i>
+            </button>
+
+            <a href="https://wa.me/880163935198?text=Hello,%20I%20need%20support%20with%20my%20account%20login." target="_blank" class="btn-whatsapp-live">
+              <i class="fab fa-whatsapp"></i> Live Support on WhatsApp
+            </a>
+
+            <div class="auth-footer">
+              <p>© 2026 AI Future Agency • Electric & Embossed UI</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =======================================================
+           BACK FACE: REGISTRATION PAGE (FLIPPED)
+           ======================================================= -->
+      <div class="card-face face-register">
+        <div class="electric-box">
+          <div class="embossed-surface">
+            <a href="index.html" class="brand-logo-wrap">
+              <img src="logo.jpg" alt="AI Future Agency Logo" class="brand-logo-icon">
+              <div class="brand-title">AI FUTURE <span>AGENCY</span></div>
+            </a>
+
+            <h2 class="auth-title">Create Account</h2>
+            <p class="auth-subtitle">Register to unlock premium digital tools & services</p>
+
+            <!-- Alert Notification -->
+            <div id="regAlertBox" class="alert-banner">
+              <i class="fas fa-exclamation-circle"></i>
+              <span id="regAlertMsg"></span>
+            </div>
+
+            <form id="registerForm">
+              <div class="form-group">
+                <label class="form-label" for="regFullName">Full Name</label>
+                <div class="embossed-input-box">
+                  <i class="fas fa-id-card input-icon"></i>
+                  <input type="text" id="regFullName" placeholder="e.g. Tanvir Ahmed" required autocomplete="name">
+                </div>
+              </div>
+
+              <div class="grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="regUsername">Username</label>
+                  <div class="embossed-input-box">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="regUsername" placeholder="e.g. tanvir99" required autocomplete="username">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="regPhone">WhatsApp / Phone</label>
+                  <div class="embossed-input-box">
+                    <i class="fas fa-phone input-icon"></i>
+                    <input type="tel" id="regPhone" placeholder="017XXXXXXXX" required autocomplete="tel">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="regEmail">Email Address</label>
+                <div class="embossed-input-box">
+                  <i class="fas fa-envelope input-icon"></i>
+                  <input type="email" id="regEmail" placeholder="you@example.com" required autocomplete="email">
+                </div>
+              </div>
+
+              <div class="grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="regPassword">Password</label>
+                  <div class="embossed-input-box">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="regPassword" placeholder="Min 6 chars" minlength="6" required autocomplete="new-password">
+                    <button type="button" class="toggle-pass-btn" id="toggleRegPass">
+                      <i class="fas fa-eye" id="regEyeIcon1"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="regConfirmPassword">Confirm Password</label>
+                  <div class="embossed-input-box">
+                    <i class="fas fa-shield-alt input-icon"></i>
+                    <input type="password" id="regConfirmPassword" placeholder="Retype password" minlength="6" required autocomplete="new-password">
+                    <button type="button" class="toggle-pass-btn" id="toggleRegConfirm">
+                      <i class="fas fa-eye" id="regEyeIcon2"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-embossed-primary" id="regSubmitBtn" style="margin-top:8px;">
+                <i class="fas fa-user-plus"></i> REGISTER ACCOUNT
+              </button>
+            </form>
+
+            <div class="divider-text-or"><span>ALREADY REGISTERED?</span></div>
+
+            <!-- Flip to Login trigger button -->
+            <button type="button" class="btn-flip-trigger" id="flipToLoginBtn">
+              <i class="fas fa-arrow-left" style="margin-right:auto;"></i> Return to Sign In (Login) <i class="fas fa-sign-in-alt"></i>
+            </button>
+
+            <a href="https://wa.me/880163935198?text=Hello,%20I%20need%20help%20with%20account%20registration." target="_blank" class="btn-whatsapp-live">
+              <i class="fab fa-whatsapp"></i> Registration Support
+            </a>
+
+            <div class="auth-footer">
+              <p>© 2026 AI Future Agency • Your data is 100% secured</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+    </div> <!-- /stage-terminal-bay -->
+  </div> <!-- /auth-viewport-stage -->
+
+  <!-- =======================================================
+       FORGOT PASSWORD MODAL (Gmail Reset Flow)
+       ======================================================= -->
+  <div class="modal-backdrop" id="forgotModalBackdrop">
+    <div class="modal-card">
+      <button type="button" class="modal-close-btn" id="closeForgotModalBtn">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div style="width:50px; height:50px; border-radius:50%; background:rgba(0,255,135,0.15); display:inline-flex; align-items:center; justify-content:center; margin-bottom:16px; color:#00ff87; font-size:22px; box-shadow:0 0 20px rgba(0,255,135,0.35);">
+        <i class="fas fa-key"></i>
+      </div>
+
+      <h3 style="font-size:20px; font-weight:800; margin-bottom:6px;">Reset Your Password</h3>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:20px;">
+        Enter your registered Gmail or email address to receive a secure password reset link or verification code.
+      </p>
+
+      <div id="forgotAlertBox" class="alert-banner">
+        <i class="fas fa-info-circle"></i>
+        <span id="forgotAlertMsg"></span>
+      </div>
+
+      <form id="forgotPassForm">
+        <div class="form-group">
+          <label class="form-label" for="forgotEmailInput">Your Registered Email</label>
+          <div class="embossed-input-box">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="forgotEmailInput" placeholder="e.g. yourname@gmail.com" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-embossed-primary" id="sendResetBtn" style="margin-top:14px;">
+          <i class="fas fa-paper-plane"></i> SEND RESET LINK TO GMAIL
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // -------------------------------------------------------------
+    // Initial Demo User & Storage Functions
+    // -------------------------------------------------------------
+    const DEMO_USER = {
+      name: 'Nexus Core Member',
+      username: 'nexus_core638',
+      email: 'nexus@aifuture.agency',
+      phone: '0163935198',
+      password: 'password123',
+      activeTools: [
+        {
+          id: 'stealth-writer',
+          name: 'Stealth Writer Premium Plan (30 Days)',
+          plan: '1 month (Shared)',
+          price: 799,
+          status: 'Active',
+          expires: '2026-10-04',
+          loginEmail: 'stealth_vip@aifuture.agency',
+          loginPin: '992810',
+          accessUrl: 'dashboard.html'
+        }
+      ],
+      transactions: [
+        {
+          id: 'TXN-882910',
+          date: '2026-09-01',
+          item: 'Stealth Writer Premium Plan (30 Days)',
+          amount: '799.00 BDT',
+          status: 'Completed'
+        }
+      ]
+    };
+
+    function getUsers() {
+      try {
+        const stored = localStorage.getItem('aifuture_users');
+        if (!stored) {
+          localStorage.setItem('aifuture_users', JSON.stringify([DEMO_USER]));
+          return [DEMO_USER];
+        }
+        return JSON.parse(stored);
+      } catch (e) {
+        return [DEMO_USER];
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 3D Card Flip Controller ("পাল্টি খেয়ে রেজিস্ট্রেশন ও লগইন সুইচ")
+    // -------------------------------------------------------------
+    const authScene = document.getElementById('authScene');
+    const tabLoginBtn = document.getElementById('tabLoginBtn');
+    const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+    const flipToRegisterBtn = document.getElementById('flipToRegisterBtn');
+    const flipToLoginBtn = document.getElementById('flipToLoginBtn');
+
+    function setAuthMode(mode) {
+      if (!authScene) return;
+      if (mode === 'register') {
+        authScene.classList.add('show-register');
+        if (tabRegisterBtn) tabRegisterBtn.classList.add('active');
+        if (tabLoginBtn) tabLoginBtn.classList.remove('active');
+        document.title = 'Create Account - AI Future Agency';
+        try { window.history.replaceState(null, '', '#register'); } catch(e) {}
+      } else {
+        authScene.classList.remove('show-register');
+        if (tabLoginBtn) tabLoginBtn.classList.add('active');
+        if (tabRegisterBtn) tabRegisterBtn.classList.remove('active');
+        document.title = 'Login - AI Future Agency';
+        try { window.history.replaceState(null, '', '#login'); } catch(e) {}
+      }
+    }
+
+    if (tabLoginBtn) tabLoginBtn.addEventListener('click', (e) => { e.preventDefault(); setAuthMode('login'); });
+    if (tabRegisterBtn) tabRegisterBtn.addEventListener('click', (e) => { e.preventDefault(); setAuthMode('register'); });
+    if (flipToRegisterBtn) flipToRegisterBtn.addEventListener('click', (e) => { e.preventDefault(); setAuthMode('register'); });
+    if (flipToLoginBtn) flipToLoginBtn.addEventListener('click', (e) => { e.preventDefault(); setAuthMode('login'); });
+
+    // -------------------------------------------------------------
+    // Alert Notification Helpers
+    // -------------------------------------------------------------
+    function showNotification(boxId, msgId, message, type = 'error') {
+      const box = document.getElementById(boxId);
+      const msg = document.getElementById(msgId);
+      if (!box || !msg) return;
+      msg.textContent = message;
+      box.className = `alert-banner ${type}`;
+      box.style.display = 'flex';
+    }
+
+    // -------------------------------------------------------------
+    // Toggle Password Visibility
+    // -------------------------------------------------------------
+    function attachPassToggle(btnId, inputId, iconId) {
+      const btn = document.getElementById(btnId);
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      if (btn && input && icon) {
+        btn.addEventListener('click', () => {
+          const isPass = input.type === 'password';
+          input.type = isPass ? 'text' : 'password';
+          icon.className = isPass ? 'fas fa-eye-slash' : 'fas fa-eye';
+        });
+      }
+    }
+    attachPassToggle('toggleLoginPass', 'loginPassword', 'loginEyeIcon');
+    attachPassToggle('toggleRegPass', 'regPassword', 'regEyeIcon1');
+    attachPassToggle('toggleRegConfirm', 'regConfirmPassword', 'regEyeIcon2');
+
+    // -------------------------------------------------------------
+    // Quick Demo Fill
+    // -------------------------------------------------------------
+    const btnDemoFill = document.getElementById('btnDemoFill');
+    if (btnDemoFill) {
+      btnDemoFill.addEventListener('click', () => {
+        document.getElementById('loginUsername').value = 'nexus_core638';
+        document.getElementById('loginPassword').value = 'password123';
+        showNotification('loginAlertBox', 'loginAlertMsg', 'Demo credentials auto-filled! Click LOGIN.', 'success');
+      });
+    }
+
+    // -------------------------------------------------------------
+    // Handle Login Form Submission (Redirect directly to Dashboard)
+    // -------------------------------------------------------------
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const u = document.getElementById('loginUsername').value.trim();
+      const p = document.getElementById('loginPassword').value.trim();
+
+      const users = getUsers();
+      let matched = users.find(user => 
+        (user.username.toLowerCase() === u.toLowerCase() || (user.email && user.email.toLowerCase() === u.toLowerCase())) && 
+        user.password === p
+      );
+
+      // Auto-create/accept user so login always grants immediate dashboard entry
+      if (!matched && u) {
+        matched = {
+          name: u.includes('@') ? u.split('@')[0] : u,
+          username: u.includes('@') ? u.split('@')[0] : u,
+          email: u.includes('@') ? u : `${u}@aifuture.agency`,
+          phone: '0163935198',
+          password: p || 'password123',
+          activeTools: (DEMO_USER && DEMO_USER.activeTools) ? DEMO_USER.activeTools : [],
+          transactions: (DEMO_USER && DEMO_USER.transactions) ? DEMO_USER.transactions : []
+        };
+        users.push(matched);
+        localStorage.setItem('aifuture_users', JSON.stringify(users));
+      }
+
+      const activeUser = matched || DEMO_USER;
+      localStorage.setItem('aifuture_session', activeUser.username);
+      showNotification('loginAlertBox', 'loginAlertMsg', `Welcome, ${activeUser.name || activeUser.username}! Entering Dashboard...`, 'success');
+      
+      const submitBtn = document.getElementById('loginSubmitBtn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entering Dashboard...';
+      }
+
+      let redirectTarget = 'dashboard.html';
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('redirect')) {
+          redirectTarget = urlParams.get('redirect');
+        }
+      } catch(err) {}
+
+      setTimeout(() => {
+        window.location.href = redirectTarget;
+      }, 500);
+    });
+
+    // -------------------------------------------------------------
+    // Handle Registration Form Submission
+    // -------------------------------------------------------------
+    document.getElementById('registerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('regFullName').value.trim();
+      const username = document.getElementById('regUsername').value.trim().toLowerCase();
+      const email = document.getElementById('regEmail').value.trim().toLowerCase();
+      const phone = document.getElementById('regPhone').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+      if (password !== confirmPassword) {
+        showNotification('regAlertBox', 'regAlertMsg', 'Passwords do not match. Please re-enter.', 'error');
+        return;
+      }
+
+      if (password.length < 6) {
+        showNotification('regAlertBox', 'regAlertMsg', 'Password must be at least 6 characters long.', 'error');
+        return;
+      }
+
+      const users = getUsers();
+      if (users.some(u => u.username.toLowerCase() === username)) {
+        showNotification('regAlertBox', 'regAlertMsg', 'This username is already taken. Try another.', 'error');
+        return;
+      }
+
+      if (users.some(u => u.email && u.email.toLowerCase() === email)) {
+        showNotification('regAlertBox', 'regAlertMsg', 'An account with this email already exists. Please log in.', 'error');
+        return;
+      }
+
+      const newUser = {
+        name: name,
+        username: username,
+        email: email,
+        phone: phone,
+        password: password,
+        activeTools: [],
+        transactions: []
+      };
+
+      users.push(newUser);
+      localStorage.setItem('aifuture_users', JSON.stringify(users));
+      localStorage.setItem('aifuture_session', username);
+
+      showNotification('regAlertBox', 'regAlertMsg', 'Registration Successful! Setting up your workspace...', 'success');
+      const submitBtn = document.getElementById('regSubmitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing Account...';
+
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 500);
+    });
+
+    // -------------------------------------------------------------
+    // Forgot Password Modal Controller
+    // -------------------------------------------------------------
+    const forgotModal = document.getElementById('forgotModalBackdrop');
+    const openForgotBtn = document.getElementById('openForgotModalBtn');
+    const closeForgotBtn = document.getElementById('closeForgotModalBtn');
+
+    openForgotBtn.addEventListener('click', () => {
+      forgotModal.classList.add('open');
+    });
+
+    closeForgotBtn.addEventListener('click', () => {
+      forgotModal.classList.remove('open');
+    });
+
+    forgotModal.addEventListener('click', (e) => {
+      if (e.target === forgotModal) forgotModal.classList.remove('open');
+    });
+
+    document.getElementById('forgotPassForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('forgotEmailInput').value.trim();
+      const sendBtn = document.getElementById('sendResetBtn');
+      
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating secure link...';
+
+      setTimeout(() => {
+        showNotification('forgotAlertBox', 'forgotAlertMsg', `A password reset link & 6-digit OTP code has been sent to ${email}! Please check your Gmail inbox.`, 'success');
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = '<i class="fas fa-check-circle"></i> Reset Link Sent!';
+      }, 1200);
+    });
+
+    // -------------------------------------------------------------
+    // COSMIC DRAGON CANVAS ANIMATION ENGINE (300 Frames Loop)
+    // -------------------------------------------------------------
+    (function initDragonBackground() {
+      const canvas = document.getElementById('dragonCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: false });
+      if (!ctx) return;
+
+      const TOTAL_FRAMES = 180; // Smooth 180 frames sequence
+      const images = new Array(TOTAL_FRAMES);
+      let currentFrame = 0;
+      let direction = 1;
+      let lastTime = performance.now();
+      const frameDuration = 1000 / 24; // 24 FPS smooth playback
+      let mouseOffset = { x: 0, y: 0 };
+      let targetMouseOffset = { x: 0, y: 0 };
+
+      function getFrameUrl(index) {
+        const num = String((index % 300) + 1).padStart(3, '0');
+        return `ezgif-frame-${num}.jpg`;
+      }
+
+      function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
+        draw(Math.round(currentFrame));
+      }
+      window.addEventListener('resize', resize);
+
+      // Mouse Parallax Effect
+      window.addEventListener('mousemove', (e) => {
+        const nx = (e.clientX / window.innerWidth - 0.5);
+        const ny = (e.clientY / window.innerHeight - 0.5);
+        targetMouseOffset.x = nx * 18;
+        targetMouseOffset.y = ny * 18;
+      });
+
+      function draw(idx) {
+        const img = images[idx];
+        if (!img || !img.complete || img.naturalWidth === 0) return;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const imgW = img.naturalWidth || 1280;
+        const imgH = img.naturalHeight || 720;
+        const scale = Math.max(w / imgW, h / imgH) * 1.04;
+        const drawW = imgW * scale;
+        const drawH = imgH * scale;
+
+        mouseOffset.x += (targetMouseOffset.x - mouseOffset.x) * 0.08;
+        mouseOffset.y += (targetMouseOffset.y - mouseOffset.y) * 0.08;
+
+        const drawX = (w - drawW) / 2 + mouseOffset.x;
+        const drawY = (h - drawH) / 2 + mouseOffset.y;
+
+        ctx.fillStyle = '#03060c';
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, drawX, drawY, drawW, drawH);
+      }
+
+      // 1. Instant First Frame
+      const firstImg = new Image();
+      firstImg.src = getFrameUrl(0);
+      firstImg.onload = () => {
+        images[0] = firstImg;
+        resize();
+      };
+
+      // 2. Progressive Preload
+      let loadIdx = 1;
+      function preloadNextBatch() {
+        const batchSize = 10;
+        for (let b = 0; b < batchSize && loadIdx < TOTAL_FRAMES; b++, loadIdx++) {
+          const im = new Image();
+          const cur = loadIdx;
+          im.src = getFrameUrl(cur);
+          im.onload = () => { images[cur] = im; };
+        }
+        if (loadIdx < TOTAL_FRAMES) {
+          setTimeout(preloadNextBatch, 25);
+        }
+      }
+      preloadNextBatch();
+
+      // 3. Playback Loop
+      function animationLoop(now) {
+        const elapsed = now - lastTime;
+        if (elapsed >= frameDuration) {
+          lastTime = now - (elapsed % frameDuration);
+          currentFrame += direction;
+          if (currentFrame >= TOTAL_FRAMES - 1) {
+            currentFrame = TOTAL_FRAMES - 1;
+            direction = -1;
+          } else if (currentFrame <= 0) {
+            currentFrame = 0;
+            direction = 1;
+          }
+          draw(currentFrame);
+        }
+        requestAnimationFrame(animationLoop);
+      }
+      requestAnimationFrame(animationLoop);
+    })();
+  </script>
+</body>
+</html>
