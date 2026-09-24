@@ -39,7 +39,7 @@ if ($cleanUri === '/api/send-otp') {
 
 // 1. Secret Admin Access Gateway: airana1713@admin
 if ($cleanUri === '/airana1713@admin' || $cleanUri === '/airana1713%40admin' || $cleanUri === 'airana1713@admin') {
-    include __DIR__ . '/admin-login.html';
+    readfile(__DIR__ . '/admin-login.html');
     exit;
 }
 
@@ -56,7 +56,7 @@ if ($hasAuthToken && !$hasCookie) {
 // 2. Protect Admin Console: Only accessible if authenticated with secret session token
 if ($cleanUri === '/admin' || $cleanUri === '/admin/dashboard' || $cleanUri === '/admin.html') {
     if ($isAdminAuth) {
-        include __DIR__ . '/admin.html';
+        readfile(__DIR__ . '/admin.html');
         exit;
     } else {
         // Unauthorized direct access: redirect strictly to the secret portal
@@ -75,7 +75,7 @@ if ($cleanUri === '/admin/login' || $cleanUri === '/admin-login' || $cleanUri ==
 if ($uri !== '/' && is_file(__DIR__ . $uri)) {
     if ($uri === '/admin.html') {
         if ($isAdminAuth) {
-            include __DIR__ . '/admin.html';
+            readfile(__DIR__ . '/admin.html');
             exit;
         } else {
             header('Location: /airana1713@admin');
