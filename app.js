@@ -2496,34 +2496,14 @@ Please let me know the next steps & payment process.`;
     if (navLoginBtn) {
       if (user) {
         navLoginBtn.classList.add('logged-in');
-        const uName = user.username || 'Member';
-        const displayUName = uName.length > 10 ? (uName.slice(0, 8) + '..') : uName;
-        navLoginBtn.innerHTML = `<i class="fas fa-user-circle"></i> <span title="${uName}">${displayUName}</span>`;
-        navLoginBtn.title = `Member: ${uName} (Click to open Dashboard)`;
+        const uName = user.name || user.username || 'Member';
+        // When logged in: ONLY a sleek, beautiful cyber glowing avatar icon
+        navLoginBtn.innerHTML = `<i class="fas fa-user-shield"></i><span class="online-indicator-dot" title="Active"></span>`;
+        navLoginBtn.title = `Logged in: ${uName} (Click to open Dashboard)`;
       } else {
         navLoginBtn.classList.remove('logged-in');
-        navLoginBtn.innerHTML = `<i class="fas fa-user-plus"></i> <span>${isBn ? 'লগইন / রেজিস্টার' : 'Login / Register'}</span>`;
+        navLoginBtn.innerHTML = `<i class="fas fa-user-circle"></i> <span class="nav-login-label">${isBn ? 'লগইন' : 'Login'}</span>`;
         navLoginBtn.title = isBn ? 'লগইন অথবা নতুন অ্যাকাউন্ট তৈরি করুন' : 'Login or Create New Account';
-      }
-    }
-
-    // Mobile Navigation Drawer Auth Items (Guarantees visible Login / Register on phones)
-    const mobileAuthGuest = document.getElementById('mobileAuthGuest');
-    const mobileAuthUser = document.getElementById('mobileAuthUser');
-    const mobileAuthUserName = document.getElementById('mobileAuthUserName');
-
-    if (mobileAuthGuest && mobileAuthUser) {
-      if (user) {
-        mobileAuthGuest.style.display = 'none';
-        mobileAuthUser.style.display = 'flex';
-        if (mobileAuthUserName) {
-          mobileAuthUserName.textContent = isBn 
-            ? `ড্যাশবোর্ড (${user.username || 'মেম্বার'})` 
-            : `My Dashboard (${user.username || 'Member'})`;
-        }
-      } else {
-        mobileAuthGuest.style.display = 'grid';
-        mobileAuthUser.style.display = 'none';
       }
     }
   }

@@ -4668,10 +4668,10 @@ body.lang-bn {
 
 /* Nav login button */
 .btn-login-nav {
-  background: #16a34a;
-  color: white;
-  border: none;
-  box-shadow: 0 4px 15px rgba(22, 163, 74, 0.35);
+  background: rgba(0, 255, 135, 0.12);
+  color: #00ff87;
+  border: 1px solid rgba(0, 255, 135, 0.35);
+  box-shadow: 0 0 14px rgba(0, 255, 135, 0.15);
   font-size: 12.5px;
   padding: 7px 14px;
   border-radius: 50px;
@@ -4680,30 +4680,66 @@ body.lang-bn {
   gap: 6px;
   font-weight: 800;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.22s ease;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .btn-login-nav span {
-  max-width: 105px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   display: inline-block;
 }
 
 .btn-login-nav:hover {
-  background: #15803d;
-  color: white;
+  background: linear-gradient(135deg, #00dfa2 0%, #00ff87 100%);
+  color: #020705;
+  border-color: #00ff87;
+  box-shadow: 0 0 20px rgba(0, 255, 135, 0.45);
   transform: translateY(-1px);
 }
 
+/* When logged in: ONLY a sleek, beautiful cyber glowing avatar icon */
 .btn-login-nav.logged-in {
-  background: rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(0, 255, 135, 0.4);
-  color: #00ff87;
-  box-shadow: 0 0 15px rgba(0, 255, 135, 0.2);
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 35%, rgba(0, 255, 135, 0.28) 0%, rgba(4, 14, 12, 0.95) 100%) !important;
+  border: 1.5px solid #00ff87 !important;
+  color: #00ff87 !important;
+  box-shadow: 0 0 16px rgba(0, 255, 135, 0.45) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 15px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  transition: all 0.25s ease !important;
+}
+
+.btn-login-nav.logged-in:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 0 25px rgba(0, 255, 135, 0.75), 0 0 10px rgba(96, 239, 255, 0.5) !important;
+  border-color: #60efff !important;
+  color: #ffffff !important;
+}
+
+.online-indicator-dot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 9px;
+  height: 9px;
+  background: #00ff87;
+  border-radius: 50%;
+  border: 1.5px solid #020705;
+  box-shadow: 0 0 6px #00ff87;
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
 }
 
 @media (max-width: 768px) {

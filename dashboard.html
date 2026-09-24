@@ -216,6 +216,165 @@
       box-shadow: 0 0 22px rgba(0, 255, 135, 0.7);
     }
 
+    /* STORE NAVIGATION BUTTONS IN DASHBOARD */
+    .topbar-store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: linear-gradient(135deg, rgba(0, 255, 135, 0.14) 0%, rgba(96, 239, 255, 0.14) 100%);
+      border: 1px solid rgba(0, 255, 135, 0.45);
+      border-radius: 9999px;
+      color: #00ff87;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.22s ease;
+      box-shadow: 0 0 16px rgba(0, 255, 135, 0.2);
+    }
+
+    .topbar-store-btn:hover {
+      background: linear-gradient(135deg, #00dfa2 0%, #00ff87 100%);
+      color: #020705;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 22px rgba(0, 255, 135, 0.55);
+    }
+
+    .sidebar-store-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(0, 255, 135, 0.12) 0%, rgba(96, 239, 255, 0.08) 100%);
+      border: 1px solid rgba(0, 255, 135, 0.35);
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.22s ease;
+      box-shadow: 0 0 16px rgba(0, 255, 135, 0.15);
+    }
+
+    .sidebar-store-pill:hover {
+      background: linear-gradient(135deg, rgba(0, 255, 135, 0.22) 0%, rgba(96, 239, 255, 0.18) 100%);
+      border-color: #00ff87;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 255, 135, 0.35);
+    }
+
+    .ssp-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #00ff87 0%, #00dfa2 100%);
+      color: #020705;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(0, 255, 135, 0.5);
+    }
+
+    .ssp-text strong {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .ssp-text small {
+      display: block;
+      font-size: 11px;
+      color: #00ff87;
+      font-weight: 600;
+      margin-top: 1px;
+    }
+
+    .dash-store-access-card {
+      background: linear-gradient(135deg, rgba(8, 26, 20, 0.85) 0%, rgba(5, 15, 18, 0.95) 100%);
+      border: 1px solid rgba(0, 255, 135, 0.35);
+      border-radius: 18px;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 135, 0.12);
+      backdrop-filter: blur(14px);
+    }
+
+    .dsac-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dsac-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(0, 255, 135, 0.15);
+      border: 1px solid rgba(0, 255, 135, 0.4);
+      color: #00ff87;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(0, 255, 135, 0.3);
+    }
+
+    .dsac-desc h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+
+    .dsac-desc p {
+      font-size: 12.5px;
+      color: #94a3b8;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .btn-visit-store-direct {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #00dfa2 0%, #00ff87 100%);
+      color: #020705;
+      font-size: 13.5px;
+      font-weight: 800;
+      border-radius: 12px;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 4px 18px rgba(0, 255, 135, 0.4);
+      transition: all 0.22s ease;
+    }
+
+    .btn-visit-store-direct:hover {
+      background: linear-gradient(135deg, #00ff87 0%, #60efff 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0, 255, 135, 0.6);
+    }
+
+    @media (max-width: 768px) {
+      .dash-store-access-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+      }
+      .btn-visit-store-direct {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
     .dash-content-container {
       padding: 36px 48px;
       max-width: 1120px;
@@ -1094,8 +1253,18 @@
       <div class="dash-logo-text">AI Future <span>Agency</span></div>
     </a>
 
+    <!-- Dedicated Store CTA Button in Sidebar -->
+    <a href="index.html#products" class="sidebar-store-pill" title="Browse digital tools in Public Storefront">
+      <div class="ssp-icon"><i class="fas fa-store"></i></div>
+      <div class="ssp-text">
+        <strong>Digital Store</strong>
+        <small>প্রোডাক্ট কিনুন →</small>
+      </div>
+    </a>
+
     <ul class="sidebar-menu">
       <li class="menu-item" id="menuItemActiveTools"><a onclick="showTab('active-tools')"><i class="fas fa-home"></i> Dashboard</a></li>
+      <li class="menu-item menu-item-store"><a href="index.html#products" title="Visit Public Storefront"><i class="fas fa-shopping-bag"></i> Browse Products (স্টোর) <i class="fas fa-external-link-alt" style="margin-left:auto; font-size:11px; opacity:0.6;"></i></a></li>
       <li class="menu-item" id="menuItemMyOrders"><a onclick="showTab('my-orders')"><i class="fas fa-box"></i> My Orders (অর্ডার লিস্ট) <span class="badge-status-counter" id="userPendingBadge" style="display:none;">0</span></a></li>
       <li class="menu-item" id="menuItemHistory"><a onclick="showTab('history')"><i class="far fa-credit-card"></i> Transaction History</a></li>
       <li class="menu-item active" id="menuItemCheckout"><a onclick="showTab('checkout')"><i class="fas fa-file-invoice-dollar"></i> Checkout & Order</a></li>
@@ -1113,6 +1282,12 @@
   <!-- MAIN AREA -->
   <main class="dash-main-area">
     <header class="dash-topbar">
+      <!-- Go to Public Storefront Button -->
+      <a href="index.html#products" class="topbar-store-btn" title="Browse and buy products from our Storefront">
+        <i class="fas fa-store"></i>
+        <span>Browse Store / স্টোর</span>
+      </a>
+
       <!-- Live Dragon Flight Controller Badge -->
       <div class="dragon-flight-badge" id="dragonStatusPill" onclick="toggleDashboardDragon()" title="Pause / Resume Flying Dragon Animation">
         <i class="fas fa-dragon" id="dragonIcon"></i>
@@ -1126,6 +1301,20 @@
     </header>
 
     <div class="dash-content-container">
+      <!-- Quick Store Visit Banner -->
+      <div class="dash-store-access-card">
+        <div class="dsac-left">
+          <div class="dsac-icon-wrap"><i class="fas fa-gem"></i></div>
+          <div class="dsac-desc">
+            <h3>নতুন কোনো টুলস বা সার্ভিস কিনতে চান?</h3>
+            <p>আমাদের পাবলিক স্টোরে গিয়ে ১০০+ ডিজিটাল প্রোডাক্ট, ফেসবুক বুস্টিং এবং ওয়েবসাইট প্যাকেজ সরাসরি কিনুন।</p>
+          </div>
+        </div>
+        <a href="index.html#products" class="btn-visit-store-direct">
+          <i class="fas fa-shopping-cart"></i> গো টু স্টোর (Buy Products)
+        </a>
+      </div>
+
       <h1 class="hey-greeting" id="greetingHeader">hey, nexus_core638</h1>
       
       <p class="notice-red-text">
