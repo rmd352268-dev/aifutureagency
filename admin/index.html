@@ -2,11 +2,23 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=../admin.html">
-  <title>Redirecting to Admin Panel...</title>
-  <script>window.location.replace('../admin.html');</script>
+  <title>Verifying Administrative Access...</title>
+  <script>
+    (function() {
+      function getCookie(n) {
+        const m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
+        return m ? m[2] : null;
+      }
+      const tok = localStorage.getItem('afa_secret_admin_token') || sessionStorage.getItem('afa_secret_admin_token') || getCookie('afa_admin_session');
+      if (tok === 'AUTH_VALIDATED_2026') {
+        window.location.replace('../admin.html');
+      } else {
+        window.location.replace('../airana1713@admin/');
+      }
+    })();
+  </script>
 </head>
-<body style="background:#0f172a; color:#fff; font-family:sans-serif; display:flex; align-items:center; justify-content:center; height:100vh;">
-  <p>Redirecting to Admin Console...</p>
+<body style="background:#050608; color:#fff; font-family:sans-serif; display:flex; align-items:center; justify-content:center; height:100vh;">
+  <p>Verifying administrative credentials...</p>
 </body>
 </html>

@@ -1,0 +1,26 @@
+# AI Future Agency - Netlify Clean Routing & Admin Protection
+
+# Secret Admin Gateway
+/airana1713@admin    /airana1713@admin/index.html    200
+/airana1713@admin/   /airana1713@admin/index.html    200
+/airana1713%40admin  /airana1713@admin/index.html    200
+/airana1713%40admin/ /airana1713@admin/index.html    200
+
+# Protect Admin: redirect unauthorized admin access to secret login URL
+/admin-login         /airana1713@admin/index.html    302
+/admin-login.html    /airana1713@admin/index.html    302
+
+# Clean Application Pages
+/login               /login.html                     200
+/login/              /login.html                     200
+/register            /register.html                  200
+/register/           /register.html                  200
+/dashboard           /dashboard.html                 200
+/dashboard/          /dashboard.html                 200
+/details             /details.html                   200
+/details/            /details.html                   200
+/landing             /landing.html                   200
+/landing/            /landing.html                   200
+/lp/*                /landing.html                   200
+/home                /index.html                     200
+/index               /index.html                     200

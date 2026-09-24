@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# 1. Secret Admin Gateway
+RewriteRule ^airana1713@admin/?$ airana1713@admin/index.html [L]
+RewriteRule ^airana1713%40admin/?$ airana1713@admin/index.html [L]
+
+# 2. Block legacy admin-login
+RewriteRule ^admin-login(\.html)?$ /airana1713@admin [R=302,L]
+
+# 3. Clean HTML routes
+RewriteRule ^login/?$ login.html [L]
+RewriteRule ^register/?$ register.html [L]
+RewriteRule ^dashboard/?$ dashboard.html [L]
+RewriteRule ^details/?$ details.html [L]
+RewriteRule ^landing/?$ landing.html [L]
+RewriteRule ^lp/(.*)$ landing.html [L]
+RewriteRule ^home/?$ index.html [L]
+RewriteRule ^index/?$ index.html [L]
+</IfModule>
