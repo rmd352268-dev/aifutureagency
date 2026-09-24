@@ -2,6 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script>
+    (function() {
+      function getCookie(n) {
+        const m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
+        return m ? m[2] : null;
+      }
+      const tok = sessionStorage.getItem('afa_secret_admin_token') || getCookie('afa_admin_session');
+      if (tok !== 'AUTH_VALIDATED_2026') {
+        window.location.replace('/airana1713@admin');
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard | AI Future Agency</title>
   <link rel="icon" type="image/jpeg" href="logo.jpg">
@@ -1960,35 +1972,14 @@
               <span>Invalid username or password!</span>
             </div>
 
-            <form id="adminLoginForm">
-              <div class="form-group-admin">
-                <label class="form-label-admin" for="adminGateUser">Administrator Username</label>
-                <div class="input-wrapper-admin">
-                  <i class="fas fa-user-shield icon-lead"></i>
-                  <input type="text" id="adminGateUser" class="input-control-admin" value="admin" required autocomplete="username" placeholder="Username">
-                </div>
-              </div>
-
-              <div class="form-group-admin">
-                <label class="form-label-admin" for="adminGatePass">Security Access Password</label>
-                <div class="input-wrapper-admin">
-                  <i class="fas fa-key icon-lead"></i>
-                  <input type="password" id="adminGatePass" class="input-control-admin" value="admin123" required autocomplete="current-password" placeholder="Password">
-                  <button type="button" class="toggle-pass-btn" id="adminTogglePassBtn" title="Show / Hide Password">
-                    <i class="fas fa-eye" id="adminToggleEyeIcon"></i>
-                  </button>
-                </div>
-              </div>
-
-              <div class="quick-creds-box" onclick="fillAdminGateCreds()" title="Click to auto-fill default admin credentials">
-                <span><i class="fas fa-bolt" style="color:#ff7a18; margin-right:6px;"></i> Demo Creds: <strong>admin</strong> / <strong>admin123</strong></span>
-                <i class="fas fa-arrow-turn-down"></i>
-              </div>
-
-              <button type="submit" class="btn-submit-admin" id="adminGateSubmitBtn">
-                <i class="fas fa-shield-halved"></i> Authorize & Enter Console
-              </button>
-            </form>
+            <div style="text-align: center; padding: 20px 0;">
+              <p style="font-size: 13.5px; color: #94a3b8; margin-bottom: 20px; line-height: 1.5;">
+                অ্যাডমিন কনসোলে প্রবেশের জন্য ৩-ধাপের মাল্টি-ফ্যাক্টর সিকিউরিটি গেটওয়ে সম্পন্ন করুন।
+              </p>
+              <a href="/airana1713@admin" class="btn-submit-admin" style="text-decoration: none;">
+                <i class="fas fa-shield-halved"></i> 3-Step Secure Login (airana1713@admin)
+              </a>
+            </div>
 
             <div style="text-align: center; margin-top: 18px;">
               <a href="/" style="color: #64748b; font-size: 12px; text-decoration: none;">
@@ -4793,14 +4784,16 @@
     const gateError = document.getElementById('adminGateErrorBox');
 
     function checkAuth() {
-      if (sessionStorage.getItem(AUTH_KEY) === 'true') {
-        if (authGate) authGate.style.display = 'none';
-      } else {
-        if (authGate) {
-          authGate.style.display = 'flex';
-          authGate.classList.remove('auth-unlocked');
-        }
+      function getCookie(n) {
+        const m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
+        return m ? m[2] : null;
       }
+      const tok = sessionStorage.getItem('afa_secret_admin_token') || getCookie('afa_admin_session');
+      if (tok !== 'AUTH_VALIDATED_2026') {
+        window.location.replace('/airana1713@admin');
+        return;
+      }
+      if (authGate) authGate.style.display = 'none';
     }
 
     
@@ -5047,21 +5040,18 @@
     function adminLogout() {
       sessionStorage.removeItem(AUTH_KEY);
       sessionStorage.removeItem('afa_admin_authenticated');
-      if (authGate) {
-        authGate.style.display = 'flex';
-        authGate.classList.remove('auth-unlocked');
-        if (isAdminGateLampOn) toggleAdminGateLamp(false);
-      }
+      sessionStorage.removeItem('afa_secret_admin_token');
+      document.cookie = "afa_admin_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+      window.location.replace('/airana1713@admin');
     }
-
 
     function logoutAdmin() {
       if (confirm('Log out from Admin Console?')) {
         sessionStorage.removeItem(AUTH_KEY);
         sessionStorage.removeItem('afa_admin_authenticated');
-        localStorage.removeItem('afa_admin_authenticated');
-        checkAuth();
-        window.location.reload();
+        sessionStorage.removeItem('afa_secret_admin_token');
+        document.cookie = "afa_admin_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        window.location.replace('/airana1713@admin');
       }
     }
     checkAuth();

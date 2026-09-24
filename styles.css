@@ -2329,74 +2329,7 @@ body.lang-bn {
     margin-top: 8px !important;
   }
 
-  /* --- Mobile Nav Drawer Authentication Action Items --- */
-  .mobile-nav-auth-item {
-    display: block !important;
-    margin-top: 14px !important;
-    padding-top: 16px !important;
-    border-top: 1px dashed rgba(255, 255, 255, 0.15) !important;
-    width: 100% !important;
-  }
 
-  .mobile-auth-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
-    width: 100% !important;
-  }
-
-  .mobile-auth-btn {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    padding: 12px 14px !important;
-    border-radius: 12px !important;
-    font-size: 0.92rem !important;
-    font-weight: 800 !important;
-    text-decoration: none !important;
-    text-align: center !important;
-    transition: all 0.22s ease !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
-  }
-
-  .mobile-auth-login {
-    background: rgba(255, 255, 255, 0.06) !important;
-    border: 1px solid rgba(0, 255, 135, 0.4) !important;
-    color: #00ff87 !important;
-  }
-
-  .mobile-auth-login:hover, .mobile-auth-login:active {
-    background: rgba(0, 255, 135, 0.2) !important;
-    border-color: #00ff87 !important;
-    color: #ffffff !important;
-    transform: translateY(-2px);
-  }
-
-  .mobile-auth-register {
-    background: linear-gradient(135deg, #00dfa2 0%, #00ff87 100%) !important;
-    border: 1px solid #00ff87 !important;
-    color: #020705 !important;
-  }
-
-  .mobile-auth-register:hover, .mobile-auth-register:active {
-    background: linear-gradient(135deg, #00ff87 0%, #60efff 100%) !important;
-    color: #020705 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 255, 135, 0.5) !important;
-  }
-
-  .mobile-auth-dashboard {
-    background: linear-gradient(135deg, rgba(96, 239, 255, 0.15) 0%, rgba(0, 255, 135, 0.15) 100%) !important;
-    border: 1px solid rgba(0, 255, 135, 0.5) !important;
-    color: #00ff87 !important;
-    width: 100% !important;
-  }
-
-  .mobile-auth-dashboard:hover, .mobile-auth-dashboard:active {
-    background: rgba(0, 255, 135, 0.25) !important;
-    color: #ffffff !important;
-  }
 
   /* --- Hero Section Mobile Polish --- */
   .hero {

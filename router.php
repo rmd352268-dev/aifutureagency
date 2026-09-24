@@ -1,28 +1,59 @@
 <?php
 // AI Future Agency - Localhost Laravel Routing Engine
-$uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+$rawUri = $_SERVER['REQUEST_URI'];
+$uri = urldecode(parse_url($rawUri, PHP_URL_PATH));
+$cleanUri = rtrim($uri, '/');
 
-// Serve real files if they exist (images, css, js, etc.)
+// 1. Secret Admin Access Gateway: airana1713@admin
+if ($cleanUri === '/airana1713@admin' || $cleanUri === '/airana1713%40admin' || $cleanUri === 'airana1713@admin') {
+    include __DIR__ . '/admin-login.html';
+    exit;
+}
+
+// 2. Protect Admin Console: Only accessible if authenticated with secret session token
+$isAdminAuth = isset($_COOKIE['afa_admin_session']) && $_COOKIE['afa_admin_session'] === 'AUTH_VALIDATED_2026';
+
+if ($cleanUri === '/admin' || $cleanUri === '/admin/dashboard' || $cleanUri === '/admin.html') {
+    if ($isAdminAuth) {
+        include __DIR__ . '/admin.html';
+        exit;
+    } else {
+        // Unauthorized direct access: redirect strictly to the secret portal
+        header('Location: /airana1713@admin');
+        exit;
+    }
+}
+
+// 3. Block legacy /admin/login or /admin-login, redirect to secret URL
+if ($cleanUri === '/admin/login' || $cleanUri === '/admin-login' || $cleanUri === '/admin-login.html') {
+    header('Location: /airana1713@admin');
+    exit;
+}
+
+// 4. Protect real files from direct bypass (e.g., /admin.html)
 if ($uri !== '/' && is_file(__DIR__ . $uri)) {
+    if ($uri === '/admin.html') {
+        if ($isAdminAuth) {
+            include __DIR__ . '/admin.html';
+            exit;
+        } else {
+            header('Location: /airana1713@admin');
+            exit;
+        }
+    }
+    if ($uri === '/admin-login.html') {
+        header('Location: /airana1713@admin');
+        exit;
+    }
     return false;
 }
 
-$cleanUri = rtrim($uri, '/');
-
-// Clean Laravel-style route mapping
+// 5. Clean Laravel-style route mapping
 switch ($cleanUri) {
     case '':
     case '/index':
     case '/home':
         include __DIR__ . '/index.html';
-        exit;
-    case '/admin':
-    case '/admin/dashboard':
-        header('Location: /admin.html');
-        exit;
-    case '/admin/login':
-    case '/admin-login':
-        include __DIR__ . '/admin-login.html';
         exit;
     case '/login':
         include __DIR__ . '/login.html';

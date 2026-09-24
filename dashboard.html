@@ -789,34 +789,176 @@
       margin-top: 36px;
     }
 
-    @media (max-width: 768px) {
+    /* Mobile Drawer Toggle & Controls */
+    .mobile-dash-toggle {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: rgba(0, 255, 135, 0.12);
+      border: 1px solid rgba(0, 255, 135, 0.35);
+      border-radius: 10px;
+      color: #00ff87;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .mobile-dash-toggle:hover {
+      background: rgba(0, 255, 135, 0.22);
+      box-shadow: 0 0 15px rgba(0, 255, 135, 0.35);
+    }
+    .sidebar-header-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+    }
+    .sidebar-close-btn {
+      display: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      font-size: 16px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sidebar-close-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #ffffff;
+    }
+    .sidebar-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 7, 5, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .sidebar-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 900px) {
       body {
         flex-direction: column;
+        overflow-x: hidden;
       }
       .dash-sidebar {
-        width: 100%;
-        min-height: auto;
+        position: fixed;
+        top: 0;
+        left: -310px;
+        width: 290px;
+        height: 100vh;
+        height: 100dvh;
+        z-index: 9999;
+        overflow-y: auto;
+        background: rgba(4, 14, 11, 0.98);
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.95);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 20px 16px;
+      }
+      .dash-sidebar.open {
+        transform: translateX(310px);
+      }
+      .mobile-dash-toggle {
+        display: inline-flex;
+      }
+      .sidebar-close-btn {
+        display: inline-flex;
+      }
+      .dash-topbar {
+        padding: 10px 14px;
+        height: auto;
+        min-height: 58px;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .topbar-store-btn {
+        padding: 6px 12px;
+        font-size: 11.5px;
+      }
+      .dragon-flight-badge {
+        display: none;
+      }
+      .user-profile-pill {
+        padding: 4px 10px;
+        font-size: 12px;
+        gap: 8px;
+      }
+      .user-power-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
       }
       .dash-content-container {
-        padding: 20px 12px;
+        padding: 16px 12px 40px;
       }
-      .active-tools-grid {
-        grid-template-columns: 1fr;
+      .dash-store-access-card {
+        flex-direction: column;
+        text-align: center;
         gap: 14px;
+        padding: 18px 14px;
       }
-      .btn-pay-green {
-        margin-left: 0;
+      .dsac-left {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+      .btn-visit-store-direct {
         width: 100%;
+        justify-content: center;
+      }
+      .hey-greeting {
+        font-size: 21px;
+        word-break: break-word;
+      }
+      .invoice-table-box {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .invoice-table {
+        min-width: 460px;
       }
       .coupon-row {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: 8px;
       }
       .coupon-label {
         text-align: left;
       }
       .coupon-input {
         width: 100%;
+      }
+      .btn-pay-green {
+        width: 100%;
+        margin-left: 0;
+      }
+      .active-tools-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .user-order-body {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .user-order-price {
+        text-align: left;
       }
       .table-responsive {
         width: 100%;
@@ -1246,12 +1388,20 @@
     <div class="dragon-gradient-overlay"></div>
   </div>
 
+  <!-- MOBILE SIDEBAR BACKDROP OVERLAY -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMobileSidebar(false)"></div>
+
   <!-- LEFT SIDEBAR -->
-  <aside class="dash-sidebar">
-    <a href="index.html" class="dash-logo-wrap">
-      <img src="logo.jpg" alt="Logo" class="dash-logo-icon">
-      <div class="dash-logo-text">AI Future <span>Agency</span></div>
-    </a>
+  <aside class="dash-sidebar" id="dashSidebar">
+    <div class="sidebar-header-mobile">
+      <a href="index.html" class="dash-logo-wrap" style="margin-bottom:0; padding:0; border:none;">
+        <img src="logo.jpg" alt="Logo" class="dash-logo-icon">
+        <div class="dash-logo-text">AI Future <span>Agency</span></div>
+      </a>
+      <button type="button" class="sidebar-close-btn" onclick="toggleMobileSidebar(false)" aria-label="Close Sidebar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
 
     <!-- Dedicated Store CTA Button in Sidebar -->
     <a href="index.html#products" class="sidebar-store-pill" title="Browse digital tools in Public Storefront">
@@ -1282,6 +1432,12 @@
   <!-- MAIN AREA -->
   <main class="dash-main-area">
     <header class="dash-topbar">
+      <!-- Mobile Sidebar Toggle Hamburger Button -->
+      <button type="button" class="mobile-dash-toggle" id="mobileDashToggle" onclick="toggleMobileSidebar(true)" aria-label="Open Navigation Menu">
+        <i class="fas fa-bars"></i>
+        <span>মেনু</span>
+      </button>
+
       <!-- Go to Public Storefront Button -->
       <a href="index.html#products" class="topbar-store-btn" title="Browse and buy products from our Storefront">
         <i class="fas fa-store"></i>
@@ -1707,6 +1863,22 @@
       document.getElementById('payAmountText').textContent = `${currentTotal.toFixed(2)} BDT`;
     }
 
+    function toggleMobileSidebar(forceState) {
+      const sidebar = document.getElementById('dashSidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      if (!sidebar) return;
+      const isOpen = forceState !== undefined ? forceState : !sidebar.classList.contains('open');
+      if (isOpen) {
+        sidebar.classList.add('open');
+        if (backdrop) backdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        sidebar.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
     function showTab(tab) {
       const tabs = ['checkout', 'my-orders', 'active-tools', 'history', 'subscribe', 'settings'];
       tabs.forEach(t => {
@@ -1728,6 +1900,11 @@
       if (tab === 'history' && document.getElementById('menuItemHistory')) document.getElementById('menuItemHistory').classList.add('active');
       if (tab === 'subscribe' && document.getElementById('menuItemSubscribe')) document.getElementById('menuItemSubscribe').classList.add('active');
       if (tab === 'settings' && document.getElementById('menuItemSettings')) document.getElementById('menuItemSettings').classList.add('active');
+
+      // Auto-close mobile drawer on selection
+      if (window.innerWidth <= 900) {
+        toggleMobileSidebar(false);
+      }
     }
 
     function applyCoupon() {
